@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap>
+	
+	<resultMap id="sample"
+		class="com.taotaosou.common.itest.sample.domain.Sample">
+		<result property="longField" column="long_field" />
+		<result property="intField" column="int_field" />
+		<result property="shortField" column="short_field" />
+		<result property="byteField" column="byte_field" />
+		<result property="stringField" column="string_field" />
+		<result property="dateField" column="date_field" />
+	</resultMap>
+	
+	<select id="LOAD_ALL_SAMPLE" parameterClass="java.util.Map" 
+		resultMap="sample">
+			SELECT 
+				long_field, int_field, short_field, byte_field, string_field, date_field
+			FROM 
+				sample t
+			WHERE
+				1 = 1
+			<dynamic>
+				<isNotEmpty property="longField" prepend="AND" >
+				long_field = #longField#
+				</isNotEmpty>
+			</dynamic>
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		abstract="false" singleton="true" lazy-init="default" autowire="default"
+		dependency-check="default" destroy-method="close">
+		<property name="driverClass" value="org.hsqldb.jdbcDriver" />
+		<property name="jdbcUrl" value="jdbc:hsqldb:hsql://127.0.0.1:9001" />
+		<property name="user" value="sa" />
+		<property name="password" value="" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+		<property name="maxIdleTime" value="1800" />
+		<property name="initialPoolSize" value="10" />
+	</bean>
+
+	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		abstract="false" singleton="true" lazy-init="default" autowire="default"
+		dependency-check="default" destroy-method="close">
+		<property name="driverClass" value="org.hsqldb.jdbcDriver" />
+		<property name="jdbcUrl" value="jdbc:hsqldb:hsql://127.0.0.1:9002" />
+		<property name="user" value="sa" />
+		<property name="password" value="" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="30" />
+		<property name="maxIdleTime" value="1800" />
+		<property name="initialPoolSize" value="10" />
+	</bean>
+
+	<!-- IBATIS 的映射文件配置 -->
+	<bean id="sqlMapDB1" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>ibatis/sql-map.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref local="dataSource1" />
+		</property>
+	</bean>
+	<bean id="sqlMapDB2" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>ibatis/sql-map.xml</value>
+		</property>
+		<property name="dataSource">
+			<ref local="dataSource2" />
+		</property>
+	</bean>
+
+	<!-- 数据库路由规则配置 -->
+	<bean id="dbRouteConfig" class="com.taotaosou.common.dbroute.config.DBRouteConfig">
+		<property name="sqlMapList">
+			<map>
+				<entry key="db1">
+					<ref local="sqlMapDB1" />
+				</entry>
+				<entry key="db2">
+					<ref local="sqlMapDB2" />
+				</entry>
+			</map>
+		</property>
+		<property name="defaultNodeNameList">
+			<list>
+				<value>db1</value>
+				<value>db2</value>
+			</list>
+		</property>
+		<property name="nodeRuleMap">
+			<map>
+				<entry key="db1">
+					<props>
+						<!-- ItemId暂未使用 -->
+						<prop key="ItemId">^[0-4].*</prop>
+					</props>
+				</entry>
+				<entry key="db2">
+					<props>
+						<prop key="ItemId">^[5-9].*</prop>
+					</props>
+				</entry>
+			</map>
+		</property>
+		<property name="statementRuleMap">
+			<map>
+				<entry key="FINDUSER-BY-USER-ID">
+					<value>db1,db2</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="baseDAO" class="edu.hziee.common.dbroute.BaseDAO">
+		<property name="dbRouteConfig" ref="dbRouteConfig" />
+	</bean>
+
+</beans>
