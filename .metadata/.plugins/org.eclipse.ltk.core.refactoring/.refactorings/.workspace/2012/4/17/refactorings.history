@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 21 resources" deleteContents="false" description="Delete 21 resources" element1="/framework-dbroute" element10="/framework-lang" element11="/framework-metadata" element12="/framework-parent" element13="/framework-queue" element14="/framework-rule" element15="/framework-scheduler" element16="/framework-serialization" element17="/framework-tcp" element18="/framework-test" element19="/framework-transaction" element2="/framework-dir" element20="/framework-web" element21="/framework-workflow" element3="/framework-dispatcher" element4="/framework-dlock" element5="/framework-event" element6="/framework-fsm" element7="/framework-http" element8="/framework-ioc" element9="/framework-jmx" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="21" stamp="1335228762542"/>
+</session>

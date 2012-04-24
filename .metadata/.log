@@ -1,0 +1,406 @@
+!SESSION 2012-04-23 23:36:50.447 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.core.net 4 0 2012-04-23 23:37:55.706
+!MESSAGE WinHttp.GetProxyForUrl for pac failed with error '²»ÄÜÏÂÔشúÀí·þÎñÆ÷×Զ¯ÅäÖ' #12167.
+!SESSION 2012-04-24 00:04:18.031 -----------------------------------------------
+eclipse.buildId=M20110909-1335
+java.version=1.6.0_20
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.core.net 4 0 2012-04-24 00:05:36.362
+!MESSAGE WinHttp.GetProxyForUrl for pac failed with error '²»ÄÜÏÂÔشúÀí·þÎñÆ÷×Զ¯ÅäÖ' #12167.
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.368
+!MESSAGE CatalogItem org.eclipse.m2e.discovery.lifecyclemapping.m2e-egit does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.375
+!MESSAGE CatalogItem org.eclipse.m2e.discovery.lifecyclemapping.m2e-cvs does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.383
+!MESSAGE CatalogItem org.eclipse.m2e.discovery.lifecyclemapping.m2e-subversive does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.390
+!MESSAGE CatalogItem org.eclipse.m2e.discovery.lifecyclemapping.m2e-subclipse does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.397
+!MESSAGE CatalogItem org.eclipse.m2e.discovery.maven-runtime-3.0.3 does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:06:01.488
+!MESSAGE CatalogItem org.codehaus.groovy.m2eclipse does not contain lifecycle mapping metadata
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:08:39.673
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:08:52.033
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:02.909
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:05.512
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:09.509
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:10.271
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:10.410
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:11.053
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:09:11.434
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 00:10:05.869
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.1.1 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 00:11:15.037
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 06:32:57.531
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 06:33:05.814
+!MESSAGE Unable to update index for dev-nexus-public|http://localhost:8081/nexus/content/groups/public/
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 06:33:05.877
+!MESSAGE Unable to update index for dev-nexus-thirdparty|http://localhost:8081/nexus/content/repositories/thirdparty/
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 06:33:07.842
+!MESSAGE Unable to update index for dev-nexus-snapshots|http://localhost:8081/nexus/content/repositories/snapshots/
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 06:33:07.920
+!MESSAGE Unable to update index for dev-nexus-releases|http://localhost:8081/nexus/content/repositories/releases/
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:18:43.814
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dir:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 22, column 15
+ for project edu.hziee:framework-dir:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dir\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:19:38.086
+!MESSAGE Failed to read Maven project: 2 problems were encountered while building the effective model for edu.hziee:framework-dbroute:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 18, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 26, column 15
+ for project edu.hziee:framework-dbroute:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dbroute\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:19:46.479
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dbroute:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 27, column 15
+ for project edu.hziee:framework-dbroute:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dbroute\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:21:40.593
+!MESSAGE Failed to read Maven project: 2 problems were encountered while building the effective model for edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 22, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 38, column 15
+ for project edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:21:49.594
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 39, column 15
+ for project edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:21:58.352
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 34, column 15
+ for project edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:22:05.667
+!MESSAGE The POM for edu.hziee:framework-tcp:jar:1.0.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:22:05.667
+!MESSAGE The POM for edu.hziee:framework-tcp:jar:1.0.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:22:07.024
+!MESSAGE Could not download sources for edu.hziee:framework-tcp:1.0.0-SNAPSHOT
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:22:12.344
+!MESSAGE Failed to read Maven project: 3 problems were encountered while building the effective model for edu.hziee:framework-tcp:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 16, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 32, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 36, column 15
+ for project edu.hziee:framework-tcp:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-tcp\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:22:22.390
+!MESSAGE Failed to read Maven project: 2 problems were encountered while building the effective model for edu.hziee:framework-tcp:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 33, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 37, column 15
+ for project edu.hziee:framework-tcp:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-tcp\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:24:43.313
+!MESSAGE Unable to update index for central|http://repo1.maven.org/maven2
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:25:45.074
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-http:1.1.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 21, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 45, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-beans:jar is missing. @ line 49, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 53, column 15
+ for project edu.hziee:framework-http:1.1.0-SNAPSHOT at D:\public\framework-parent\framework-http\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:26:00.268
+!MESSAGE Failed to read Maven project: 3 problems were encountered while building the effective model for edu.hziee:framework-http:1.0.0
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 41, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-beans:jar is missing. @ line 45, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 49, column 15
+ for project edu.hziee:framework-http:1.0.0 at D:\public\framework-parent\framework-http\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:26:16.024
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.0.0 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:26:16.352
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.0.0 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:26:20.626
+!MESSAGE Could not download sources for edu.hziee:framework-serialization:1.0.0
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:27:09.532
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.0.0 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2012-04-24 08:27:25.491
+!MESSAGE The POM for edu.hziee:framework-serialization:jar:1.0.0 is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:27:56.020
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-tcp:[unknown-version]
+[FATAL] 'parent.version' is missing. @ line 8, column 10
+ for project edu.hziee:framework-tcp:[unknown-version] at D:\public\framework-parent\framework-tcp\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:29:31.184
+!MESSAGE Failed to read Maven project: 6 problems were encountered while building the effective model for edu.hziee:framework-fsm:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 33, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 37, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 41, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 45, column 15
+[ERROR] 'dependencies.dependency.version' for commons-collections:commons-collections:jar is missing. @ line 49, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 53, column 15
+ for project edu.hziee:framework-fsm:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-fsm\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:29:44.101
+!MESSAGE Failed to read Maven project: 6 problems were encountered while building the effective model for edu.hziee:framework-fsm:1.0.0
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 28, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 32, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 36, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 40, column 15
+[ERROR] 'dependencies.dependency.version' for commons-collections:commons-collections:jar is missing. @ line 44, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 48, column 15
+ for project edu.hziee:framework-fsm:1.0.0 at D:\public\framework-parent\framework-fsm\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:30:03.413
+!MESSAGE Failed to read Maven project: 3 problems were encountered while building the effective model for edu.hziee:framework-fsm:1.0.0
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 28, column 15
+[ERROR] 'dependencies.dependency.version' for commons-collections:commons-collections:jar is missing. @ line 47, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 51, column 15
+ for project edu.hziee:framework-fsm:1.0.0 at D:\public\framework-parent\framework-fsm\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:30:25.362
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-event:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 21, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 37, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 41, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 45, column 15
+ for project edu.hziee:framework-event:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-event\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:30:43.352
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-event:1.0.0
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 20, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 36, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 40, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 44, column 15
+ for project edu.hziee:framework-event:1.0.0 at D:\public\framework-parent\framework-event\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:30:47.206
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-event:1.0.0
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 16, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 32, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 36, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-tcp:jar is missing. @ line 40, column 15
+ for project edu.hziee:framework-event:1.0.0 at D:\public\framework-parent\framework-event\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:30:57.392
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-event:1.0.0
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 33, column 15
+ for project edu.hziee:framework-event:1.0.0 at D:\public\framework-parent\framework-event\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:31:21.138
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 39, column 15
+ for project edu.hziee:framework-dispatcher:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:31:34.133
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dispatcher:1.0.0
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 38, column 15
+ for project edu.hziee:framework-dispatcher:1.0.0 at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:31:47.439
+!MESSAGE Failed to read Maven project: 1 problem was encountered while building the effective model for edu.hziee:framework-dispatcher:${project.version}
+[FATAL] Non-resolvable parent POM: Could not transfer artifact edu.hziee:framework-parent:pom:${project.version} from/to dev-nexus-public (http://localhost:8081/nexus/content/groups/public/): IllegalArgumentException and 'parent.relativePath' points at wrong local POM @ line 9, column 10
+ for project edu.hziee:framework-dispatcher:${project.version} at D:\public\framework-parent\framework-dispatcher\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:32:13.055
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-dbroute:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.apache.ibatis:ibatis-sqlmap:jar is missing. @ line 23, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 27, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-test:jar is missing. @ line 31, column 15
+[ERROR] 'dependencies.dependency.version' for c3p0:c3p0:jar is missing. @ line 35, column 15
+ for project edu.hziee:framework-dbroute:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-dbroute\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:32:41.119
+!MESSAGE Failed to read Maven project: 3 problems were encountered while building the effective model for edu.hziee:framework-fsm:1.0.0
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 28, column 15
+[ERROR] 'dependencies.dependency.version' for commons-collections:commons-collections:jar is missing. @ line 47, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 51, column 15
+ for project edu.hziee:framework-fsm:1.0.0 at D:\public\framework-parent\framework-fsm\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:33:01.649
+!MESSAGE Failed to read Maven project: 5 problems were encountered while building the effective model for edu.hziee:framework-http:1.0.0
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 29, column 15
+[ERROR] 'dependencies.dependency.version' for commons-pool:commons-pool:jar is missing. @ line 33, column 15
+[ERROR] 'dependencies.dependency.version' for commons-logging:commons-logging:jar is missing. @ line 37, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 41, column 15
+[ERROR] 'dependencies.dependency.version' for org.jboss.netty:netty:jar is missing. @ line 45, column 15
+ for project edu.hziee:framework-http:1.0.0 at D:\public\framework-parent\framework-http\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:34:44.927
+!MESSAGE Failed to read Maven project: 4 problems were encountered while building the effective model for edu.hziee:framework-queue:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 21, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 29, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 33, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-test:jar is missing. @ line 37, column 15
+ for project edu.hziee:framework-queue:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-queue\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:34:58.031
+!MESSAGE Failed to read Maven project: 3 problems were encountered while building the effective model for edu.hziee:framework-queue:1.0.0
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 25, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 29, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-test:jar is missing. @ line 33, column 15
+ for project edu.hziee:framework-queue:1.0.0 at D:\public\framework-parent\framework-queue\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:35:03.491
+!MESSAGE Failed to read Maven project: 2 problems were encountered while building the effective model for edu.hziee:framework-queue:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-core:jar is missing. @ line 25, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-context:jar is missing. @ line 29, column 15
+ for project edu.hziee:framework-queue:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-queue\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:36:22.412
+!MESSAGE Failed to read Maven project: 8 problems were encountered while building the effective model for edu.hziee:framework-test:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-serialization:jar is missing. @ line 17, column 15
+[ERROR] 'dependencies.dependency.version' for edu.hziee:framework-lang:jar is missing. @ line 21, column 15
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 25, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 29, column 15
+[ERROR] 'dependencies.dependency.version' for org.dbunit:dbunit:jar is missing. @ line 33, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.ibatis:ibatis-sqlmap:jar is missing. @ line 37, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-test:jar is missing. @ line 45, column 15
+[ERROR] 'dependencies.dependency.version' for c3p0:c3p0:jar is missing. @ line 49, column 15
+ for project edu.hziee:framework-test:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-test\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:36:34.174
+!MESSAGE Failed to read Maven project: 6 problems were encountered while building the effective model for edu.hziee:framework-test:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for commons-beanutils:commons-beanutils:jar is missing. @ line 27, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring:jar is missing. @ line 31, column 15
+[ERROR] 'dependencies.dependency.version' for org.dbunit:dbunit:jar is missing. @ line 35, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.ibatis:ibatis-sqlmap:jar is missing. @ line 39, column 15
+[ERROR] 'dependencies.dependency.version' for org.springframework:spring-test:jar is missing. @ line 47, column 15
+[ERROR] 'dependencies.dependency.version' for c3p0:c3p0:jar is missing. @ line 51, column 15
+ for project edu.hziee:framework-test:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-test\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:37:08.853
+!MESSAGE Failed to read Maven project: 5 problems were encountered while building the effective model for edu.hziee:framework-web:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-core:jar is missing. @ line 17, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-jasper:jar is missing. @ line 21, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-logging-juli:jar is missing. @ line 25, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-logging-log4j:jar is missing. @ line 29, column 15
+[ERROR] 'dependencies.dependency.version' for org.eclipse.jdt.core.compiler:ecj:jar is missing. @ line 33, column 15
+ for project edu.hziee:framework-web:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-web\pom.xml
+
+!ENTRY org.eclipse.m2e.logback.appender 4 0 2012-04-24 08:37:20.272
+!MESSAGE Failed to read Maven project: 5 problems were encountered while building the effective model for edu.hziee:framework-web:1.0.0-SNAPSHOT
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-core:jar is missing. @ line 16, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-jasper:jar is missing. @ line 20, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-logging-juli:jar is missing. @ line 24, column 15
+[ERROR] 'dependencies.dependency.version' for org.apache.tomcat.embed:tomcat-embed-logging-log4j:jar is missing. @ line 28, column 15
+[ERROR] 'dependencies.dependency.version' for org.eclipse.jdt.core.compiler:ecj:jar is missing. @ line 32, column 15
+ for project edu.hziee:framework-web:1.0.0-SNAPSHOT at D:\public\framework-parent\framework-web\pom.xml
+
+!ENTRY org.eclipse.egit.ui 4 0 2012-04-24 08:52:09.595
+!MESSAGE Failed to initialize Git team provider.
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Invalid project description.
+	at org.eclipse.core.internal.resources.Project.checkDescription(Project.java:175)
+	at org.eclipse.core.internal.resources.Project.move(Project.java:1042)
+	at org.eclipse.ui.ide.undo.MoveProjectOperation.moveProject(MoveProjectOperation.java:167)
+	at org.eclipse.ui.ide.undo.MoveProjectOperation.doExecute(MoveProjectOperation.java:135)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation$1.run(AbstractWorkspaceOperation.java:206)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.ui.ide.undo.AbstractWorkspaceOperation.execute(AbstractWorkspaceOperation.java:204)
+	at org.eclipse.egit.ui.internal.sharing.SharingWizard$1.run(SharingWizard.java:97)
+	at org.eclipse.jface.operation.ModalContext.runInCurrentThread(ModalContext.java:464)
+	at org.eclipse.jface.operation.ModalContext.run(ModalContext.java:372)
+	at org.eclipse.jface.wizard.WizardDialog.run(WizardDialog.java:1029)
+	at org.eclipse.egit.ui.internal.sharing.SharingWizard.performFinish(SharingWizard.java:80)
+	at org.eclipse.jface.wizard.WizardDialog.finishPressed(WizardDialog.java:827)
+	at org.eclipse.jface.wizard.WizardDialog.buttonPressed(WizardDialog.java:432)
+	at org.eclipse.jface.dialogs.Dialog$2.widgetSelected(Dialog.java:624)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:240)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4165)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3754)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:825)
+	at org.eclipse.jface.window.Window.open(Window.java:801)
+	at org.eclipse.team.internal.ui.wizards.ConfigureProjectWizard.openWizard(ConfigureProjectWizard.java:224)
+	at org.eclipse.team.internal.ui.wizards.ConfigureProjectWizard.shareProjects(ConfigureProjectWizard.java:124)
+	at org.eclipse.team.internal.ui.actions.ConfigureProjectAction$1.run(ConfigureProjectAction.java:39)
+	at org.eclipse.team.internal.ui.actions.TeamAction$3.run(TeamAction.java:266)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:70)
+	at org.eclipse.team.internal.ui.actions.TeamAction.run(TeamAction.java:263)
+	at org.eclipse.team.internal.ui.actions.ConfigureProjectAction.execute(ConfigureProjectAction.java:33)
+	at org.eclipse.team.internal.ui.actions.TeamAction.run(TeamAction.java:515)
+	at org.eclipse.team.internal.ui.actions.TeamAction.runWithEvent(TeamAction.java:549)
+	at org.eclipse.ui.internal.PluginAction.runWithEvent(PluginAction.java:241)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:584)
+	at org.eclipse.jface.action.ActionContributionItem.access$2(ActionContributionItem.java:501)
+	at org.eclipse.jface.action.ActionContributionItem$5.handleEvent(ActionContributionItem.java:411)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:84)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1053)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4165)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3754)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2696)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:2660)
+	at org.eclipse.ui.internal.Workbench.access$4(Workbench.java:2494)
+	at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:674)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:667)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:149)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:123)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:344)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:622)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:577)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1410)
+Contains: OK
+Contains: D:\public\framework-dbroute overlaps the location of another project: 'framework-dbroute'
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2012-04-24 08:52:09.610
+!MESSAGE Invalid project description.
+!SUBENTRY 2 unknown 0 0 2012-04-24 08:52:09.610
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.core.resources 4 77 2012-04-24 08:52:09.610
+!MESSAGE D:\public\framework-dbroute overlaps the location of another project: 'framework-dbroute'

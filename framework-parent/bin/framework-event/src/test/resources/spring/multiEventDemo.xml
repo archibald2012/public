@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="eventBus" class="edu.hziee.common.event.DefaultEventBus"
+		init-method="start" destroy-method="destroy"></bean>
+
+	<bean id="sampleEventUnit" class="edu.hziee.common.event.SampleEventUnit" />
+
+	<bean id="multiEventSubscriber" class="edu.hziee.common.event.subscriber.MultiEventSubscriber"
+		init-method="start" destroy-method="destroy">
+		<constructor-arg ref="eventBus" />
+		<property name="subscriptions">
+			<list>
+				<bean class="edu.hziee.common.event.Subscription">
+					<property name="event" value="edu.hziee.common.event.SampleSignal" />
+					<property name="closures">
+						<list>
+							<bean class="edu.hziee.common.lang.Functor">
+								<constructor-arg ref="sampleEventUnit" />
+								<constructor-arg value="increaseBySignal" />
+							</bean>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+		<property name="threadSize" value="5" />
+	</bean>
+
+	<bean id="eventBusDispatcher" class="edu.hziee.common.event.closure.EventBusDispatcher">
+		<property name="eventBus" ref="eventBus" />
+		<property name="allowTypes">
+			<list>
+				<value>edu.hziee.common.event.SampleSignal</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="minaEncoder" class="edu.hziee.common.tcp.codec.MinaXipEncoder">
+		<property name="debugEnabled" value="false" />
+	</bean>
+
+	<bean id="typeMetaInfo"
+		class="edu.hziee.common.serialization.protocol.meta.MetainfoUtils"
+		factory-method="createTypeMetainfo">
+		<constructor-arg>
+			<set>
+				<value>edu.hziee.common.event.*</value>
+			</set>
+		</constructor-arg>
+	</bean>
+
+	<bean id="minaDecoder" class="edu.hziee.common.tcp.codec.MinaXipDecoder">
+		<property name="typeMetaInfo" ref="typeMetaInfo" />
+		<property name="debugEnabled" value="true" />
+	</bean>
+
+	<bean id="codecFactory" class="edu.hziee.common.tcp.codec.DefaultMinaCodecFactory">
+		<property name="encoder" ref="minaEncoder" />
+		<property name="decoder" ref="minaDecoder" />
+	</bean>
+
+	<bean id="connector" class="edu.hziee.common.tcp.TCPConnector"
+		init-method="start" destroy-method="stop">
+		<property name="destIp" value="127.0.0.1" />
+		<property name="destPort" value="9999" />
+		<property name="codecFactory" ref="codecFactory" />
+	</bean>
+
+	<bean id="acceptor" class="edu.hziee.common.tcp.TCPAcceptor"
+		init-method="start" destroy-method="stop">
+		<property name="acceptIp" value="127.0.0.1" />
+		<property name="acceptPort" value="9999" />
+		<property name="codecFactory" ref="codecFactory" />
+		<property name="receiver" ref="eventBusDispatcher" />
+	</bean>
+</beans>

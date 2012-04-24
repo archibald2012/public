@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- meta info registry -->
+	<bean id="typeMetaInfo"
+		class="edu.hziee.common.serialization.protocol.meta.MetainfoUtils"
+		factory-method="createTypeMetainfo">
+		<constructor-arg>
+			<set>
+				<value>edu.hziee.common.http</value>
+			</set>
+		</constructor-arg>
+	</bean>
+
+	<bean id="httpInbound" class="edu.hziee.common.http.HttpAcceptor"
+		init-method="start" destroy-method="stop">
+		<property name="acceptIp" value="127.0.0.1" />
+		<property name="acceptPort" value="1111" />
+		<property name="idleTime" value="${inbound.idleTime}" />
+		<property name="requestDecoder" ref="httpRequestDecoder" />
+		<property name="messageClosure">
+			<bean class="edu.hziee.common.http.ReplyMessageClosure" />
+		</property>
+	</bean>
+
+	<bean id="httpRequestDecoder" class="edu.hziee.common.http.codec.HttpRequestDecoder">
+		<property name="debugEnabled" value="true" />
+		<property name="typeMetaInfo" ref="typeMetaInfo" />
+	</bean>
+
+	<bean id="httpConnector" class="edu.hziee.common.http.HttpConnector"
+		singleton="false" init-method="start" destroy-method="stop">
+		<constructor-arg value="httpConnector" />
+		<property name="destIp" value="127.0.0.1" />
+		<property name="destPort" value="1111" />
+		<property name="messageClosure">
+			<bean class="edu.hziee.common.http.EchoMessageClosure" />
+		</property>
+		<property name="encoder" ref="requestEncoder" />
+		<property name="decoder" ref="responseDecoder" />
+		<property name="keepAlive" value="false" />
+	</bean>
+
+	<bean id="requestEncoder" class="edu.hziee.common.http.codec.HttpRequestEncoder">
+		<property name="debugEnabled" value="true" />
+	</bean>
+
+	<bean id="responseDecoder" class="edu.hziee.common.http.codec.HttpResponseDecoder">
+		<property name="debugEnabled" value="true" />
+		<property name="typeMetaInfo" ref="typeMetaInfo" />
+	</bean>
+</beans>

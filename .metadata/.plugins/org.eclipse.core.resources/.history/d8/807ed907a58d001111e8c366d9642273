@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>framework-fsm</artifactId>
+	<packaging>jar</packaging>
+
+	<name>framework-fsm</name>
+	
+	<parent>
+		<groupId>edu.hziee</groupId>
+		<artifactId>framework-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>edu.hziee</groupId>
+			<artifactId>framework-lang</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.hziee</groupId>
+			<artifactId>framework-serialization</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.hziee</groupId>
+			<artifactId>framework-tcp</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<scm>
+		<connection>scm:svn:http://aeaivsx4bkxrbys/svn/toolkit/trunk/framework-fsm/</connection>
+		<developerConnection>scm:svn:https://aeaivsx4bkxrbys/svn/toolkit/trunk/framework-fsm/</developerConnection>
+	</scm>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version>
+				<configuration>
+					<tagBase>https://aeaivsx4bkxrbys/svn/toolkit/tags/framework-fsm</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+</project>

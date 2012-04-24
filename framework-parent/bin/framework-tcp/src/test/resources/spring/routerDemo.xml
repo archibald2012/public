@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="minaEncoder" class="edu.hziee.common.tcp.codec.MinaXipEncoder">
+		<property name="debugEnabled" value="true" />
+	</bean>
+
+	<bean id="typeMetaInfo"
+		class="edu.hziee.common.serialization.protocol.meta.MetainfoUtils"
+		factory-method="createTypeMetainfo">
+		<constructor-arg>
+			<set>
+				<value>edu.hziee.common.tcp.bto.*</value>
+			</set>
+		</constructor-arg>
+	</bean>
+
+	<bean id="minaDecoder" class="edu.hziee.common.tcp.codec.MinaXipDecoder">
+		<property name="typeMetaInfo" ref="typeMetaInfo" />
+		<property name="debugEnabled" value="true" />
+	</bean>
+
+	<bean id="codecFactory"
+		class="edu.hziee.common.tcp.codec.DefaultMinaCodecFactory">
+		<property name="encoder" ref="minaEncoder" />
+		<property name="decoder" ref="minaDecoder" />
+	</bean>
+
+</beans>
