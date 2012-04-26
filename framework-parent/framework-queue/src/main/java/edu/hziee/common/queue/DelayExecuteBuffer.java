@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DelayPersistenceExecutor.java
- * Creator:     wangqi
- * Create-Date: 2011-5-3 下午05:55:55
- *******************************************************************************/
+
 package edu.hziee.common.queue;
 
 import java.util.List;

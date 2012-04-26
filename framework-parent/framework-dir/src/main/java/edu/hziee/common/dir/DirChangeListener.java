@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DirChangeListener.java
- * Creator:     wangqi
- * Create-Date: 2011-9-14 上午10:53:47
- *******************************************************************************/
+
 package edu.hziee.common.dir;
 
 /**

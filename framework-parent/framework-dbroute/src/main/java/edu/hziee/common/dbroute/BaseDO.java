@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BaseDO.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午02:25:55
- *******************************************************************************/
+
 package edu.hziee.common.dbroute;
 
 import java.io.Serializable;

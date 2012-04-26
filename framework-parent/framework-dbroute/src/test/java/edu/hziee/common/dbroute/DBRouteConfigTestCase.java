@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DBRouteConfigTestCase.java
- * Creator:     Administrator
- * Create-Date: 2011-5-19 上午10:59:38
- *******************************************************************************/
+
 package edu.hziee.common.dbroute;
 
 import static org.junit.Assert.assertEquals;

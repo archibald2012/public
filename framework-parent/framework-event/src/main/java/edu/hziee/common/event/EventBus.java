@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    EventBus.java
- * Creator:     wangqi
- * Create-Date: 2011-6-13 下午03:40:15
- *******************************************************************************/
+
 package edu.hziee.common.event;
 
 import edu.hziee.common.lang.Closure;

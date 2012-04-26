@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    MinaMixedDecoder.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午09:42:40
- *******************************************************************************/
+
 package edu.hziee.common.tcp.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;

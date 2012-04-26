@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    TCPRouter.java
- * Creator:     wangqi
- * Create-Date: 2011-5-3 上午09:25:40
- *******************************************************************************/
+
 package edu.hziee.common.tcp;
 
 import java.util.ArrayList;

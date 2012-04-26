@@ -31,22 +31,4 @@
 		</dependency>
 	</dependencies>
 
-	<scm>
-		<connection>scm:svn:http://aeaivsx4bkxrbys/svn/toolkit/trunk/framework-serialization/</connection>
-		<developerConnection>scm:svn:https://aeaivsx4bkxrbys/svn/toolkit/trunk/framework-serialization/</developerConnection>
-	</scm>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.2.2</version>
-				<configuration>
-					<tagBase>https://aeaivsx4bkxrbys/svn/toolkit/tags/framework-serialization</tagBase>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>

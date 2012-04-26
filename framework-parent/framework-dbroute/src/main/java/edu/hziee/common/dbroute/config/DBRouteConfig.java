@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DBRouteConfig.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午01:01:39
- *******************************************************************************/
+
 package edu.hziee.common.dbroute.config;
 
 import java.util.ArrayList;

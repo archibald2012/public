@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DefaultMinaCodecFactory.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午11:57:57
- *******************************************************************************/
+
 package edu.hziee.common.tcp.codec;
 
 import org.apache.mina.core.session.IoSession;

@@ -59,7 +59,7 @@
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
   <testcase time="0" classname="edu.hziee.common.lang.PaginatorTestCase" name="testGetSlider"/>
-  <testcase time="0" classname="edu.hziee.common.lang.PaginatorTestCase" name="testToString"/>
+  <testcase time="0.016" classname="edu.hziee.common.lang.PaginatorTestCase" name="testToString"/>
   <testcase time="0" classname="edu.hziee.common.lang.PaginatorTestCase" name="testConstructor"/>
   <testcase time="0" classname="edu.hziee.common.lang.PaginatorTestCase" name="testConstructor2"/>
   <testcase time="0" classname="edu.hziee.common.lang.PaginatorTestCase" name="testConstructor3"/>

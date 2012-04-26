@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    MinaTextDecoder.java
- * Creator:     wangqi
- * Create-Date: 2011-4-29 上午10:15:31
- *******************************************************************************/
+
 package edu.hziee.common.tcp.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;

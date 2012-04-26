@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DirSnapshot.java
- * Creator:     wangqi
- * Create-Date: 2011-9-14 上午10:54:50
- *******************************************************************************/
+
 package edu.hziee.common.dir;
 
 import java.io.File;

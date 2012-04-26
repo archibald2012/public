@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    ImageFeatureWriteExecutor.java
- * Creator:     wangqi
- * Create-Date: 2011-8-15 上午10:17:13
- *******************************************************************************/
+
 package edu.hziee.common.queue;
 
 import java.io.BufferedWriter;

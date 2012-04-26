@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DirMonitor.java
- * Creator:     wangqi
- * Create-Date: 2011-9-14 上午10:57:48
- *******************************************************************************/
+
 package edu.hziee.common.dir;
 
 import java.util.List;

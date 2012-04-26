@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DBRouteRule.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午01:52:03
- *******************************************************************************/
+
 package edu.hziee.common.dbroute.config;
 
 import java.io.Serializable;

@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    EntityDelegateImpl.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午02:43:00
- *******************************************************************************/
 package edu.hziee.common.dbroute;
 
 import java.sql.SQLException;
@@ -33,9 +27,6 @@ public class IbatisEntityDelegate implements EntityDelegate {
 
 	private DBRouteConfig dbRouteConfig;
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.EntityDelegate#delete(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@Override
 	public int delete(String statementName, Object parameterObject, DBRoute dr) {
 		Map.Entry<String, SqlMapClientTemplate> e = getSqlMapTemplate(dr,
@@ -52,9 +43,7 @@ public class IbatisEntityDelegate implements EntityDelegate {
 
 		return affectSize;
 	}
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.EntityDelegate#update(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
-	 */
+
 	@Override
 	public int update(String statementName, Object parameterObject, DBRoute dr) {
 		Map.Entry<String, SqlMapClientTemplate> e = getSqlMapTemplate(dr,
@@ -70,8 +59,12 @@ public class IbatisEntityDelegate implements EntityDelegate {
 		return affectSize;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.EntityDelegate#insert(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.taotaosou.common.persistence.EntityDelegate#insert(java.lang.String,
+	 * java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
 	 */
 	@Override
 	public Object insert(String statementName, Object parameterObject,

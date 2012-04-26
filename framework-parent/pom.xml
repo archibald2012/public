@@ -4,7 +4,7 @@
 
 	<groupId>edu.hziee</groupId>
 	<artifactId>framework-parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>framework-parent</name>
@@ -13,11 +13,10 @@
 	<modules>
 		<module>framework-lang</module>
 		<module>framework-jmx</module>
-		<module>framework-workflow</module>
 		<module>framework-dir</module>
 		<module>framework-dbroute</module>
 		<module>framework-dispatcher</module>
-		<module>framework-dlock</module>
+		<module>framework-lock</module>
 		<module>framework-event</module>
 		<module>framework-fsm</module>
 		<module>framework-tcp</module>
@@ -26,11 +25,11 @@
 		<module>framework-ioc</module>
 		<module>framework-metadata</module>
 		<module>framework-queue</module>
-		<module>framework-rule</module>
+		<module>framework-drools</module>
 		<module>framework-scheduler</module>
 		<module>framework-test</module>
 		<module>framework-transaction</module>
-		<module>framework-web</module>
+		<module>framework-tomcat</module>
 	</modules>
 
 	<properties>
@@ -185,6 +184,16 @@
 		</dependencies>
 	</dependencyManagement>
 
+ 	<!--scm>
+        <connection>scm:git:git://github.com/archibald2012/public.git</connection>
+        <url>scm:git:git://github.com/archibald2012/public.git</url>
+    </scm-->
+    
+	<scm>
+		<connection>scm:git:https://github.com/archibald2012/public</connection>
+		<developerConnection>scm:git:[fetch=]https://github.com/archibald2012/public[push=]ssh://git@github.com/archibald2012/public.git</developerConnection>
+	</scm>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -196,6 +205,12 @@
 					<target>${jdk.version}</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version>
 			</plugin>
 		</plugins>
 	</build>

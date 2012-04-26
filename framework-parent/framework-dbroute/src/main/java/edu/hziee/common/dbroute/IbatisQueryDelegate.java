@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    QueryDelegateImpl.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午02:42:16
- *******************************************************************************/
 package edu.hziee.common.dbroute;
 
 import java.util.ArrayList;
@@ -37,9 +31,6 @@ public class IbatisQueryDelegate implements QueryDelegate {
 
 	private DBRouteConfig dbRouteConfig;
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForCount(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@Override
 	public Integer queryForCount(String countStatement, Object param, DBRoute dr) {
 
@@ -68,26 +59,17 @@ public class IbatisQueryDelegate implements QueryDelegate {
 		return totalCount;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForCount(java.lang.String, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@Override
 	public Integer queryForCount(String countStatement, DBRoute dr) {
 		return queryForCount(countStatement, null, dr);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForList(java.lang.String, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List queryForList(String statementName, DBRoute dr) {
 		return queryForList(statementName, null, dr);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForList(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List queryForList(String statementName, Object parameterObject,
@@ -125,9 +107,6 @@ public class IbatisQueryDelegate implements QueryDelegate {
 		return resultList;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForObject(java.lang.String, java.lang.Object, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@Override
 	public Object queryForObject(String statementName, Object parameterObject,
 			DBRoute dr) {
@@ -164,17 +143,11 @@ public class IbatisQueryDelegate implements QueryDelegate {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForObject(java.lang.String, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@Override
 	public Object queryForObject(String statementName, DBRoute dr) {
 		return queryForObject(statementName, null, dr);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.taotaosou.common.persistence.QueryDelegate#queryForPagedList(java.lang.String, java.lang.String, java.lang.Object, com.taotaosou.common.lang.Paginator, com.taotaosou.common.persistence.router.DBRoute)
-	 */
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List queryForPagedList(String countStatement, String listStatement,
@@ -215,7 +188,7 @@ public class IbatisQueryDelegate implements QueryDelegate {
 
 		if (!orderByFields.isEmpty()) {
 
-			//进行排序
+			// 进行排序
 			long startTime = System.currentTimeMillis();
 
 			Collections.sort(list, new Comparator<Object>() {
@@ -248,7 +221,7 @@ public class IbatisQueryDelegate implements QueryDelegate {
 								result = ((String) v1).compareTo((String) v2);
 							}
 
-							//第一个字段相等时比较第二个字段
+							// 第一个字段相等时比较第二个字段
 							if (result != 0) {
 								result *= field.isAsc() ? -1 : 1;
 								break;
@@ -281,7 +254,7 @@ public class IbatisQueryDelegate implements QueryDelegate {
 				String s = t.nextToken();
 				if ((s != null)) {
 					s = s.trim();
-					if (s.length() > 1) {//字段名称不能只是1个字符
+					if (s.length() > 1) {// 字段名称不能只是1个字符
 						SortField field = new SortField();
 						if (s.charAt(0) == '_') {
 							field.setFieldName(s.substring(1));
@@ -364,12 +337,15 @@ public class IbatisQueryDelegate implements QueryDelegate {
 		public String getFieldName() {
 			return fieldName;
 		}
+
 		public void setFieldName(String fieldName) {
 			this.fieldName = fieldName;
 		}
+
 		public boolean isAsc() {
 			return asc;
 		}
+
 		public void setAsc(boolean asc) {
 			this.asc = asc;
 		}

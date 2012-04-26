@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    SampleResp.java
- * Creator:     wangqi
- * Create-Date: 2011-6-15 上午09:52:36
- *******************************************************************************/
+
 package edu.hziee.common.dispatcher.bto;
 
 import edu.hziee.common.serialization.bytebean.annotation.ByteField;

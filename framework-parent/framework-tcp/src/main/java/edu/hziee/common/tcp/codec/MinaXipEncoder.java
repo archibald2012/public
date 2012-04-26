@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    MinaMixedEncoder.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午10:43:35
- *******************************************************************************/
+
 package edu.hziee.common.tcp.codec;
 
 import java.util.UUID;

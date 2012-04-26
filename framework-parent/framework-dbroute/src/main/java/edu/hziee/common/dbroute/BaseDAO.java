@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BaseDAO.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午02:41:16
- *******************************************************************************/
+
 package edu.hziee.common.dbroute;
 
 import java.util.List;

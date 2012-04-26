@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    TCPAcceptor.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午11:56:06
- *******************************************************************************/
+
 package edu.hziee.common.tcp;
 
 import java.io.IOException;

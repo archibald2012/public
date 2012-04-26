@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    EndPoint.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午08:12:06
- *******************************************************************************/
+
 package edu.hziee.common.tcp.endpoint;
 
 import org.apache.mina.core.session.IoSession;

@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    TransportUtil.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午08:10:00
- *******************************************************************************/
+
 package edu.hziee.common.tcp;
 
 import org.apache.mina.core.session.AttributeKey;

@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DBRoute.java
- * Creator:     wangqi
- * Create-Date: 2011-5-3 下午05:49:02
- *******************************************************************************/
+
 package edu.hziee.common.dbroute.config;
 
 import java.io.Serializable;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.078" errors="0" skipped="0" tests="1" name="edu.hziee.common.lang.StringUtilTestCase">
+<testsuite failures="0" time="0.109" errors="0" skipped="0" tests="1" name="edu.hziee.common.lang.StringUtilTestCase">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_18\jre\bin"/>
