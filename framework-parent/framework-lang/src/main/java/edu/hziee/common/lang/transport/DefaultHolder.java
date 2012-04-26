@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DefaultHolder.java
- * Creator:     wangqi
- * Create-Date: 2011-6-15 上午09:32:47
- *******************************************************************************/
+
 package edu.hziee.common.lang.transport;
 
 import java.util.Map;

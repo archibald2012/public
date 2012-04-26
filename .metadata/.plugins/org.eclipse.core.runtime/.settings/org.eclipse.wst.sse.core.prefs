@@ -1,3 +1,3 @@
-#Tue Apr 24 00:09:06 CST 2012
-task-tag-projects-already-scanned=framework-jmx,framework-lang,framework-parent,framework-workflow
+#Tue Apr 24 23:01:39 CST 2012
+task-tag-projects-already-scanned=framework-jmx,framework-lang,framework-parent,framework-workflow,framework-dbroute,framework-dir,framework-dispatcher,framework-dlock,framework-event,framework-fsm,framework-http,framework-ioc,framework-metadata,framework-serialization,framework-tcp,framework-queue,framework-rule,framework-scheduler,framework-test,framework-transaction,framework-web
 eclipse.preferences.version=1

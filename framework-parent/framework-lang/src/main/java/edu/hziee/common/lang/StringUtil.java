@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    StringUtil.java
- * Creator:     Administrator
- * Create-Date: 2011-5-19 下午02:49:08
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.util.Arrays;

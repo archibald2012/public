@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    MapUtils.java
- * Creator:     Administrator
- * Create-Date: 2011-5-17 下午03:57:16
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.lang.reflect.Field;

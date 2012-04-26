@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Propertable.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午08:26:07
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.util.Map;

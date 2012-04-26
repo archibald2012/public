@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Cache.java
- * Creator:     wangqi
- * Create-Date: 2011-5-24 下午08:56:01
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 /**

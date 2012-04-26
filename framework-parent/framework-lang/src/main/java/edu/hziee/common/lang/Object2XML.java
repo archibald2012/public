@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Object2XML.java
- * Creator:     wangqi
- * Create-Date: 2011-6-14 上午09:39:45
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.beans.XMLDecoder;

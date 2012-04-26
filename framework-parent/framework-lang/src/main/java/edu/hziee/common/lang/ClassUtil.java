@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    ClassUtil.java
- * Creator:     wangqi
- * Create-Date: 2011-6-29 下午01:14:50
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.lang.reflect.Method;

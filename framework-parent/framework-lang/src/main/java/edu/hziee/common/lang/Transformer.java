@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Transformer.java
- * Creator:     wangqi
- * Create-Date: 2011-6-14 下午03:56:12
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 /**

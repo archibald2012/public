@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    SimpleCache.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-4-27 上午11:23:42
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.util.concurrent.Callable;

@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Closure.java
- * Creator:     wangqi
- * Create-Date: 2011-6-10 上午09:37:18
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.util.concurrent.Executor;

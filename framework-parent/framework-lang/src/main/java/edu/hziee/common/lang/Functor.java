@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Functor.java
- * Creator:     wangqi
- * Create-Date: 2011-6-13 下午04:02:28
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.lang.reflect.InvocationTargetException;

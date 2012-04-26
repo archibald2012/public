@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DateUtil.java
- * Creator:     wangqi
- * Create-Date: 2011-5-3 下午06:11:41
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.io.IOException;

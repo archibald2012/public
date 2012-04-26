@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DefaultPropertiesSupport.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午09:22:32
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.util.Collections;

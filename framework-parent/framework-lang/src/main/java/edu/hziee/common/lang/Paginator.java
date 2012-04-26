@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Paginator.java
- * Creator:     wangqi
- * Create-Date: 2011-4-30 下午07:43:25
- *******************************************************************************/
+
 package edu.hziee.common.lang;
 
 import java.io.Serializable;
