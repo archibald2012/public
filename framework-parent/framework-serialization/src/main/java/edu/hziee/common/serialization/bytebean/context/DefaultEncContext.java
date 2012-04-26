@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DefaultEncContext.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午12:50:58
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.context;
 
 import edu.hziee.common.serialization.bytebean.codec.FieldCodecProvider;

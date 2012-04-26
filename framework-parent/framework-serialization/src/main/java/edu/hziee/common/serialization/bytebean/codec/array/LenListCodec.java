@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    LenListCodec.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午02:32:46
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec.array;
 
 import java.lang.reflect.Field;

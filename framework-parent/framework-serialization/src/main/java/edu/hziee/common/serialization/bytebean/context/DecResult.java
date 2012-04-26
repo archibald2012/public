@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DecResult.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-3-30 下午07:58:30
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.context;
 
 /**

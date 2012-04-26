@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    ByteCodec.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午12:46:30
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import org.apache.commons.lang.ArrayUtils;

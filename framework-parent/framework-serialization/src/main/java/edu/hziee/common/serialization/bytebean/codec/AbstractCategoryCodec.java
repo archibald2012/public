@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    AbstractCategoryCodec.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午01:39:37
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec;
 
 

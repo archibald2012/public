@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    XipRequest.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午10:32:23
- *******************************************************************************/
+
 package edu.hziee.common.serialization.protocol.xip;
 /**
  * TODO

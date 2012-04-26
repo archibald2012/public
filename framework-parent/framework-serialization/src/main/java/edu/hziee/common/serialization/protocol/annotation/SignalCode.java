@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    SsipSignal.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午10:54:39
- *******************************************************************************/
+
 package edu.hziee.common.serialization.protocol.annotation;
 
 import java.lang.annotation.Retention;

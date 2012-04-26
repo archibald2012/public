@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BeanCodecUtil.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-4-1 上午11:26:51
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec.bean;
 
 import java.lang.reflect.Field;

@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    Field2Desc.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-3-30 下午08:39:07
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.field;
 
 import java.lang.reflect.Field;

@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DefaultMsgCode2TypeMetainfo.java
- * Creator:     wangqi
- * Create-Date: 2011-4-28 上午09:47:26
- *******************************************************************************/
+
 package edu.hziee.common.serialization.protocol.meta;
 
 import java.util.HashMap;

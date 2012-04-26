@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.015" errors="0" skipped="0" tests="1" name="edu.hziee.common.serialization.bytebean.codec.primitive.FloatCodecTestCase">
+<testsuite failures="0" time="0.016" errors="0" skipped="0" tests="1" name="edu.hziee.common.serialization.bytebean.codec.primitive.FloatCodecTestCase">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_18\jre\bin"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="D:\public\framework-parent"/>
+    <property name="user.dir" value="D:\public\framework-parent\framework-serialization"/>
     <property name="java.runtime.version" value="1.6.0_18-b07"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_18\jre\lib\endorsed"/>
@@ -58,5 +58,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="0.015" classname="edu.hziee.common.serialization.bytebean.codec.primitive.FloatCodecTestCase" name="testCodec"/>
+  <testcase time="0.016" classname="edu.hziee.common.serialization.bytebean.codec.primitive.FloatCodecTestCase" name="testCodec"/>
 </testsuite>

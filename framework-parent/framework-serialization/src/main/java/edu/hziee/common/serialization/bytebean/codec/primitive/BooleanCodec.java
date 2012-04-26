@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BooleanCodec.java
- * Creator:     wangqi
- * Create-Date: 2011-7-12 下午09:03:05
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import org.apache.commons.lang.ArrayUtils;

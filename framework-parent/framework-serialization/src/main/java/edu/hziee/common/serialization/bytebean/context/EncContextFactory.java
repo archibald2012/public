@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    EncContextFactory.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-3-30 下午08:27:03
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.context;
 
 import edu.hziee.common.serialization.bytebean.field.ByteFieldDesc;

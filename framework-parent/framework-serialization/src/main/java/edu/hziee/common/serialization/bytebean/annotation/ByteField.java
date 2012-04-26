@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    ByteField.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 上午11:04:15
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.annotation;
 
 import java.lang.annotation.Retention;
@@ -19,7 +14,7 @@ import java.lang.annotation.RetentionPolicy;
 public @interface ByteField {
 
 	/**
-	 * 消息体中的索引位罄1�7
+	 * 消息体中的索引位罄1�7
 	 * 
 	 * @return
 	 */
@@ -33,7 +28,7 @@ public @interface ByteField {
 	int bytes() default -1;
 
 	/**
-	 * 定义字段类型的长度字殄1�7
+	 * 定义字段类型的长度字殄1�7
 	 * 
 	 * @return
 	 */

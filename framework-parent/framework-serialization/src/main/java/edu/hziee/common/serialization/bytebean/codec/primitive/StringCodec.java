@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    StringCodec.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午01:14:12
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import java.io.UnsupportedEncodingException;

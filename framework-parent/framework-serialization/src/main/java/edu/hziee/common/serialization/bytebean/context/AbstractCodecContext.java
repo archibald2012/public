@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    AbstractContext.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 上午11:47:51
- *******************************************************************************/
+
 package edu.hziee.common.serialization.bytebean.context;
 
 import java.lang.reflect.Field;

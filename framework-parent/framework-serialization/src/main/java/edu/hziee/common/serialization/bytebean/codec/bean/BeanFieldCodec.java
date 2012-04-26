@@ -1,9 +1,4 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BeanFieldCodec.java
- * Creator:     Archibald.Wang
- * Create-Date: 2011-3-30 下午08:41:30
- *******************************************************************************/
+﻿
 package edu.hziee.common.serialization.bytebean.codec.bean;
 
 import edu.hziee.common.serialization.bytebean.codec.ByteFieldCodec;
