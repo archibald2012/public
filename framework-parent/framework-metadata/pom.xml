@@ -19,4 +19,44 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.pyx4me</groupId>
+				<artifactId>proguard-maven-plugin</artifactId>
+				<version>2.0.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>proguard</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<obfuscate>true</obfuscate>
+					<injar>${project.build.finalName}.jar</injar>
+					<outjar>${project.build.finalName}-small.jar</outjar>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<options>
+						<option>-dontoptimize</option>
+						<option>-overloadaggressively</option>
+						<option>-keep public class * implements java.io.Serializable{
+							public protected private *;
+							}
+						</option>
+						<option>-keepnames public class *
+							{
+							public protected *;
+							}
+						</option>
+					</options>
+					<libs>
+						<lib>${java.home}/lib/rt.jar</lib>
+					</libs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
