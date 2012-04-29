@@ -64,8 +64,17 @@
 					<outjar>${project.build.finalName}-small.jar</outjar>
 					<outputDirectory>${project.build.directory}</outputDirectory>
 					<options>
-						<option>-allowaccessmodification</option>
-						<option>-keepclasseswithmembers public class * extends java.lang.Object { *; }</option>
+						<option>-dontoptimize</option>
+						<option>-overloadaggressively</option>
+						<option>-keep public class * implements java.io.Serializable{
+							public protected private *;
+							}
+						</option>
+						<option>-keepnames public class *
+							{
+							public protected *;
+							}
+						</option>
 					</options>
 					<libs>
 						<lib>${java.home}/lib/rt.jar</lib>

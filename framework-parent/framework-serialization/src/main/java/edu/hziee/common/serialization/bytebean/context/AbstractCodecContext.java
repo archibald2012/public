@@ -1,4 +1,3 @@
-
 package edu.hziee.common.serialization.bytebean.context;
 
 import java.lang.reflect.Field;
@@ -17,21 +16,18 @@ import edu.hziee.common.serialization.bytebean.field.ByteFieldDesc;
  * @author wangqi
  * @version $Id: AbstractCodecContext.java 14 2012-01-10 11:54:14Z archie $
  */
-public class AbstractCodecContext extends ByteBeanUtil implements
-		FieldCodecContext {
+public class AbstractCodecContext extends ByteBeanUtil implements FieldCodecContext {
 
-	protected FieldCodecProvider codecProvider = null;
+	protected FieldCodecProvider	codecProvider	= null;
 
-	protected ByteFieldDesc fieldDesc;
-	protected NumberCodec numberCodec;
-	protected Class<?> targetType;
+	protected ByteFieldDesc				fieldDesc;
+	protected NumberCodec					numberCodec;
+	protected Class<?>						targetType;
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.context.FieldCodecContext
-	 * #getFieldDesc()
+	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getFieldDesc()
 	 */
 	@Override
 	public ByteFieldDesc getFieldDesc() {
@@ -41,9 +37,7 @@ public class AbstractCodecContext extends ByteBeanUtil implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.context.FieldCodecContext
-	 * #getField()
+	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getField()
 	 */
 	@Override
 	public Field getField() {
@@ -57,9 +51,7 @@ public class AbstractCodecContext extends ByteBeanUtil implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.context.FieldCodecContext
-	 * #getNumberCodec()
+	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getNumberCodec()
 	 */
 	@Override
 	public NumberCodec getNumberCodec() {
@@ -73,9 +65,7 @@ public class AbstractCodecContext extends ByteBeanUtil implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.context.FieldCodecContext
-	 * #getByteSize()
+	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getByteSize()
 	 */
 	@Override
 	public int getByteSize() {

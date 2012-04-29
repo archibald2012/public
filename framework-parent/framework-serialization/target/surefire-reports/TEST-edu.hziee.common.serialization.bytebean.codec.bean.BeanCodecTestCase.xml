@@ -58,7 +58,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase time="0" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_emptyValue"/>
-  <testcase time="0" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_beanEmpty"/>
-  <testcase time="0.016" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_normal"/>
+  <testcase time="0.004" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_emptyValue"/>
+  <testcase time="0.001" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_beanEmpty"/>
+  <testcase time="0.009" classname="edu.hziee.common.serialization.bytebean.codec.bean.BeanCodecTestCase" name="testBeanCodec_normal"/>
 </testsuite>
