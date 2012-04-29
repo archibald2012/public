@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0" errors="0" skipped="0" tests="5" name="edu.hziee.common.fsm.state.StateAdapterTestCase">
+<testsuite failures="0" time="0.007" errors="0" skipped="0" tests="5" name="edu.hziee.common.fsm.state.StateAdapterTestCase">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_18\jre\bin"/>
@@ -14,7 +14,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 1"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="D:\public\framework-parent\framework-fsm"/>
+    <property name="user.dir" value="D:\public\framework-parent"/>
     <property name="java.runtime.version" value="1.6.0_18-b07"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_18\jre\lib\endorsed"/>
@@ -60,7 +60,7 @@
   </properties>
   <testcase time="0" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testEnterMethod"/>
   <testcase time="0" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testSetEnterMethod_moreThanOne"/>
-  <testcase time="0" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testExecuteMethod"/>
-  <testcase time="0" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testExitMethod"/>
+  <testcase time="0.003" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testExecuteMethod"/>
+  <testcase time="0.002" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testExitMethod"/>
   <testcase time="0" classname="edu.hziee.common.fsm.state.StateAdapterTestCase" name="testSetExitMethod_moreThanOne"/>
 </testsuite>

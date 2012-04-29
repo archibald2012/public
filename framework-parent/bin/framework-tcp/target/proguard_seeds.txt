@@ -1,10 +1,4 @@
 edu.hziee.common.tcp.codec.MinaTextEncoder
-edu.hziee.common.tcp.codec.MinaTextEncoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaTextEncoder: java.lang.String ENCODING
-edu.hziee.common.tcp.codec.MinaTextEncoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaTextEncoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaTextEncoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec numberCodec
-edu.hziee.common.tcp.codec.MinaTextEncoder: void <clinit>()
 edu.hziee.common.tcp.codec.MinaTextEncoder: MinaTextEncoder()
 edu.hziee.common.tcp.codec.MinaTextEncoder: void dispose(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.codec.MinaTextEncoder: void encode(org.apache.mina.core.session.IoSession,java.lang.Object,org.apache.mina.filter.codec.ProtocolEncoderOutput)
@@ -14,11 +8,33 @@ edu.hziee.common.tcp.codec.MinaTextEncoder: int getDumpBytes()
 edu.hziee.common.tcp.codec.MinaTextEncoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec getNumberCodec()
 edu.hziee.common.tcp.codec.MinaTextEncoder: void setNumberCodec(edu.hziee.common.serialization.bytebean.codec.NumberCodec)
 edu.hziee.common.tcp.codec.MinaTextEncoder: void setDumpBytes(int)
+edu.hziee.common.tcp.codec.MinaXipDecoder
+edu.hziee.common.tcp.codec.MinaXipDecoder: MinaXipDecoder()
+edu.hziee.common.tcp.codec.MinaXipDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
+edu.hziee.common.tcp.codec.MinaXipDecoder: void dispose(org.apache.mina.core.session.IoSession)
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setDumpBytes(int)
+edu.hziee.common.tcp.codec.MinaXipDecoder: int getDumpBytes()
+edu.hziee.common.tcp.codec.MinaXipDecoder: boolean isDebugEnabled()
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setDebugEnabled(boolean)
+edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec getByteBeanCodec()
+edu.hziee.common.tcp.codec.MinaXipDecoder: byte[] getEncryptKey()
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(java.lang.String)
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(byte[])
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setByteBeanCodec(edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec)
+edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo getTypeMetaInfo()
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setTypeMetaInfo(edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo)
+edu.hziee.common.tcp.codec.MinaXipDecoder: int getMaxMessageLength()
+edu.hziee.common.tcp.codec.MinaXipDecoder: void setMaxMessageLength(int)
+edu.hziee.common.tcp.codec.MinaTextDecoder
+edu.hziee.common.tcp.codec.MinaTextDecoder: MinaTextDecoder()
+edu.hziee.common.tcp.codec.MinaTextDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
+edu.hziee.common.tcp.codec.MinaTextDecoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec getNumberCodec()
+edu.hziee.common.tcp.codec.MinaTextDecoder: void setNumberCodec(edu.hziee.common.serialization.bytebean.codec.NumberCodec)
+edu.hziee.common.tcp.codec.MinaTextDecoder: void setDumpBytes(int)
+edu.hziee.common.tcp.codec.MinaTextDecoder: int getDumpBytes()
+edu.hziee.common.tcp.codec.MinaTextDecoder: boolean isDebugEnabled()
+edu.hziee.common.tcp.codec.MinaTextDecoder: void setDebugEnabled(boolean)
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: DefaultEndpointFactory()
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.tcp.endpoint.Endpoint createEndpoint(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Closure getNextClosure()
@@ -29,24 +45,12 @@ edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Hold
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setContext(edu.hziee.common.lang.Holder)
 edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
 edu.hziee.common.tcp.TransportUtil
-edu.hziee.common.tcp.TransportUtil: org.apache.mina.core.session.AttributeKey TRANSPORT_ENDPOINT
-edu.hziee.common.tcp.TransportUtil: java.lang.String TRANSPORT_SENDER
-edu.hziee.common.tcp.TransportUtil: void <clinit>()
 edu.hziee.common.tcp.TransportUtil: TransportUtil()
 edu.hziee.common.tcp.TransportUtil: void attachEndpointToSession(org.apache.mina.core.session.IoSession,edu.hziee.common.tcp.endpoint.Endpoint)
 edu.hziee.common.tcp.TransportUtil: edu.hziee.common.tcp.endpoint.Endpoint getEndpointOfSession(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.TransportUtil: java.lang.Object attachSender(java.lang.Object,edu.hziee.common.lang.transport.Sender)
 edu.hziee.common.tcp.TransportUtil: edu.hziee.common.lang.transport.Sender getSenderOf(java.lang.Object)
 edu.hziee.common.tcp.TCPAcceptor
-edu.hziee.common.tcp.TCPAcceptor: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPAcceptor: int maxRetryCount
-edu.hziee.common.tcp.TCPAcceptor: long retryTimeout
-edu.hziee.common.tcp.TCPAcceptor: java.lang.String acceptIp
-edu.hziee.common.tcp.TCPAcceptor: int acceptPort
-edu.hziee.common.tcp.TCPAcceptor: org.apache.mina.transport.socket.nio.NioSocketAcceptor acceptor
-edu.hziee.common.tcp.TCPAcceptor: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPAcceptor: edu.hziee.common.tcp.endpoint.EndpointFactory endpointFactory
-edu.hziee.common.tcp.TCPAcceptor: void <clinit>()
 edu.hziee.common.tcp.TCPAcceptor: TCPAcceptor()
 edu.hziee.common.tcp.TCPAcceptor: void start()
 edu.hziee.common.tcp.TCPAcceptor: void stop()
@@ -65,41 +69,20 @@ edu.hziee.common.tcp.TCPAcceptor: int getAcceptPort()
 edu.hziee.common.tcp.TCPAcceptor: void setAcceptPort(int)
 edu.hziee.common.tcp.TCPAcceptor: org.apache.mina.filter.codec.ProtocolCodecFactory getCodecFactory()
 edu.hziee.common.tcp.TCPAcceptor: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
-edu.hziee.common.tcp.TCPAcceptor: edu.hziee.common.tcp.endpoint.EndpointFactory access$0(edu.hziee.common.tcp.TCPAcceptor)
 edu.hziee.common.tcp.cache.CachedHolder
-edu.hziee.common.tcp.cache.CachedHolder: org.slf4j.Logger logger
-edu.hziee.common.tcp.cache.CachedHolder: net.sf.ehcache.Cache cache
-edu.hziee.common.tcp.cache.CachedHolder: void <clinit>()
 edu.hziee.common.tcp.cache.CachedHolder: CachedHolder()
 edu.hziee.common.tcp.cache.CachedHolder: void setCache(net.sf.ehcache.Cache)
 edu.hziee.common.tcp.cache.CachedHolder: void put(java.lang.Object,java.lang.Object)
 edu.hziee.common.tcp.cache.CachedHolder: java.lang.Object get(java.lang.Object)
 edu.hziee.common.tcp.cache.CachedHolder: java.lang.Object getAndRemove(java.lang.Object)
 edu.hziee.common.tcp.cache.CachedHolder: void remove(java.lang.Object)
-edu.hziee.common.tcp.cache.CachedHolder: org.slf4j.Logger access$0()
 edu.hziee.common.tcp.TCPRouter
-edu.hziee.common.tcp.TCPRouter: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap connectors
-edu.hziee.common.tcp.TCPRouter: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.TCPRouter: long retryTimeout
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.TCPRouter: java.util.List snapshot
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.atomic.AtomicInteger index
-edu.hziee.common.tcp.TCPRouter: java.lang.String name
-edu.hziee.common.tcp.TCPRouter: void <clinit>()
 edu.hziee.common.tcp.TCPRouter: TCPRouter()
 edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object)
 edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
 edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object)
 edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector next()
-edu.hziee.common.tcp.TCPRouter: int getIndex(int)
 edu.hziee.common.tcp.TCPRouter: void doRefreshRoute(java.util.List)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector getConnector(edu.hziee.common.lang.IpPortPair)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector createConnector(java.lang.String,int)
 edu.hziee.common.tcp.TCPRouter: void setHosts(java.lang.String)
 edu.hziee.common.tcp.TCPRouter: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
 edu.hziee.common.tcp.TCPRouter: void setNextClosure(edu.hziee.common.lang.Closure)
@@ -112,16 +95,8 @@ edu.hziee.common.tcp.TCPRouter: java.lang.String getName()
 edu.hziee.common.tcp.TCPRouter: void setName(java.lang.String)
 edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap getConnectors()
 edu.hziee.common.tcp.codec.MinaXipEncoder
-edu.hziee.common.tcp.codec.MinaXipEncoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaXipEncoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaXipEncoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec byteBeanCodec
-edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] encryptKey
-edu.hziee.common.tcp.codec.MinaXipEncoder: void <clinit>()
 edu.hziee.common.tcp.codec.MinaXipEncoder: MinaXipEncoder()
 edu.hziee.common.tcp.codec.MinaXipEncoder: void encode(org.apache.mina.core.session.IoSession,java.lang.Object,org.apache.mina.filter.codec.ProtocolEncoderOutput)
-edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] encodeXip(edu.hziee.common.serialization.protocol.xip.XipSignal)
-edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.protocol.xip.XipHeader createHeader(byte,java.util.UUID,int,int)
 edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec getByteBeanCodec()
 edu.hziee.common.tcp.codec.MinaXipEncoder: void setByteBeanCodec(edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec)
 edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] getEncryptKey()
@@ -133,15 +108,6 @@ edu.hziee.common.tcp.codec.MinaXipEncoder: int getDumpBytes()
 edu.hziee.common.tcp.codec.MinaXipEncoder: void setDumpBytes(int)
 edu.hziee.common.tcp.codec.MinaXipEncoder: void dispose(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger logger
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.apache.mina.core.session.IoSession session
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: int waitTimeout
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.KeyTransformer keyTransformer
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void <clinit>()
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: DefaultEndpoint()
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
@@ -150,7 +116,6 @@ edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void messageReceived(java.lang.Object)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void stop()
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void start()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void doSend(java.lang.Object)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setNextClosure(edu.hziee.common.lang.Closure)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setReceiver(edu.hziee.common.lang.transport.Receiver)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setContext(edu.hziee.common.lang.Holder)
@@ -159,10 +124,19 @@ edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setWaitTimeout(int)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setSession(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.IpPortPair getRemoteAddress()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger access$0()
+edu.hziee.common.tcp.endpoint.Endpoint
+edu.hziee.common.tcp.endpoint.Endpoint: void stop()
+edu.hziee.common.tcp.endpoint.Endpoint: void start()
+edu.hziee.common.tcp.endpoint.Endpoint: void setSession(org.apache.mina.core.session.IoSession)
+edu.hziee.common.tcp.endpoint.Endpoint: void setNextClosure(edu.hziee.common.lang.Closure)
+edu.hziee.common.tcp.endpoint.Endpoint: void setReceiver(edu.hziee.common.lang.transport.Receiver)
+edu.hziee.common.tcp.endpoint.Endpoint: void setContext(edu.hziee.common.lang.Holder)
+edu.hziee.common.tcp.endpoint.Endpoint: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
+edu.hziee.common.tcp.endpoint.Endpoint: edu.hziee.common.lang.IpPortPair getRemoteAddress()
+edu.hziee.common.tcp.endpoint.IEndpointChangeListener
+edu.hziee.common.tcp.endpoint.IEndpointChangeListener: void onCreate(edu.hziee.common.tcp.endpoint.Endpoint)
+edu.hziee.common.tcp.endpoint.IEndpointChangeListener: void onStop(edu.hziee.common.tcp.endpoint.Endpoint)
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolEncoder encoder
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder decoder
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: DefaultMinaCodecFactory()
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder getDecoder(org.apache.mina.core.session.IoSession)
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolEncoder getEncoder(org.apache.mina.core.session.IoSession)
@@ -171,23 +145,9 @@ edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: void setEncoder(org.apache.m
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder getDecoder()
 edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: void setDecoder(org.apache.mina.filter.codec.ProtocolDecoder)
 edu.hziee.common.tcp.TCPConnector
-edu.hziee.common.tcp.TCPConnector: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService exec
-edu.hziee.common.tcp.TCPConnector: java.lang.String name
-edu.hziee.common.tcp.TCPConnector: java.lang.String destIp
-edu.hziee.common.tcp.TCPConnector: int destPort
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.transport.socket.nio.NioSocketConnector connector
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory endpointFactory
-edu.hziee.common.tcp.TCPConnector: long retryTimeout
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.Endpoint sender
-edu.hziee.common.tcp.TCPConnector: void <clinit>()
 edu.hziee.common.tcp.TCPConnector: TCPConnector(java.lang.String)
 edu.hziee.common.tcp.TCPConnector: void start()
 edu.hziee.common.tcp.TCPConnector: void stop()
-edu.hziee.common.tcp.TCPConnector: void onSessionClosed(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void doConnect()
-edu.hziee.common.tcp.TCPConnector: void onConnectComplete(org.apache.mina.core.future.ConnectFuture)
 edu.hziee.common.tcp.TCPConnector: java.lang.String getName()
 edu.hziee.common.tcp.TCPConnector: java.lang.String getDestIp()
 edu.hziee.common.tcp.TCPConnector: void setDestIp(java.lang.String)
@@ -209,411 +169,9 @@ edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object)
 edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
 edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object)
 edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory access$0(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$1(edu.hziee.common.tcp.TCPConnector,edu.hziee.common.tcp.endpoint.Endpoint)
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService access$2(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$3(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void access$4(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.future.ConnectFuture)
-edu.hziee.common.tcp.TCPConnector: void access$5(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: DefaultEndpointFactory()
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.tcp.endpoint.Endpoint createEndpoint(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Closure getNextClosure()
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.transport.Receiver getReceiver()
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: edu.hziee.common.lang.Holder getContext()
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.endpoint.DefaultEndpointFactory: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.TCPRouter
-edu.hziee.common.tcp.TCPRouter: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap connectors
-edu.hziee.common.tcp.TCPRouter: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.TCPRouter: long retryTimeout
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.TCPRouter: java.util.List snapshot
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.atomic.AtomicInteger index
-edu.hziee.common.tcp.TCPRouter: java.lang.String name
-edu.hziee.common.tcp.TCPRouter: void <clinit>()
-edu.hziee.common.tcp.TCPRouter: TCPRouter()
-edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object)
-edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector next()
-edu.hziee.common.tcp.TCPRouter: int getIndex(int)
-edu.hziee.common.tcp.TCPRouter: void doRefreshRoute(java.util.List)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector getConnector(edu.hziee.common.lang.IpPortPair)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector createConnector(java.lang.String,int)
-edu.hziee.common.tcp.TCPRouter: void setHosts(java.lang.String)
-edu.hziee.common.tcp.TCPRouter: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
-edu.hziee.common.tcp.TCPRouter: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.TCPRouter: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPRouter: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.TCPRouter: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.TCPRouter: void setRetryTimeout(long)
-edu.hziee.common.tcp.TCPRouter: java.util.List getSnapshot()
-edu.hziee.common.tcp.TCPRouter: java.lang.String getName()
-edu.hziee.common.tcp.TCPRouter: void setName(java.lang.String)
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap getConnectors()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger logger
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.apache.mina.core.session.IoSession session
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: int waitTimeout
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.KeyTransformer keyTransformer
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void <clinit>()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: DefaultEndpoint()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void messageReceived(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void stop()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void start()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void doSend(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder getContext()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setWaitTimeout(int)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setSession(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.IpPortPair getRemoteAddress()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger access$0()
-edu.hziee.common.tcp.TCPConnector
-edu.hziee.common.tcp.TCPConnector: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService exec
-edu.hziee.common.tcp.TCPConnector: java.lang.String name
-edu.hziee.common.tcp.TCPConnector: java.lang.String destIp
-edu.hziee.common.tcp.TCPConnector: int destPort
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.transport.socket.nio.NioSocketConnector connector
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory endpointFactory
-edu.hziee.common.tcp.TCPConnector: long retryTimeout
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.Endpoint sender
-edu.hziee.common.tcp.TCPConnector: void <clinit>()
-edu.hziee.common.tcp.TCPConnector: TCPConnector(java.lang.String)
-edu.hziee.common.tcp.TCPConnector: void start()
-edu.hziee.common.tcp.TCPConnector: void stop()
-edu.hziee.common.tcp.TCPConnector: void onSessionClosed(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void doConnect()
-edu.hziee.common.tcp.TCPConnector: void onConnectComplete(org.apache.mina.core.future.ConnectFuture)
-edu.hziee.common.tcp.TCPConnector: java.lang.String getName()
-edu.hziee.common.tcp.TCPConnector: java.lang.String getDestIp()
-edu.hziee.common.tcp.TCPConnector: void setDestIp(java.lang.String)
-edu.hziee.common.tcp.TCPConnector: int getDestPort()
-edu.hziee.common.tcp.TCPConnector: void setDestPort(int)
-edu.hziee.common.tcp.TCPConnector: long getRetryTimeout()
-edu.hziee.common.tcp.TCPConnector: void setRetryTimeout(long)
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.filter.codec.ProtocolCodecFactory getCodecFactory()
-edu.hziee.common.tcp.TCPConnector: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
-edu.hziee.common.tcp.TCPConnector: boolean isConnected()
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.core.service.IoServiceStatistics getStatistics()
-edu.hziee.common.tcp.TCPConnector: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.TCPConnector: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPConnector: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.TCPConnector: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.TCPConnector: void setEndpointFactory(edu.hziee.common.tcp.endpoint.EndpointFactory)
-edu.hziee.common.tcp.TCPConnector: java.lang.String toString()
-edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object)
-edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory access$0(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$1(edu.hziee.common.tcp.TCPConnector,edu.hziee.common.tcp.endpoint.Endpoint)
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService access$2(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$3(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void access$4(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.future.ConnectFuture)
-edu.hziee.common.tcp.TCPConnector: void access$5(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPRouter
-edu.hziee.common.tcp.TCPRouter: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap connectors
-edu.hziee.common.tcp.TCPRouter: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.TCPRouter: long retryTimeout
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.TCPRouter: java.util.List snapshot
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.atomic.AtomicInteger index
-edu.hziee.common.tcp.TCPRouter: java.lang.String name
-edu.hziee.common.tcp.TCPRouter: void <clinit>()
-edu.hziee.common.tcp.TCPRouter: TCPRouter()
-edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object)
-edu.hziee.common.tcp.TCPRouter: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.TCPRouter: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector next()
-edu.hziee.common.tcp.TCPRouter: int getIndex(int)
-edu.hziee.common.tcp.TCPRouter: void doRefreshRoute(java.util.List)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector getConnector(edu.hziee.common.lang.IpPortPair)
-edu.hziee.common.tcp.TCPRouter: edu.hziee.common.tcp.TCPConnector createConnector(java.lang.String,int)
-edu.hziee.common.tcp.TCPRouter: void setHosts(java.lang.String)
-edu.hziee.common.tcp.TCPRouter: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
-edu.hziee.common.tcp.TCPRouter: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.TCPRouter: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPRouter: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.TCPRouter: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.TCPRouter: void setRetryTimeout(long)
-edu.hziee.common.tcp.TCPRouter: java.util.List getSnapshot()
-edu.hziee.common.tcp.TCPRouter: java.lang.String getName()
-edu.hziee.common.tcp.TCPRouter: void setName(java.lang.String)
-edu.hziee.common.tcp.TCPRouter: java.util.concurrent.ConcurrentMap getConnectors()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger logger
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.apache.mina.core.session.IoSession session
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: int waitTimeout
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.KeyTransformer keyTransformer
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void <clinit>()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: DefaultEndpoint()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void messageReceived(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void stop()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void start()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void doSend(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder getContext()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setWaitTimeout(int)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setSession(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.IpPortPair getRemoteAddress()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger access$0()
-edu.hziee.common.tcp.TCPConnector
-edu.hziee.common.tcp.TCPConnector: org.slf4j.Logger logger
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService exec
-edu.hziee.common.tcp.TCPConnector: java.lang.String name
-edu.hziee.common.tcp.TCPConnector: java.lang.String destIp
-edu.hziee.common.tcp.TCPConnector: int destPort
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.transport.socket.nio.NioSocketConnector connector
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.filter.codec.ProtocolCodecFactory codecFactory
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory endpointFactory
-edu.hziee.common.tcp.TCPConnector: long retryTimeout
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.Endpoint sender
-edu.hziee.common.tcp.TCPConnector: void <clinit>()
-edu.hziee.common.tcp.TCPConnector: TCPConnector(java.lang.String)
-edu.hziee.common.tcp.TCPConnector: void start()
-edu.hziee.common.tcp.TCPConnector: void stop()
-edu.hziee.common.tcp.TCPConnector: void onSessionClosed(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void doConnect()
-edu.hziee.common.tcp.TCPConnector: void onConnectComplete(org.apache.mina.core.future.ConnectFuture)
-edu.hziee.common.tcp.TCPConnector: java.lang.String getName()
-edu.hziee.common.tcp.TCPConnector: java.lang.String getDestIp()
-edu.hziee.common.tcp.TCPConnector: void setDestIp(java.lang.String)
-edu.hziee.common.tcp.TCPConnector: int getDestPort()
-edu.hziee.common.tcp.TCPConnector: void setDestPort(int)
-edu.hziee.common.tcp.TCPConnector: long getRetryTimeout()
-edu.hziee.common.tcp.TCPConnector: void setRetryTimeout(long)
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.filter.codec.ProtocolCodecFactory getCodecFactory()
-edu.hziee.common.tcp.TCPConnector: void setCodecFactory(org.apache.mina.filter.codec.ProtocolCodecFactory)
-edu.hziee.common.tcp.TCPConnector: boolean isConnected()
-edu.hziee.common.tcp.TCPConnector: org.apache.mina.core.service.IoServiceStatistics getStatistics()
-edu.hziee.common.tcp.TCPConnector: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.TCPConnector: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPConnector: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.TCPConnector: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.TCPConnector: void setEndpointFactory(edu.hziee.common.tcp.endpoint.EndpointFactory)
-edu.hziee.common.tcp.TCPConnector: java.lang.String toString()
-edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object)
-edu.hziee.common.tcp.TCPConnector: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.TCPConnector: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.TCPConnector: edu.hziee.common.tcp.endpoint.EndpointFactory access$0(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$1(edu.hziee.common.tcp.TCPConnector,edu.hziee.common.tcp.endpoint.Endpoint)
-edu.hziee.common.tcp.TCPConnector: java.util.concurrent.ScheduledExecutorService access$2(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.TCPConnector: void access$3(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.TCPConnector: void access$4(edu.hziee.common.tcp.TCPConnector,org.apache.mina.core.future.ConnectFuture)
-edu.hziee.common.tcp.TCPConnector: void access$5(edu.hziee.common.tcp.TCPConnector)
-edu.hziee.common.tcp.codec.MinaXipDecoder
-edu.hziee.common.tcp.codec.MinaXipDecoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaXipDecoder: org.apache.mina.core.session.AttributeKey HEADER
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec byteBeanCodec
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo typeMetaInfo
-edu.hziee.common.tcp.codec.MinaXipDecoder: int maxMessageLength
-edu.hziee.common.tcp.codec.MinaXipDecoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaXipDecoder: byte[] encryptKey
-edu.hziee.common.tcp.codec.MinaXipDecoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaXipDecoder: MinaXipDecoder()
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void dispose(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setSessionXipHeader(org.apache.mina.core.session.IoSession,edu.hziee.common.serialization.protocol.xip.XipHeader)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void removeSessionXipHeader(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaXipDecoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec getByteBeanCodec()
-edu.hziee.common.tcp.codec.MinaXipDecoder: byte[] getEncryptKey()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(java.lang.String)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(byte[])
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setByteBeanCodec(edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec)
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo getTypeMetaInfo()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setTypeMetaInfo(edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo)
-edu.hziee.common.tcp.codec.MinaXipDecoder: int getMaxMessageLength()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setMaxMessageLength(int)
-edu.hziee.common.tcp.codec.MinaTextDecoder
-edu.hziee.common.tcp.codec.MinaTextDecoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaTextDecoder: java.lang.String ENCODING
-edu.hziee.common.tcp.codec.MinaTextDecoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaTextDecoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec numberCodec
-edu.hziee.common.tcp.codec.MinaTextDecoder: org.apache.mina.core.session.AttributeKey BYTE_LENGTH
-edu.hziee.common.tcp.codec.MinaTextDecoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaTextDecoder: MinaTextDecoder()
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
-edu.hziee.common.tcp.codec.MinaTextDecoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec getNumberCodec()
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setNumberCodec(edu.hziee.common.serialization.bytebean.codec.NumberCodec)
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaTextDecoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolEncoder encoder
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder decoder
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: DefaultMinaCodecFactory()
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder getDecoder(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolEncoder getEncoder(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolEncoder getEncoder()
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: void setEncoder(org.apache.mina.filter.codec.ProtocolEncoder)
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: org.apache.mina.filter.codec.ProtocolDecoder getDecoder()
-edu.hziee.common.tcp.codec.DefaultMinaCodecFactory: void setDecoder(org.apache.mina.filter.codec.ProtocolDecoder)
-edu.hziee.common.tcp.codec.MinaTextEncoder
-edu.hziee.common.tcp.codec.MinaTextEncoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaTextEncoder: java.lang.String ENCODING
-edu.hziee.common.tcp.codec.MinaTextEncoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaTextEncoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaTextEncoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec numberCodec
-edu.hziee.common.tcp.codec.MinaTextEncoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaTextEncoder: MinaTextEncoder()
-edu.hziee.common.tcp.codec.MinaTextEncoder: void dispose(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaTextEncoder: void encode(org.apache.mina.core.session.IoSession,java.lang.Object,org.apache.mina.filter.codec.ProtocolEncoderOutput)
-edu.hziee.common.tcp.codec.MinaTextEncoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaTextEncoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.codec.MinaTextEncoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaTextEncoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec getNumberCodec()
-edu.hziee.common.tcp.codec.MinaTextEncoder: void setNumberCodec(edu.hziee.common.serialization.bytebean.codec.NumberCodec)
-edu.hziee.common.tcp.codec.MinaTextEncoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaXipEncoder
-edu.hziee.common.tcp.codec.MinaXipEncoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaXipEncoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaXipEncoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec byteBeanCodec
-edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] encryptKey
-edu.hziee.common.tcp.codec.MinaXipEncoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaXipEncoder: MinaXipEncoder()
-edu.hziee.common.tcp.codec.MinaXipEncoder: void encode(org.apache.mina.core.session.IoSession,java.lang.Object,org.apache.mina.filter.codec.ProtocolEncoderOutput)
-edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] encodeXip(edu.hziee.common.serialization.protocol.xip.XipSignal)
-edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.protocol.xip.XipHeader createHeader(byte,java.util.UUID,int,int)
-edu.hziee.common.tcp.codec.MinaXipEncoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec getByteBeanCodec()
-edu.hziee.common.tcp.codec.MinaXipEncoder: void setByteBeanCodec(edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec)
-edu.hziee.common.tcp.codec.MinaXipEncoder: byte[] getEncryptKey()
-edu.hziee.common.tcp.codec.MinaXipEncoder: void setEncryptKey(java.lang.String)
-edu.hziee.common.tcp.codec.MinaXipEncoder: void setEncryptKey(byte[])
-edu.hziee.common.tcp.codec.MinaXipEncoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaXipEncoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.codec.MinaXipEncoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaXipEncoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaXipEncoder: void dispose(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaXipDecoder
-edu.hziee.common.tcp.codec.MinaXipDecoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaXipDecoder: org.apache.mina.core.session.AttributeKey HEADER
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec byteBeanCodec
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo typeMetaInfo
-edu.hziee.common.tcp.codec.MinaXipDecoder: int maxMessageLength
-edu.hziee.common.tcp.codec.MinaXipDecoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaXipDecoder: byte[] encryptKey
-edu.hziee.common.tcp.codec.MinaXipDecoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaXipDecoder: MinaXipDecoder()
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void dispose(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setSessionXipHeader(org.apache.mina.core.session.IoSession,edu.hziee.common.serialization.protocol.xip.XipHeader)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void removeSessionXipHeader(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaXipDecoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaXipDecoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec getByteBeanCodec()
-edu.hziee.common.tcp.codec.MinaXipDecoder: byte[] getEncryptKey()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(java.lang.String)
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setEncryptKey(byte[])
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setByteBeanCodec(edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec)
-edu.hziee.common.tcp.codec.MinaXipDecoder: edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo getTypeMetaInfo()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setTypeMetaInfo(edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo)
-edu.hziee.common.tcp.codec.MinaXipDecoder: int getMaxMessageLength()
-edu.hziee.common.tcp.codec.MinaXipDecoder: void setMaxMessageLength(int)
-edu.hziee.common.tcp.codec.MinaTextDecoder
-edu.hziee.common.tcp.codec.MinaTextDecoder: org.slf4j.Logger logger
-edu.hziee.common.tcp.codec.MinaTextDecoder: java.lang.String ENCODING
-edu.hziee.common.tcp.codec.MinaTextDecoder: int dumpBytes
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean isDebugEnabled
-edu.hziee.common.tcp.codec.MinaTextDecoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec numberCodec
-edu.hziee.common.tcp.codec.MinaTextDecoder: org.apache.mina.core.session.AttributeKey BYTE_LENGTH
-edu.hziee.common.tcp.codec.MinaTextDecoder: void <clinit>()
-edu.hziee.common.tcp.codec.MinaTextDecoder: MinaTextDecoder()
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean doDecode(org.apache.mina.core.session.IoSession,org.apache.mina.core.buffer.IoBuffer,org.apache.mina.filter.codec.ProtocolDecoderOutput)
-edu.hziee.common.tcp.codec.MinaTextDecoder: edu.hziee.common.serialization.bytebean.codec.NumberCodec getNumberCodec()
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setNumberCodec(edu.hziee.common.serialization.bytebean.codec.NumberCodec)
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setDumpBytes(int)
-edu.hziee.common.tcp.codec.MinaTextDecoder: int getDumpBytes()
-edu.hziee.common.tcp.codec.MinaTextDecoder: boolean isDebugEnabled()
-edu.hziee.common.tcp.codec.MinaTextDecoder: void setDebugEnabled(boolean)
-edu.hziee.common.tcp.cache.CachedHolder
-edu.hziee.common.tcp.cache.CachedHolder: org.slf4j.Logger logger
-edu.hziee.common.tcp.cache.CachedHolder: net.sf.ehcache.Cache cache
-edu.hziee.common.tcp.cache.CachedHolder: void <clinit>()
-edu.hziee.common.tcp.cache.CachedHolder: CachedHolder()
-edu.hziee.common.tcp.cache.CachedHolder: void setCache(net.sf.ehcache.Cache)
-edu.hziee.common.tcp.cache.CachedHolder: void put(java.lang.Object,java.lang.Object)
-edu.hziee.common.tcp.cache.CachedHolder: java.lang.Object get(java.lang.Object)
-edu.hziee.common.tcp.cache.CachedHolder: java.lang.Object getAndRemove(java.lang.Object)
-edu.hziee.common.tcp.cache.CachedHolder: void remove(java.lang.Object)
-edu.hziee.common.tcp.cache.CachedHolder: org.slf4j.Logger access$0()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger logger
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Closure nextClosure
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.transport.Receiver receiver
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder context
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.apache.mina.core.session.IoSession session
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: int waitTimeout
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.KeyTransformer keyTransformer
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.tcp.endpoint.IEndpointChangeListener endpointListener
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void <clinit>()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: DefaultEndpoint()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void send(java.lang.Object,edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: java.lang.Object sendAndWait(java.lang.Object,long,java.util.concurrent.TimeUnit)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void messageReceived(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void stop()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void start()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void doSend(java.lang.Object)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setNextClosure(edu.hziee.common.lang.Closure)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setReceiver(edu.hziee.common.lang.transport.Receiver)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setContext(edu.hziee.common.lang.Holder)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.Holder getContext()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setWaitTimeout(int)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: void setSession(org.apache.mina.core.session.IoSession)
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: edu.hziee.common.lang.IpPortPair getRemoteAddress()
-edu.hziee.common.tcp.endpoint.DefaultEndpoint: org.slf4j.Logger access$0()
+edu.hziee.common.tcp.endpoint.EndpointFactory
+edu.hziee.common.tcp.endpoint.EndpointFactory: edu.hziee.common.tcp.endpoint.Endpoint createEndpoint(org.apache.mina.core.session.IoSession)
+edu.hziee.common.tcp.endpoint.EndpointFactory: void setNextClosure(edu.hziee.common.lang.Closure)
+edu.hziee.common.tcp.endpoint.EndpointFactory: void setReceiver(edu.hziee.common.lang.transport.Receiver)
+edu.hziee.common.tcp.endpoint.EndpointFactory: void setContext(edu.hziee.common.lang.Holder)
+edu.hziee.common.tcp.endpoint.EndpointFactory: void setEndpointListener(edu.hziee.common.tcp.endpoint.IEndpointChangeListener)

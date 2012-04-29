@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -16,7 +17,7 @@
 		<module>framework-dir</module>
 		<module>framework-dbroute</module>
 		<module>framework-dispatcher</module>
-		<module>framework-dlock</module>
+		<module>framework-lock</module>
 		<module>framework-event</module>
 		<module>framework-fsm</module>
 		<module>framework-tcp</module>
@@ -25,11 +26,12 @@
 		<module>framework-ioc</module>
 		<module>framework-metadata</module>
 		<module>framework-queue</module>
-		<module>framework-rule</module>
+		<module>framework-drools</module>
 		<module>framework-scheduler</module>
 		<module>framework-test</module>
 		<module>framework-transaction</module>
-		<module>framework-web</module>
+		<module>framework-tomcat</module>
+		<module>framework-xslt2web</module>
 	</modules>
 
 	<properties>
@@ -129,6 +131,20 @@
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
+				<groupId>commons-cli</groupId>
+				<artifactId>commons-cli</artifactId>
+				<version>1.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.beanshell</groupId>
+				<artifactId>bsh</artifactId>
+				<version>2.0b4</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.jboss.netty</groupId>
 				<artifactId>netty</artifactId>
 				<version>3.2.7.Final</version>
@@ -181,14 +197,27 @@
 				<artifactId>ecj</artifactId>
 				<version>3.5.1</version>
 			</dependency>
+			<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>drools-core</artifactId>
+				<version>5.2.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.drools</groupId>
+				<artifactId>drools-compiler</artifactId>
+				<version>5.2.1.Final</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<!--scm> <connection>scm:git:git://github.com/archibald2012/public.git</connection> 
+		<url>scm:git:git://github.com/archibald2012/public.git</url> </scm -->
 
 	<scm>
 		<connection>scm:git:https://github.com/archibald2012/public</connection>
 		<developerConnection>scm:git:[fetch=]https://github.com/archibald2012/public[push=]ssh://git@github.com/archibald2012/public.git</developerConnection>
 	</scm>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -201,14 +230,11 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.2.2</version>
-				<configuration>
-					<tagBase>https://github.com/archibald2012/public/tags</tagBase>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -224,6 +250,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.7.2</version>
+				<configuration>
+					<includes>
+						<include>**/Test*.java</include>
+					</includes>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
