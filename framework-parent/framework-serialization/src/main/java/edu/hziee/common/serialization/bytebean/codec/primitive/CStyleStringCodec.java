@@ -1,5 +1,4 @@
-﻿
-package edu.hziee.common.serialization.bytebean.codec.primitive;
+﻿package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import java.io.UnsupportedEncodingException;
 
@@ -13,8 +12,6 @@ import edu.hziee.common.serialization.bytebean.context.DecResult;
 import edu.hziee.common.serialization.bytebean.context.EncContext;
 
 /**
- * TODO
- * 
  * @author wangqi
  * @version $Id: CStyleStringCodec.java 14 2012-01-10 11:54:14Z archie $
  */
@@ -25,31 +22,16 @@ public class CStyleStringCodec extends AbstractPrimitiveCodec implements
 			.getLogger(CStyleStringCodec.class);
 	private static final String XIP_STR_CHARSET = "UTF-8";
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#getFieldType
-	 * ()
-	 */
 	@Override
 	public Class<?>[] getFieldType() {
 		return new Class<?>[] { String.class };
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#decode
-	 * (com.taotaosou.common.serialization.bytebean.context.DecContext)
-	 */
 	@Override
 	public DecResult decode(DecContext ctx) {
 		byte[] bytes = ctx.getDecBytes();
 		Object ret = null;
 
-		// 仄1�700结尾
 		int index = ArrayUtils.indexOf(bytes, (byte) 0x00);
 		if (-1 == index) {
 			String errmsg = "CStyleString: could not found \\0 for string terminated.";
@@ -71,13 +53,6 @@ public class CStyleStringCodec extends AbstractPrimitiveCodec implements
 				bytes.length));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#encode
-	 * (com.taotaosou.common.serialization.bytebean.context.EncContext)
-	 */
 	@Override
 	public byte[] encode(EncContext ctx) {
 		String value = (String) ctx.getEncObject();
@@ -94,7 +69,6 @@ public class CStyleStringCodec extends AbstractPrimitiveCodec implements
 			logger.error("CStyleString", e);
 		}
 
-		// 仄1�700结尾
 		return ArrayUtils.add(bytes, (byte) 0);
 	}
 

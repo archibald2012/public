@@ -21,28 +21,13 @@ import edu.hziee.common.serialization.bytebean.context.EncContext;
 public class LenArrayCodec extends AbstractCategoryCodec implements
 		ByteFieldCodec {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#getCategory
-	 * ()
-	 */
 	@Override
 	public FieldCodecCategory getCategory() {
 		return FieldCodecCategory.ARRAY;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#decode
-	 * (com.taotaosou.common.serialization.bytebean.context.DecContext)
-	 */
 	@Override
 	public DecResult decode(DecContext ctx) {
-		// 榛樿4涓瓧鑺傚瓨鍌ㄦ暟缁勯暱搴�
 		DecResult ret = ctx.getCodecOf(int.class).decode(
 				ctx.getDecContextFactory().createDecContext(ctx.getDecBytes(),
 						int.class, ctx.getDecOwner(), null));
@@ -69,19 +54,11 @@ public class LenArrayCodec extends AbstractCategoryCodec implements
 		return new DecResult(array, bytes);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#encode
-	 * (com.taotaosou.common.serialization.bytebean.context.EncContext)
-	 */
 	@Override
 	public byte[] encode(EncContext ctx) {
 		Object array = ctx.getEncObject();
 		int arrayLength = (null != array ? Array.getLength(array) : 0);
 
-		// 榛樿鍐�瓧鑺傚瓨鍌ㄦ暟缁勯暱搴�
 		byte[] bytes = ctx.getCodecOf(int.class).encode(
 				ctx.getEncContextFactory().createEncContext(arrayLength,
 						int.class, null));

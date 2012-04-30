@@ -22,16 +22,8 @@ public class LenByteArrayCodec extends AbstractPrimitiveCodec implements
 	private static final Logger logger = LoggerFactory
 			.getLogger(LenByteArrayCodec.class);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#decode
-	 * (com.taotaosou.common.serialization.bytebean.context.DecContext)
-	 */
 	@Override
 	public DecResult decode(DecContext ctx) {
-		// 默认4个字节存储数组长庄1�7
 		DecResult ret = ctx.getCodecOf(int.class).decode(
 				ctx.getDecContextFactory().createDecContext(ctx.getDecBytes(),
 						int.class, ctx.getDecOwner(), null));
@@ -53,18 +45,10 @@ public class LenByteArrayCodec extends AbstractPrimitiveCodec implements
 				ArrayUtils.subarray(bytes, arrayLength, bytes.length));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.taotaosou.common.serialization.bytebean.codec.ByteFieldCodec#encode
-	 * (com.taotaosou.common.serialization.bytebean.context.EncContext)
-	 */
 	@Override
 	public byte[] encode(EncContext ctx) {
 		byte[] array = (byte[]) ctx.getEncObject();
 
-		// 默认4个字节存储数组长庄1�7
 		return (byte[]) ArrayUtils.addAll(
 				ctx.getCodecOf(int.class).encode(
 						ctx.getEncContextFactory().createEncContext(

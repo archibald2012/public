@@ -1,5 +1,4 @@
-﻿
-package edu.hziee.common.serialization.bytebean.codec.primitive;
+﻿package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
@@ -11,12 +10,6 @@ import edu.hziee.common.serialization.bytebean.context.DecContext;
 import edu.hziee.common.serialization.bytebean.context.DecResult;
 import edu.hziee.common.serialization.bytebean.context.EncContext;
 
-/**
- * TODO
- * 
- * @author wangqi
- * @version $Id: DoubleCodec.java 14 2012-01-10 11:54:14Z archie $
- */
 public class DoubleCodec extends AbstractPrimitiveCodec implements
 		ByteFieldCodec {
 

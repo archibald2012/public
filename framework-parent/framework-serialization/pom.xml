@@ -3,8 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>framework-serialization</artifactId>
-	<name>Serialization Component</name>
-	<description>Toolkit Classes: Serialization Component</description>
+	<name>framework-serialization</name>
 
 	<parent>
 		<groupId>edu.hziee</groupId>

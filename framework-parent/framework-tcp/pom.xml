@@ -3,8 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>framework-tcp</artifactId>
-	<name>TCP Component</name>
-	<description>Toolkit Classes: TCP Component</description>
+	<name>framework-tcp</name>
 
 	<parent>
 		<groupId>edu.hziee</groupId>
@@ -70,7 +69,7 @@
 							public protected private *;
 							}
 						</option>
-						<option>-keepnames public class *
+						<option>-keep public class *
 							{
 							public protected *;
 							}
