@@ -8,5 +8,5 @@ package edu.hziee.common.lock;
  * 
  */
 public enum LockStatus {
-	MASTER, STANDBY;
+	LOCK_ACQUIRED, LOCK_RELEASED, LOCK_BLOCKED;
 }

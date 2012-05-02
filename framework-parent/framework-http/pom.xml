@@ -79,7 +79,7 @@
 							public protected private *;
 							}
 						</option>
-						<option>-keepnames public class *
+						<option>-keep public class *
 							{
 							public protected *;
 							}

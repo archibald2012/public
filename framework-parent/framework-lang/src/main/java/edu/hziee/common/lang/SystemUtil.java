@@ -18,7 +18,12 @@ import org.slf4j.LoggerFactory;
  */
 public class SystemUtil {
 
-	private static final Logger	logger	= LoggerFactory.getLogger(SystemUtil.class);
+	private static final Logger	logger							= LoggerFactory.getLogger(SystemUtil.class);
+
+	private static final String	DEFAULT_IP_ADDRESS	= "127.0.0.1";
+	private static final String	DEFAULT_HOSTNAME		= "localhost";
+	private static final String	DEFAULT_PID					= "0";
+	private static final String	DEFAULT_USERNAME		= "user";
 
 	private SystemUtil() {
 	}
@@ -32,11 +37,11 @@ public class SystemUtil {
 			try {
 				if (ipAddress == null) {
 					try {
-						// TODO set default ip address
 						InetAddress address = InetAddress.getLocalHost();
 						ipAddress = address.getHostAddress();
 					} catch (UnknownHostException e) {
 						logger.warn("Unable to get hostAddress with error " + e.getMessage(), e);
+						ipAddress = DEFAULT_IP_ADDRESS;
 					}
 				}
 			} finally {
@@ -55,7 +60,7 @@ public class SystemUtil {
 			try {
 				if (pid == null) {
 					try {
-						// TODO set default pid
+						pid = DEFAULT_PID;
 						RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
 						if (runtime != null) {
 							String name = runtime.getName();
@@ -88,7 +93,7 @@ public class SystemUtil {
 						hostName = address.getHostName();
 					} catch (Exception e) {
 						logger.warn("Unable to resolve hostname with error " + e.getMessage(), e);
-						// TODO set default host name
+						hostName = DEFAULT_HOSTNAME;
 					}
 				}
 			} finally {
@@ -106,7 +111,8 @@ public class SystemUtil {
 			userNameLock.lock();
 			try {
 				if (userName == null) {
-					// TODO
+					userName = DEFAULT_USERNAME;
+					userName = System.getProperty("user.name");
 				}
 			} finally {
 				userNameLock.unlock();
