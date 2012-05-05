@@ -1,4 +1,4 @@
-﻿package edu.hziee.common.serialization.bytebean.codec.primitive;
+package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import java.io.UnsupportedEncodingException;
 
@@ -15,12 +15,10 @@ import edu.hziee.common.serialization.bytebean.context.EncContext;
  * @author wangqi
  * @version $Id: CStyleStringCodec.java 14 2012-01-10 11:54:14Z archie $
  */
-public class CStyleStringCodec extends AbstractPrimitiveCodec implements
-		ByteFieldCodec {
+public class CStyleStringCodec extends AbstractPrimitiveCodec implements ByteFieldCodec {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(CStyleStringCodec.class);
-	private static final String XIP_STR_CHARSET = "UTF-8";
+	private static final Logger	logger					= LoggerFactory.getLogger(CStyleStringCodec.class);
+	private static final String	XIP_STR_CHARSET	= "UTF-8";
 
 	@Override
 	public Class<?>[] getFieldType() {
@@ -49,8 +47,7 @@ public class CStyleStringCodec extends AbstractPrimitiveCodec implements
 			logger.error("CStyleString", e);
 		}
 
-		return new DecResult(ret, ArrayUtils.subarray(bytes, index + 1,
-				bytes.length));
+		return new DecResult(ret, ArrayUtils.subarray(bytes, index + 1, bytes.length));
 	}
 
 	@Override

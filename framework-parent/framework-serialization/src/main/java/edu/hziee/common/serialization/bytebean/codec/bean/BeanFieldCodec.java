@@ -1,4 +1,4 @@
-﻿package edu.hziee.common.serialization.bytebean.codec.bean;
+package edu.hziee.common.serialization.bytebean.codec.bean;
 
 import edu.hziee.common.serialization.bytebean.codec.ByteFieldCodec;
 import edu.hziee.common.serialization.bytebean.context.DecContextFactory;

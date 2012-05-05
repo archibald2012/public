@@ -1,4 +1,4 @@
-﻿package edu.hziee.common.serialization.bytebean.codec.primitive;
+package edu.hziee.common.serialization.bytebean.codec.primitive;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
@@ -10,11 +10,9 @@ import edu.hziee.common.serialization.bytebean.context.DecContext;
 import edu.hziee.common.serialization.bytebean.context.DecResult;
 import edu.hziee.common.serialization.bytebean.context.EncContext;
 
-public class DoubleCodec extends AbstractPrimitiveCodec implements
-		ByteFieldCodec {
+public class DoubleCodec extends AbstractPrimitiveCodec implements ByteFieldCodec {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DoubleCodec.class);
+	private static final Logger	logger	= LoggerFactory.getLogger(DoubleCodec.class);
 
 	@Override
 	public Class<?>[] getFieldType() {
@@ -28,8 +26,8 @@ public class DoubleCodec extends AbstractPrimitiveCodec implements
 		NumberCodec numberCodec = ctx.getNumberCodec();
 
 		if (byteLength > bytes.length) {
-			String errmsg = "DoubleCodec: not enough bytes for decode, need ["
-					+ byteLength + "], actually [" + bytes.length + "].";
+			String errmsg = "DoubleCodec: not enough bytes for decode, need [" + byteLength + "], actually [" + bytes.length
+					+ "].";
 			if (null != ctx.getField()) {
 				errmsg += "/ cause field is [" + ctx.getField() + "]";
 			}
@@ -37,8 +35,8 @@ public class DoubleCodec extends AbstractPrimitiveCodec implements
 			throw new RuntimeException(errmsg);
 		}
 
-		return new DecResult(numberCodec.bytes2Double(bytes, byteLength),
-				ArrayUtils.subarray(bytes, byteLength, bytes.length));
+		return new DecResult(numberCodec.bytes2Double(bytes, byteLength), ArrayUtils.subarray(bytes, byteLength,
+				bytes.length));
 	}
 
 	@Override
