@@ -149,10 +149,10 @@ public class HttpResponseEncoder implements Transformer<Object, HttpResponse> {
       DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
 
       encContextFactory.setCodecProvider(codecProvider);
-      encContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
+      encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
       decContextFactory.setCodecProvider(codecProvider);
-      decContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
+      decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
       byteBeanCodec.setDecContextFactory(decContextFactory);
       byteBeanCodec.setEncContextFactory(encContextFactory);
