@@ -143,10 +143,10 @@ public class MinaXipEncoder implements ProtocolEncoder {
       DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
 
       encContextFactory.setCodecProvider(codecProvider);
-      encContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
+      encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
       decContextFactory.setCodecProvider(codecProvider);
-      decContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
+      decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
       byteBeanCodec.setDecContextFactory(decContextFactory);
       byteBeanCodec.setEncContextFactory(encContextFactory);

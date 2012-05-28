@@ -64,17 +64,17 @@ public class XipHeader {
 	@ByteField(index = 1)
 	private int length = 0;
 
-	@ByteField(index = 2, bytes = 1)
-	private int type = 1;
-
-	@ByteField(index = 3, bytes = 2)
-	private int reserved = 0;
-
-	@ByteField(index = 4)
+	@ByteField(index = 2)
 	private long firstTransaction;
 
-	@ByteField(index = 5)
+	@ByteField(index = 3)
 	private long secondTransaction;
+	
+	@ByteField(index = 4, bytes = 1)
+	private int type = 1;
+
+	@ByteField(index = 5, bytes = 2)
+	private int reserved = 0;
 
 	@ByteField(index = 6)
 	private int messageCode;

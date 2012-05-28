@@ -93,7 +93,7 @@ public class MinaTextDecoder extends CumulativeProtocolDecoder {
 
 	public NumberCodec getNumberCodec() {
 		if (numberCodec == null) {
-			numberCodec = DefaultNumberCodecs.getLittleEndianNumberCodec();
+			numberCodec = DefaultNumberCodecs.getBigEndianNumberCodec();
 		}
 		return numberCodec;
 	}
