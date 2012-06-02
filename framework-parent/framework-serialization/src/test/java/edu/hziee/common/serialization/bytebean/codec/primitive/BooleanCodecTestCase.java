@@ -49,11 +49,11 @@ public class BooleanCodecTestCase {
 
 		encContextFactory.setCodecProvider(codecProvider);
 		encContextFactory.setNumberCodec(DefaultNumberCodecs
-				.getBigEndianNumberCodec());
+				.getLittleEndianNumberCodec());
 
 		decContextFactory.setCodecProvider(codecProvider);
 		decContextFactory.setNumberCodec(DefaultNumberCodecs
-				.getBigEndianNumberCodec());
+				.getLittleEndianNumberCodec());
 	}
 
 	/**

@@ -201,10 +201,10 @@ public class MinaXipDecoder extends CumulativeProtocolDecoder {
       DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
 
       encContextFactory.setCodecProvider(codecProvider);
-      encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+      encContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
 
       decContextFactory.setCodecProvider(codecProvider);
-      decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+      decContextFactory.setNumberCodec(DefaultNumberCodecs.getLittleEndianNumberCodec());
 
       byteBeanCodec.setDecContextFactory(decContextFactory);
       byteBeanCodec.setEncContextFactory(encContextFactory);

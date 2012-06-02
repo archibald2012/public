@@ -58,11 +58,11 @@ public class EarlyStopBeanCodecTestCase {
 
 		encContextFactory.setCodecProvider(codecProvider);
 		encContextFactory.setNumberCodec(DefaultNumberCodecs
-				.getBigEndianNumberCodec());
+				.getLittleEndianNumberCodec());
 
 		decContextFactory.setCodecProvider(codecProvider);
 		decContextFactory.setNumberCodec(DefaultNumberCodecs
-				.getBigEndianNumberCodec());
+				.getLittleEndianNumberCodec());
 
 		beanCodec.setDecContextFactory(decContextFactory);
 		beanCodec.setEncContextFactory(encContextFactory);
