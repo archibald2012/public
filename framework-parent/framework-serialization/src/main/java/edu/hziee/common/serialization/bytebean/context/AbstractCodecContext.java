@@ -24,21 +24,11 @@ public class AbstractCodecContext extends ByteBeanUtil implements FieldCodecCont
 	protected NumberCodec					numberCodec;
 	protected Class<?>						targetType;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getFieldDesc()
-	 */
 	@Override
 	public ByteFieldDesc getFieldDesc() {
 		return fieldDesc;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getField()
-	 */
 	@Override
 	public Field getField() {
 		if (null != this.fieldDesc) {
@@ -48,25 +38,14 @@ public class AbstractCodecContext extends ByteBeanUtil implements FieldCodecCont
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getNumberCodec()
-	 */
 	@Override
 	public NumberCodec getNumberCodec() {
 		if (null != fieldDesc) {
-			// TODO 字节序暂默认使用小端
-			return DefaultNumberCodecs.getLittleEndianNumberCodec();
+			return DefaultNumberCodecs.getBigEndianNumberCodec();
 		}
 		return numberCodec;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.taotaosou.common.serialization.bytebean.context.FieldCodecContext #getByteSize()
-	 */
 	@Override
 	public int getByteSize() {
 		int ret = -1;
