@@ -203,4 +203,18 @@ public class DefaultEndpoint implements Endpoint {
 		InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
 		return new IpPortPair(addr.getHostName(), addr.getPort());
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DefaultEndpoint other = (DefaultEndpoint) obj;
+		if (session != other.session)
+			return false;
+		return true;
+	}
 }

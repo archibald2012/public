@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp.codec;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -29,24 +28,26 @@ public class MinaTextEncoder implements ProtocolEncoder {
 	private boolean isDebugEnabled;
 	private NumberCodec numberCodec;
 
-	/* (non-Javadoc)
-	 * @see org.apache.mina.filter.codec.ProtocolEncoder#dispose(org.apache.mina.core.session.IoSession)
-	 */
 	@Override
 	public void dispose(IoSession arg0) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.apache.mina.filter.codec.ProtocolEncoder#encode(org.apache.mina.core.session.IoSession, java.lang.Object, org.apache.mina.filter.codec.ProtocolEncoderOutput)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.apache.mina.filter.codec.ProtocolEncoder#encode(org.apache.mina.core
+	 * .session.IoSession, java.lang.Object,
+	 * org.apache.mina.filter.codec.ProtocolEncoderOutput)
 	 */
 	@Override
 	public void encode(IoSession session, Object message,
 			ProtocolEncoderOutput out) throws Exception {
 		if (message instanceof String) {
 			byte[] bytes = ((String) message).getBytes(ENCODING);
-			
+
 			if (null != bytes) {
 				bytes = (byte[]) ArrayUtils.addAll(
 						getNumberCodec().int2Bytes(bytes.length, 4), bytes);

@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
@@ -33,9 +32,6 @@ public class MinaTextDecoder extends CumulativeProtocolDecoder {
 	private final AttributeKey BYTE_LENGTH = new AttributeKey(getClass(),
 			"byteLength");
 
-	/* (non-Javadoc)
-	 * @see org.apache.mina.filter.codec.CumulativeProtocolDecoder#doDecode(org.apache.mina.core.session.IoSession, org.apache.mina.core.buffer.IoBuffer, org.apache.mina.filter.codec.ProtocolDecoderOutput)
-	 */
 	@Override
 	protected boolean doDecode(IoSession session, IoBuffer in,
 			ProtocolDecoderOutput out) throws Exception {

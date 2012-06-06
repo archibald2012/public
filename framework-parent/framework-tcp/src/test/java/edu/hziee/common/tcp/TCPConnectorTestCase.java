@@ -3,15 +3,15 @@ package edu.hziee.common.tcp;
 import java.util.ArrayList;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
-import edu.hziee.common.tcp.TCPConnector;
 import edu.hziee.common.tcp.bto.NestedBean;
 import edu.hziee.common.tcp.bto.SampleReq;
+import edu.hziee.common.tcp.bto.SampleResp;
 
 public class TCPConnectorTestCase {
 
@@ -59,16 +59,14 @@ public class TCPConnectorTestCase {
 		TCPConnector sender = (TCPConnector) ctx.getBean("connector");
 
 		try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-		sender.send(signal);
-		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		/*SampleResp resp = (SampleResp) sender.sendAndWait(signal);
+		Assert.assertEquals(signal.getIdentification(),
+				resp.getIdentification());*/
 
 	}
 }

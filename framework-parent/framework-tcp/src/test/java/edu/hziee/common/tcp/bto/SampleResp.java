@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    SampleResp.java
- * Creator:     wangqi
- * Create-Date: 2011-6-15 上午09:52:36
- *******************************************************************************/
 package edu.hziee.common.tcp.bto;
 
 import edu.hziee.common.serialization.bytebean.annotation.ByteField;
@@ -19,7 +13,7 @@ import edu.hziee.common.serialization.protocol.xip.XipResponse;
  */
 @SignalCode(messageCode = 100002)
 public class SampleResp extends AbstractXipSignal implements XipResponse {
-	
+
 	@ByteField(index = 0)
 	private int intField;
 

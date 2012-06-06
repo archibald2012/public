@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    SampleBean.java
- * Creator:     wangqi
- * Create-Date: 2011-4-27 下午03:46:48
- *******************************************************************************/
 package edu.hziee.common.tcp.bto;
 
 import java.util.ArrayList;
@@ -24,7 +18,7 @@ import edu.hziee.common.serialization.protocol.xip.XipRequest;
  * @version $Id: SampleReq.java 14 2012-01-10 11:54:14Z archie $
  */
 @SignalCode(messageCode = 100001)
-public class SampleReq extends AbstractXipSignal implements XipRequest{
+public class SampleReq extends AbstractXipSignal implements XipRequest {
 
 	@ByteField(index = 0)
 	private int intField;

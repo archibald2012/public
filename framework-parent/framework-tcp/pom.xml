@@ -58,7 +58,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<obfuscate>true</obfuscate>
+					<obfuscate>false</obfuscate>
 					<injar>${project.build.finalName}.jar</injar>
 					<outjar>${project.build.finalName}-small.jar</outjar>
 					<outputDirectory>${project.build.directory}</outputDirectory>
