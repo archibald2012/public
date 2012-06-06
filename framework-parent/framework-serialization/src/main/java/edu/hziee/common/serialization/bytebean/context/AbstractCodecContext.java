@@ -41,7 +41,7 @@ public class AbstractCodecContext extends ByteBeanUtil implements FieldCodecCont
 	@Override
 	public NumberCodec getNumberCodec() {
 		if (null != fieldDesc) {
-			return DefaultNumberCodecs.getLittleEndianNumberCodec();
+			return DefaultNumberCodecs.getBigEndianNumberCodec();
 		}
 		return numberCodec;
 	}
