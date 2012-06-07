@@ -1,6 +1,7 @@
 package edu.hziee.common.tcp.endpoint;
 
 import java.net.InetSocketAddress;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,7 @@ public class DefaultEndpoint implements Endpoint {
 
 	private static final Logger			logger					= LoggerFactory.getLogger(DefaultEndpoint.class);
 
+	private UUID										id							= null;
 	private Closure									nextClosure			= null;
 	private Receiver								receiver				= null;
 	private Holder									context					= null;
@@ -53,6 +55,10 @@ public class DefaultEndpoint implements Endpoint {
 		public void set(V v) {
 			super.set(v);
 		}
+	}
+
+	public DefaultEndpoint() {
+		this.id = UUID.randomUUID();
 	}
 
 	@Override
@@ -203,7 +209,7 @@ public class DefaultEndpoint implements Endpoint {
 		InetSocketAddress addr = (InetSocketAddress) session.getRemoteAddress();
 		return new IpPortPair(addr.getHostName(), addr.getPort());
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -213,8 +219,18 @@ public class DefaultEndpoint implements Endpoint {
 		if (getClass() != obj.getClass())
 			return false;
 		DefaultEndpoint other = (DefaultEndpoint) obj;
-		if (session != other.session)
+		if (id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public void setIdentification(UUID id) {
+		this.id = id;
+	}
+
+	@Override
+	public UUID getIdentification() {
+		return id;
 	}
 }
