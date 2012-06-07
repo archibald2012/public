@@ -1,4 +1,3 @@
-
 package edu.hziee.common.dispatcher.receiver;
 
 import java.lang.reflect.Method;
@@ -6,8 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,19 +24,16 @@ import edu.hziee.common.lang.transport.Receiver;
  */
 public class SimpleDispatcher implements Receiver {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(SimpleDispatcher.class);
+	private static final Logger						logger			= LoggerFactory.getLogger(SimpleDispatcher.class);
 
-	private Map<Class<?>, BusinessCourse> courseTable = new HashMap<Class<?>, BusinessCourse>();
+	private Map<Class<?>, BusinessCourse>	courseTable	= new HashMap<Class<?>, BusinessCourse>();
 
-	private ExecutorService mainExecutor = Executors.newSingleThreadExecutor();
-
-	private TransactionStatisticer statisticer = new TransactionStatisticer();
+	private TransactionStatisticer				statisticer	= new TransactionStatisticer();
 
 	private static final class Key {
 
-		private Class<?> courseClass;
-		private Class<?> beanClass;
+		private Class<?>	courseClass;
+		private Class<?>	beanClass;
 
 		public Key(Class<?> courseClass, Class<?> beanClass) {
 			this.courseClass = courseClass;
@@ -48,21 +42,21 @@ public class SimpleDispatcher implements Receiver {
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#hashCode()
 		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result
-					+ ((beanClass == null) ? 0 : beanClass.hashCode());
-			result = prime * result
-					+ ((courseClass == null) ? 0 : courseClass.hashCode());
+			result = prime * result + ((beanClass == null) ? 0 : beanClass.hashCode());
+			result = prime * result + ((courseClass == null) ? 0 : courseClass.hashCode());
 			return result;
 		}
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#equals(java.lang.Object)
 		 */
 		@Override
@@ -88,7 +82,7 @@ public class SimpleDispatcher implements Receiver {
 		}
 	}
 
-	private static final Method EMPTY_METHOD;
+	private static final Method				EMPTY_METHOD;
 
 	static {
 		Method tmp = null;
@@ -100,78 +94,60 @@ public class SimpleDispatcher implements Receiver {
 		EMPTY_METHOD = tmp;
 	}
 
-	private SimpleCache<Key, Method> bizMethodCache = new SimpleCache<Key, Method>();
+	private SimpleCache<Key, Method>	bizMethodCache	= new SimpleCache<Key, Method>();
 
-	private Method getBizMethod(final Class<?> courseClass,
-			final Class<?> beanClass) {
+	private Method getBizMethod(final Class<?> courseClass, final Class<?> beanClass) {
 
-		Method ret = bizMethodCache.get(new Key(courseClass, beanClass),
-				new Callable<Method>() {
+		Method ret = bizMethodCache.get(new Key(courseClass, beanClass), new Callable<Method>() {
 
-					public Method call() throws Exception {
-						Method[] methods = ClassUtil.getAllMethodOf(courseClass);
+			public Method call() throws Exception {
+				Method[] methods = ClassUtil.getAllMethodOf(courseClass);
 
-						for (Method method : methods) {
-							BizMethod biz = method.getAnnotation(BizMethod.class);
+				for (Method method : methods) {
+					BizMethod biz = method.getAnnotation(BizMethod.class);
 
-							if (null != biz) {
-								Class<?>[] params = method.getParameterTypes();
-								if (params.length < 1) {
-									if (logger.isWarnEnabled()) {
-										logger.warn("Method ["
-												+ method.getName()
-												+ "] found but only ["
-												+ params.length
-												+ "] parameters found, need to be 1.");
-									}
-									continue;
-								}
-								if (params[0].isAssignableFrom(beanClass)) {
-									return method;
-								}
+					if (null != biz) {
+						Class<?>[] params = method.getParameterTypes();
+						if (params.length < 1) {
+							if (logger.isWarnEnabled()) {
+								logger.warn("Method [" + method.getName() + "] found but only [" + params.length
+										+ "] parameters found, need to be 1.");
 							}
+							continue;
 						}
-
-						return EMPTY_METHOD;
+						if (params[0].isAssignableFrom(beanClass)) {
+							return method;
+						}
 					}
-				});
+				}
+
+				return EMPTY_METHOD;
+			}
+		});
 		return (ret == EMPTY_METHOD) ? null : ret;
 	}
 
 	public void messageReceived(final Object input) {
 
-		Runnable task = new Runnable() {
+		final Object message = input;
 
-			public void run() {
-				final Object message = input;
-
-				BusinessCourse course = getCourse(message.getClass());
-				if (course == null) {
-					if (logger.isErrorEnabled()) {
-						logger.error("No course class found for ["
-								+ message.getClass().getName()
-								+ "]. Process stopped.");
-					}
-					return;
-				}
-				try {
-					if (statisticer != null) {
-						statisticer.incHandledTransactionStart();
-					}
-					invokeBizMethod(course, message);
-					if (statisticer != null) {
-						statisticer.incHandledTransactionEnd();
-					}
-				} catch (Exception e) {
-					logger.error("biz error.", e);
-				}
+		BusinessCourse course = getCourse(message.getClass());
+		if (course == null) {
+			if (logger.isErrorEnabled()) {
+				logger.error("No course class found for [" + message.getClass().getName() + "]. Process stopped.");
 			}
-		};
-
-		if (mainExecutor != null) {
-			mainExecutor.submit(task);
-		} else {
-			task.run();
+			return;
+		}
+		try {
+			if (statisticer != null) {
+				statisticer.incHandledTransactionStart();
+			}
+			invokeBizMethod(course, message);
+			if (statisticer != null) {
+				statisticer.incHandledTransactionEnd();
+			}
+		} catch (Exception e) {
+			logger.error("biz error.", e);
 		}
 
 	}
@@ -183,14 +159,12 @@ public class SimpleDispatcher implements Receiver {
 				bizMethod.invoke(course, msg);
 			} catch (Exception e) {
 				if (logger.isErrorEnabled()) {
-					logger.error("Invoke biz method [" + bizMethod.getName()
-							+ "] failed. ", e);
+					logger.error("Invoke biz method [" + bizMethod.getName() + "] failed. ", e);
 				}
 			}
 		} else {
 			if (logger.isErrorEnabled()) {
-				logger.error("No biz method found for message ["
-						+ msg.getClass().getName() + "]. No process execute.");
+				logger.error("No biz method found for message [" + msg.getClass().getName() + "]. No process execute.");
 			}
 		}
 	}
@@ -213,10 +187,6 @@ public class SimpleDispatcher implements Receiver {
 				}
 			}
 		}
-	}
-
-	public void setThreads(int threads) {
-		this.mainExecutor = Executors.newFixedThreadPool(threads);
 	}
 
 	public void setStatisticer(TransactionStatisticer statisticer) {
