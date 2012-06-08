@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
  * @author Administrator
  * 
  */
-public class ReceiveListener extends Thread implements Receiver {
+public class MessageListener extends Thread implements Receiver {
 
-	private static final Logger		logger				= LoggerFactory.getLogger(ReceiveListener.class);
+	private static final Logger		logger				= LoggerFactory.getLogger(MessageListener.class);
 
 	private BlockingQueue<Object>	queue;
 	private int										poolSize			= 1024;
@@ -28,12 +28,21 @@ public class ReceiveListener extends Thread implements Receiver {
 	private int										awaitingTime	= 1000;
 	private Receiver							receiver;
 
-	public ReceiveListener() {
-		queue = new LinkedBlockingQueue<Object>(poolSize);
+	public MessageListener(String name, Receiver receiver) {
+		this(name, 1024, receiver);
+	}
+
+	public MessageListener(String name, int poolSize, Receiver receiver) {
+		super(name);
+		this.receiver = receiver;
+		this.queue = new LinkedBlockingQueue<Object>(poolSize);
 	}
 
 	@Override
 	public void run() {
+
+		logger.info("Listener " + getName() + " run as single mode.");
+
 		while (true) {
 			try {
 
@@ -100,6 +109,7 @@ public class ReceiveListener extends Thread implements Receiver {
 	}
 
 	public void terminate() {
+		logger.info("Listener " + getName() + " terminating.");
 		isTerminating.set(true);
 		flush();
 	}
@@ -117,12 +127,12 @@ public class ReceiveListener extends Thread implements Receiver {
 
 	private void dispatch(Object msg) {
 		if (receiver != null) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("dispatch message. msg=[{}]", msg);
+			if (logger.isDebugEnabled()) {
+				logger.debug("dispatch message. msg=[{}]", msg);
 			}
 			receiver.messageReceived(msg);
 		} else {
-			logger.debug("No receiver defined.");
+			logger.warn("No receiver defined.");
 		}
 	}
 
