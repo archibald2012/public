@@ -3,7 +3,6 @@ package edu.hziee.common.tcp.endpoint;
 
 import org.apache.mina.core.session.IoSession;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.Identifiable;
 import edu.hziee.common.lang.IpPortPair;
@@ -24,7 +23,6 @@ public interface Endpoint extends Sender, SenderSync, Receiver, Identifiable {
 
   void setSession(IoSession session);
 
-  void setNextClosure(Closure nextClosure);
   void setReceiver(Receiver receiver);
   void setContext(Holder context);
 

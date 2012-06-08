@@ -12,7 +12,6 @@ import org.apache.mina.core.session.IoSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.IpPortPair;
 import edu.hziee.common.lang.KeyTransformer;
@@ -30,7 +29,6 @@ public class DefaultEndpoint implements Endpoint {
 	private static final Logger			logger					= LoggerFactory.getLogger(DefaultEndpoint.class);
 
 	private UUID										id							= null;
-	private Closure									nextClosure			= null;
 	private Receiver								receiver				= null;
 	private Holder									context					= null;
 
@@ -130,15 +128,11 @@ public class DefaultEndpoint implements Endpoint {
 				}
 			}
 		}
-		if (null != nextClosure) {
-			this.nextClosure.execute(msg);
-		}
 	}
 
 	@Override
 	public void stop() {
 		this.context = null;
-		this.nextClosure = null;
 		this.receiver = null;
 		if (endpointListener != null) {
 			endpointListener.onStop(this);
@@ -170,10 +164,6 @@ public class DefaultEndpoint implements Endpoint {
 				}
 			});
 		}
-	}
-
-	public void setNextClosure(Closure nextClosure) {
-		this.nextClosure = nextClosure;
 	}
 
 	public void setReceiver(Receiver receiver) {

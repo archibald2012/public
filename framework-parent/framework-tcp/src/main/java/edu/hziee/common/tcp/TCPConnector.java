@@ -18,7 +18,6 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
@@ -215,10 +214,6 @@ public class TCPConnector implements SenderSync, Sender {
 
   public IoServiceStatistics getStatistics() {
     return connector.getStatistics();
-  }
-
-  public void setNextClosure(Closure nextClosure) {
-    endpointFactory.setNextClosure(nextClosure);
   }
 
   public void setReceiver(Receiver receiver) {

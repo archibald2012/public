@@ -3,7 +3,6 @@ package edu.hziee.common.tcp.endpoint;
 
 import org.apache.mina.core.session.IoSession;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.transport.Receiver;
 
@@ -15,7 +14,6 @@ import edu.hziee.common.lang.transport.Receiver;
  */
 public interface EndpointFactory {
   Endpoint createEndpoint(IoSession session);
-  void setNextClosure(Closure nextClosure);
   void setReceiver(Receiver receiver);
   void setContext(Holder responseContext);
   void setEndpointListener(IEndpointChangeListener endpointListener);

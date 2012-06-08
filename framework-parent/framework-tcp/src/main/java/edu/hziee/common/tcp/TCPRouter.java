@@ -13,7 +13,6 @@ import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.IpPortPair;
 import edu.hziee.common.lang.transport.DefaultHolder;
@@ -36,7 +35,6 @@ public class TCPRouter implements SenderSync, Sender {
 
   private ProtocolCodecFactory                    codecFactory       = null;
 
-  private Closure                                 nextClosure        = null;
   private Receiver                                receiver           = null;
   private Holder                                  context            = new DefaultHolder();
   private long                                    retryTimeout       = 1;
@@ -179,7 +177,6 @@ public class TCPRouter implements SenderSync, Sender {
         connector = oldConnector;
       } else {
         
-        connector.setNextClosure(this.nextClosure);
         connector.setReceiver(this.receiver);
         connector.setContext(this.context);
         connector.setEndpointListener(this.endpointListener);
@@ -226,10 +223,6 @@ public class TCPRouter implements SenderSync, Sender {
 
   public void setCodecFactory(ProtocolCodecFactory codecFactory) {
     this.codecFactory = codecFactory;
-  }
-
-  public void setNextClosure(Closure nextClosure) {
-    this.nextClosure = nextClosure;
   }
 
   public void setReceiver(Receiver receiver) {

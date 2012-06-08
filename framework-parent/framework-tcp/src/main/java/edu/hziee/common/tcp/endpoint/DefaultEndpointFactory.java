@@ -2,7 +2,6 @@ package edu.hziee.common.tcp.endpoint;
 
 import org.apache.mina.core.session.IoSession;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.transport.DefaultHolder;
 import edu.hziee.common.lang.transport.Receiver;
@@ -15,7 +14,6 @@ import edu.hziee.common.lang.transport.Receiver;
  */
 public class DefaultEndpointFactory implements EndpointFactory {
 
-  private Closure                 nextClosure      = null;
   private Receiver                receiver         = null;
   private Holder                  context          = new DefaultHolder();
   private IEndpointChangeListener endpointListener = null;
@@ -33,7 +31,6 @@ public class DefaultEndpointFactory implements EndpointFactory {
 
     endpoint.setSession(session);
 
-    endpoint.setNextClosure(this.nextClosure);
     endpoint.setReceiver(this.receiver);
     endpoint.setContext(this.context);
     endpoint.setEndpointListener(this.endpointListener);
@@ -41,14 +38,6 @@ public class DefaultEndpointFactory implements EndpointFactory {
     endpoint.start();
 
     return endpoint;
-  }
-
-  public Closure getNextClosure() {
-    return nextClosure;
-  }
-
-  public void setNextClosure(Closure nextClosure) {
-    this.nextClosure = nextClosure;
   }
 
   public Receiver getReceiver() {

@@ -13,7 +13,6 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.lang.Closure;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.tcp.endpoint.DefaultEndpointFactory;
@@ -144,10 +143,6 @@ public class TCPAcceptor {
 
   public void setRetryTimeout(long retryTimeout) {
     this.retryTimeout = retryTimeout;
-  }
-
-  public void setNextClosure(Closure nextClosure) {
-    endpointFactory.setNextClosure(nextClosure);
   }
 
   public void setReceiver(Receiver receiver) {
