@@ -3,6 +3,8 @@ package edu.hziee.common.tcp.endpoint;
 import java.util.List;
 
 import org.apache.mina.core.session.IoSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.transport.DefaultHolder;
@@ -18,6 +20,8 @@ import edu.hziee.common.lang.transport.Receiver;
  */
 public class DefaultEndpointFactory implements EndpointFactory {
 
+	private static final Logger			logger					= LoggerFactory.getLogger(DefaultEndpointFactory.class);
+	
 	private Receiver								receiver					= null;
 	private Holder									context						= new DefaultHolder();
 	private IEndpointChangeListener	endpointListener	= null;
@@ -31,7 +35,11 @@ public class DefaultEndpointFactory implements EndpointFactory {
 		endpoint.setEndpointListener(endpointListener);
 		if (receiver instanceof MessageBatchListener) {
 			List<MessageListener> listenerList = ((MessageBatchListener) receiver).getListenerList();
-			MessageListener messageListener = listenerList.get(endpoint.hashCode() % listenerList.size());
+			int index = Math.abs(endpoint.hashCode()) % listenerList.size();
+			MessageListener messageListener = listenerList.get(index);
+			if(logger.isDebugEnabled()){
+				logger.debug("Attach lister " + messageListener.getName() + " to endpoint " + endpoint);
+			}
 			endpoint.setReceiver(messageListener);
 		} else {
 			endpoint.setReceiver(receiver);
