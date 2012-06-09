@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    XDataSetTestExecutionListener.java
- * Creator:     Administrator
- * Create-Date: 2011-5-20 上午09:52:18
- *******************************************************************************/
 package edu.hziee.common.test.db;
 
 import static java.lang.String.format;
@@ -43,7 +37,8 @@ import org.springframework.util.ResourceUtils;
  * TODO
  * 
  * @author Administrator
- * @version $Id: XDataSetTestExecutionListener.java 14 2012-01-10 11:54:14Z archie $
+ * @version $Id: XDataSetTestExecutionListener.java 14 2012-01-10 11:54:14Z
+ *          archie $
  */
 public class XDataSetTestExecutionListener extends
 		AbstractTestExecutionListener {

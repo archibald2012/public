@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BaseXDataSetTestCase.java
- * Creator:     Administrator
- * Create-Date: 2011-5-20 上午10:05:05
- *******************************************************************************/
 package edu.hziee.common.test.db;
 
 import java.beans.PropertyDescriptor;
@@ -33,7 +27,8 @@ import edu.hziee.common.test.db.util.PropertyUtil;
  * 支持测试类的数据回滚，支持多数据源
  * 
  * @author Administrator
- * @version $Id: BaseTransactionalXDataSetTestCase.java 14 2012-01-10 11:54:14Z archie $
+ * @version $Id: BaseTransactionalXDataSetTestCase.java 14 2012-01-10 11:54:14Z
+ *          archie $
  */
 @TestExecutionListeners({ XDataSetTestExecutionListener.class })
 public class BaseTransactionalXDataSetTestCase extends

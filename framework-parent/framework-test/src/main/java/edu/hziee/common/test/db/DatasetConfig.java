@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    DataSetConfig.java
- * Creator:     Administrator
- * Create-Date: 2011-5-20 上午09:54:30
- *******************************************************************************/
 package edu.hziee.common.test.db;
 
 import org.dbunit.IDatabaseTester;
@@ -15,9 +9,9 @@ import org.dbunit.IDatabaseTester;
  * @version $Id: DatasetConfig.java 14 2012-01-10 11:54:14Z archie $
  */
 public class DatasetConfig {
-	
+
 	private IDatabaseTester databaseTester;
-	
+
 	private boolean transactional;
 
 	private String location;

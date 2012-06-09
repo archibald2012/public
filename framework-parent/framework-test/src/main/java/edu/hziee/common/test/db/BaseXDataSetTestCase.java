@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    BaseXDataSetTestCase.java
- * Creator:     Administrator
- * Create-Date: 2011-5-20 上午10:05:05
- *******************************************************************************/
 package edu.hziee.common.test.db;
 
 import java.beans.PropertyDescriptor;

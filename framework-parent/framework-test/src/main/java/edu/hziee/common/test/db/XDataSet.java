@@ -1,9 +1,3 @@
-/*******************************************************************************
- * CopyRight (c) 2005-2011 TAOTAOSOU Co, Ltd. All rights reserved.
- * Filename:    XDataSet.java
- * Creator:     Administrator
- * Create-Date: 2011-5-19 下午01:36:42
- *******************************************************************************/
 package edu.hziee.common.test.db;
 
 import java.lang.annotation.Documented;

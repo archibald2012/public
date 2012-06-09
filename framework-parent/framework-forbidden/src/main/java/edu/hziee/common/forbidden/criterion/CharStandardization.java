@@ -7,37 +7,37 @@ import java.io.InputStreamReader;
 
 public class CharStandardization {
 
-	public static final int			SYMBOL_MASK										= 0x1 << 16;
-	public static final int			TRAD_MASK											= 0x2 << 16;
-	public static final int			DBC_MASK											= 0x4 << 16;
-	public static final int			UPPER_MASK										= 0x8 << 16;
-	public static final int			HAN_MASK											= 0x10 << 16;
-	public static final int			SYNONYMY_MASK									= 0x20 << 16;
+	public static final int SYMBOL_MASK = 0x1 << 16;
+	public static final int TRAD_MASK = 0x2 << 16;
+	public static final int DBC_MASK = 0x4 << 16;
+	public static final int UPPER_MASK = 0x8 << 16;
+	public static final int HAN_MASK = 0x10 << 16;
+	public static final int SYNONYMY_MASK = 0x20 << 16;
 
-	public static final String	TRAD2SIMP_FILE								= "Trad2Simp_CT.txt";
-	public static final String	UPPER_FILE										= "Upper2Lower_CT.txt";
-	public static final String	SYMBOL_FILE										= "Symbol_CT.txt";
-	public static final String	DBC_FILE											= "DBC_CT.txt";
-	public static final String	SYNONYMY_FILE									= "Synonymy_CT.txt";
+	public static final String TRAD2SIMP_FILE = "Trad2Simp_CT.txt";
+	public static final String UPPER_FILE = "Upper2Lower_CT.txt";
+	public static final String SYMBOL_FILE = "Symbol_CT.txt";
+	public static final String DBC_FILE = "DBC_CT.txt";
+	public static final String SYNONYMY_FILE = "Synonymy_CT.txt";
 
-	public static final char		PARAGRAPH_BREAK								= '\n';
+	public static final char PARAGRAPH_BREAK = '\n';
 	/**
 	 * 默认控制字符。
 	 */
-	public static final char		DEFAULT_BLANK_CHAR						= (char) 0xffff;
+	public static final char DEFAULT_BLANK_CHAR = (char) 0xffff;
 	/**
 	 * 中文代码页分隔符
 	 */
-	public static final char		CJK_UNIFIED_IDEOGRAPHS_START	= 0x4e00;
-	public static final char		CJK_UNIFIED_IDEOGRAPHS_END		= 0xA000;
+	public static final char CJK_UNIFIED_IDEOGRAPHS_START = 0x4e00;
+	public static final char CJK_UNIFIED_IDEOGRAPHS_END = 0xA000;
 
 	/**
 	 * 半角空格的值，在ASCII中为32(Decimal)
 	 */
-	public static final char		DBC_SPACE											= ' ';									// 半角空格
+	public static final char DBC_SPACE = ' '; // 半角空格
 
 	// 字符表编码
-	private static int[]				codeTable;
+	private static int[] codeTable;
 
 	static {
 		loadCodeTable();
@@ -56,31 +56,33 @@ public class CharStandardization {
 	 * </PRE>
 	 * 
 	 * @param src
-	 *          源字符串
+	 *            源字符串
 	 * @param needT2S
-	 *          繁简体转换
+	 *            繁简体转换
 	 * @param needDBC
-	 *          全半角转换
+	 *            全半角转换
 	 * @param ignoreCase
-	 *          大写转小写
+	 *            大写转小写
 	 * @param filterNoneHanLetter
-	 *          过滤非汉字字符
+	 *            过滤非汉字字符
 	 * @param filterSymbol
-	 *          是否过滤symbol字符（包括"\n""\r"" ""\t"等,见Symbol_CT.txt），
+	 *            是否过滤symbol字符（包括"\n""\r"" ""\t"等,见Symbol_CT.txt），
 	 * @param keepLastSymbol
-	 *          连续symbol字符是否保留一个
+	 *            连续symbol字符是否保留一个
 	 * @return 转换后的字符串，长度可能比转换前的短
 	 */
-	public static String compositeTextConvert(String src, boolean needT2S, boolean needDBC, boolean ignoreCase,
-			boolean filterNoneHanLetter, boolean convertSynonymy, boolean filterSymbol, boolean keepLastSymbol) {
+	public static String compositeTextConvert(String src, boolean needT2S,
+			boolean needDBC, boolean ignoreCase, boolean filterNoneHanLetter,
+			boolean convertSynonymy, boolean filterSymbol,
+			boolean keepLastSymbol) {
 		if (src == null || src.length() == 0) {
 			return src;
 		}
 		char[] chs = src.toCharArray();
 		StringBuilder buffer = new StringBuilder(chs.length);
 		for (int i = 0; i < chs.length; i++) {
-			char c = compositeCharConvert(chs[i], needT2S, needDBC, ignoreCase, filterNoneHanLetter, convertSynonymy,
-					filterSymbol);
+			char c = compositeCharConvert(chs[i], needT2S, needDBC, ignoreCase,
+					filterNoneHanLetter, convertSynonymy, filterSymbol);
 			if (keepLastSymbol) {
 				if (c == DEFAULT_BLANK_CHAR && i < chs.length - 1) {
 					char next = chs[i + 1];
@@ -116,21 +118,22 @@ public class CharStandardization {
 	 * </PRE>
 	 * 
 	 * @param needT2S
-	 *          繁简体转换
+	 *            繁简体转换
 	 * @param needDBC
-	 *          全半角转换
+	 *            全半角转换
 	 * @param ignoreCase
-	 *          大写转小写
+	 *            大写转小写
 	 * @param filterNoneHanLetter
-	 *          过滤非汉字字符
+	 *            过滤非汉字字符
 	 * @param filterSymbol
-	 *          是否过滤symbol字符（包括"\n""\r"" ""\t"等,见Symbol_CT.txt），
+	 *            是否过滤symbol字符（包括"\n""\r"" ""\t"等,见Symbol_CT.txt），
 	 * @param keepLastSpace
-	 *          连续symbol字符是否保留一个
+	 *            连续symbol字符是否保留一个
 	 * @return 转换后的字符串，长度可能比转换前的短
 	 */
-	public static final char compositeCharConvert(char c, boolean needT2S, boolean needDBC, boolean ignoreCase,
-			boolean filterNoneHanLetter, boolean convertSynonymy, boolean filterSymbol) {
+	public static final char compositeCharConvert(char c, boolean needT2S,
+			boolean needDBC, boolean ignoreCase, boolean filterNoneHanLetter,
+			boolean convertSynonymy, boolean filterSymbol) {
 		if (needT2S) {
 			c = convertCharT2S(c);
 		}
@@ -237,16 +240,19 @@ public class CharStandardization {
 		}
 	}
 
-	private static final void loadCodeTable(String file, String encoding, int[] codeTbl, int mask) {
+	private static final void loadCodeTable(String file, String encoding,
+			int[] codeTbl, int mask) {
 		String pckName = CharStandardization.class.getPackage().getName();
 		file = "/" + pckName.replace('.', '/') + "/resources/" + file;
-		InputStream istream = CharStandardization.class.getResourceAsStream(file);
+		InputStream istream = CharStandardization.class
+				.getResourceAsStream(file);
 		if (istream == null) {
 			throw new RuntimeException("Could not find code table: " + file);
 		}
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new InputStreamReader(istream, encoding), 2048);
+			reader = new BufferedReader(
+					new InputStreamReader(istream, encoding), 2048);
 			String line = null;
 			int i = 0;
 			char c = 0;
