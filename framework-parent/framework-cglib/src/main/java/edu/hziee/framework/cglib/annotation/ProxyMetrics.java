@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hziee.framework.cglib;
+package edu.hziee.framework.cglib.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,4 +16,6 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD })
 public @interface ProxyMetrics {
 
+	String component() default "";
+	String function() default "";
 }

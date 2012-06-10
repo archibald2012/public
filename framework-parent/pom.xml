@@ -210,6 +210,11 @@
 				<version>5.2.1.Final</version>
 			</dependency>
 			<dependency>
+    	<groupId>cglib</groupId>
+    	<artifactId>cglib-nodep</artifactId>
+    	<version>2.2.2</version>
+    </dependency>
+			<dependency>
 				<groupId>org.apache.zookeeper</groupId>
 				<artifactId>zookeeper</artifactId>
 				<version>3.3.5</version>
