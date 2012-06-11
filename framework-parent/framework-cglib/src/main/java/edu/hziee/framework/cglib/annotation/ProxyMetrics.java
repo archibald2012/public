@@ -17,5 +17,8 @@ import java.lang.annotation.Target;
 public @interface ProxyMetrics {
 
 	String component() default "";
+
 	String function() default "";
+
+	int inspectable() default -1;
 }

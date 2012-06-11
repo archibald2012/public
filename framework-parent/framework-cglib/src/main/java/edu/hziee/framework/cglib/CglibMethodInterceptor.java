@@ -35,6 +35,7 @@ public class CglibMethodInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(object, args);
 		} else {
 
+			CoreProxyHandler proxyHandler = CoreProxyHandler.getInstance();
 			Object result = null;
 			MetricsTimer metricsTimer = null;
 			try {
@@ -47,7 +48,12 @@ public class CglibMethodInterceptor implements MethodInterceptor {
 				if (functionName.length() == 0) {
 					functionName = method.getName();
 				}
-
+				Object argument = null;
+				if (proxyMetrics.inspectable() >= 0 && proxyMetrics.inspectable() < args.length) {
+					argument = args[proxyMetrics.inspectable()];
+				}
+				// start metrics timer.
+				metricsTimer = proxyHandler.startMetricsTimer(componentName, functionName, argument);
 			} catch (RuntimeException e) {
 				logger.warn("Failed to start interceptor with error " + e.getMessage(), e);
 			}
@@ -64,8 +70,12 @@ public class CglibMethodInterceptor implements MethodInterceptor {
 			} finally {
 				try {
 					if (metricsTimer != null) {
-						// stop metrics timer
-
+						// stop metrics timer.
+						Object argument = null;
+						if (proxyMetrics.inspectable() == -1) {
+							argument = result;
+						}
+						proxyHandler.stopMetricsTimer(metricsTimer, argument, exception);
 					}
 				} catch (RuntimeException e) {
 					logger.warn("Failed to stop interceptor with error " + e.getMessage(), e);

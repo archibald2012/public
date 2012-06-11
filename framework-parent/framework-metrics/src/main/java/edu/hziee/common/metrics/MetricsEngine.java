@@ -16,4 +16,6 @@ public interface MetricsEngine {
 	boolean isThrowException();
 
 	void setThrowException(boolean throwException);
+	
+	MetricsCollector createMetricsCollector(String componentName);
 }
