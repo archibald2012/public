@@ -122,7 +122,9 @@ public class TCPAcceptor {
 
 		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
-			logger.error("TCPAcceptor:", e);
+			if (logger.isDebugEnabled()) {
+				logger.debug("TCPAcceptor: " + e.getMessage());
+			}
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
 				endpoint.stop();
