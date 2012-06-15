@@ -1,4 +1,3 @@
-
 package edu.hziee.common.dbroute;
 
 import java.io.Serializable;
@@ -19,9 +18,9 @@ public class BaseDO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7725115871533796806L;
+	private static final long	serialVersionUID	= 7725115871533796806L;
 
-	private DBRoute dbRoute;
+	private DBRoute						dbRoute;
 
 	public DBRoute getDbRoute() {
 		return dbRoute;
@@ -33,7 +32,6 @@ public class BaseDO implements Serializable {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this,
-				ToStringStyle.MULTI_LINE_STYLE);
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }
