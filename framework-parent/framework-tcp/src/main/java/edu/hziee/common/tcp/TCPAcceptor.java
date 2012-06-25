@@ -45,7 +45,7 @@ public class TCPAcceptor {
 		acceptor.setHandler(new IOHandler());
 		acceptor.getSessionConfig().setReadBufferSize(2048);
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
-
+    
 		int retryCount = 0;
 		boolean binded = false;
 		do {
@@ -123,7 +123,7 @@ public class TCPAcceptor {
 		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
 			if (logger.isDebugEnabled()) {
-				logger.debug("TCPAcceptor: " + e.getMessage());
+				logger.debug("exceptionCaught: " + e.getMessage());
 			}
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
 			if (null != endpoint) {

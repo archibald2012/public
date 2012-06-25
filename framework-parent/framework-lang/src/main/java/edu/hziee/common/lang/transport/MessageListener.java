@@ -13,6 +13,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.lang.Functor;
+
 /**
  * @author Administrator
  * 
@@ -130,7 +132,13 @@ public class MessageListener extends Thread implements Receiver {
 			if (logger.isDebugEnabled()) {
 				logger.debug("dispatch message. msg=[{}]", msg);
 			}
-			receiver.messageReceived(msg);
+			if(msg instanceof Functor){
+				Functor func = (Functor)msg;
+				func.execute(new Object[]{});
+			}else{
+				receiver.messageReceived(msg);
+			}
+		
 		} else {
 			logger.warn("No receiver defined.");
 		}
