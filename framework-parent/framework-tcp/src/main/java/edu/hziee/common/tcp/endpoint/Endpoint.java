@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp.endpoint;
 
 import org.apache.mina.core.session.IoSession;
@@ -18,15 +17,19 @@ import edu.hziee.common.lang.transport.SenderSync;
  */
 public interface Endpoint extends Sender, SenderSync, Receiver, Identifiable {
 
-  void stop();
-  void start();
+	void start();
 
-  void setSession(IoSession session);
+	void stop();
 
-  void setReceiver(Receiver receiver);
-  void setContext(Holder context);
+	void setSession(IoSession session);
 
-  void setEndpointListener(IEndpointChangeListener endpointListener);
-  
-  IpPortPair getRemoteAddress();
+	void closeSession(boolean immediately);
+
+	void setReceiver(Receiver receiver);
+
+	void setContext(Holder context);
+
+	void setEndpointListener(IEndpointChangeListener endpointListener);
+
+	IpPortPair getRemoteAddress();
 }
