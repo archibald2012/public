@@ -3,7 +3,6 @@ package edu.hziee.common.tcp.endpoint;
 import org.apache.mina.core.session.IoSession;
 
 import edu.hziee.common.lang.Holder;
-import edu.hziee.common.lang.Identifiable;
 import edu.hziee.common.lang.IpPortPair;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
@@ -15,7 +14,7 @@ import edu.hziee.common.lang.transport.SenderSync;
  * @author wangqi
  * @version $Id: Endpoint.java 65 2012-02-25 01:16:21Z archie $
  */
-public interface Endpoint extends Sender, SenderSync, Receiver, Identifiable {
+public interface Endpoint extends Sender, SenderSync, Receiver {
 
 	void start();
 

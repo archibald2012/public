@@ -1,5 +1,7 @@
 package edu.hziee.common.test.client;
 
+import javax.annotation.Resource;
+
 import edu.hziee.common.test.db.BaseTransactionalXDataSetTestCase;
 
 /**
@@ -10,7 +12,8 @@ import edu.hziee.common.test.db.BaseTransactionalXDataSetTestCase;
  */
 public class AbstractClientTestCase extends BaseTransactionalXDataSetTestCase {
 
-	protected Client client = null;
+	@Resource
+	protected Client	client	= null;
 
 	public Client getClient() {
 		return client;
