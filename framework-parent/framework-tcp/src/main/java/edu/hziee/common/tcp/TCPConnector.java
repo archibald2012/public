@@ -1,6 +1,7 @@
 package edu.hziee.common.tcp;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,8 @@ import org.apache.mina.core.service.IoServiceStatistics;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
+import org.apache.mina.filter.executor.ExecutorFilter;
+import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,250 +38,270 @@ import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
  */
 public class TCPConnector implements SenderSync, Sender {
 
-  private static final Logger      logger          = LoggerFactory.getLogger(TCPConnector.class);
+	private final Logger							logger						= LoggerFactory.getLogger(getClass());
 
-  private ScheduledExecutorService exec            = Executors.newSingleThreadScheduledExecutor();
+	private String										name							= "TCPConnector";
+	private String										destIp						= null;
+	private int												destPort					= -1;
+	private NioSocketConnector				connector					= null;
+	private ProtocolCodecFactory			codecFactory			= null;
 
-  private String                   name            = "TCPConnector";
-  private String                   destIp          = null;
-  private int                      destPort        = -1;
-  private NioSocketConnector       connector       = null;
-  private ProtocolCodecFactory     codecFactory    = null;
+	private EndpointFactory						endpointFactory		= new DefaultEndpointFactory();
 
-  private EndpointFactory          endpointFactory = new DefaultEndpointFactory();
+	private long											reconnectTimeout	= 1000;
+	private boolean										isDebugEnabled		= false;
 
-  private long                     retryTimeout    = 1000;
+	private ScheduledExecutorService	connExec					= Executors.newSingleThreadScheduledExecutor();
+	private ExecutorService						dispatchExec			= Executors.newFixedThreadPool(2);
 
-  private Endpoint                 sender;
+	private Endpoint									sender;
 
-  public TCPConnector(String name) {
-    this.name = name;
-    this.connector = new NioSocketConnector();
-  }
+	public TCPConnector(String name) {
+		this.name = name;
+		this.connector = new NioSocketConnector();
+	}
 
-  public void start() {
-    this.connector.setHandler(new IOHandler());
-    this.connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
+	public void start() {
 
-    doConnect();
-  }
+		if (logger.isDebugEnabled() && isDebugEnabled) {
+			this.connector.getFilterChain().addLast("logger", new LoggingFilter());
+		}
 
-  public void stop() {
-    this.exec.shutdownNow();
-    this.connector.dispose();
-    this.sender = null;
-  }
+		this.connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
+		this.connector.getFilterChain().addLast("executor", new ExecutorFilter(dispatchExec));
+		this.connector.setHandler(new IOHandler());
 
-  private class IOHandler extends IoHandlerAdapter {
-    private final Logger logger = LoggerFactory.getLogger(IOHandler.class);
+		doConnect();
+	}
 
-    @Override
-    public void messageReceived(IoSession session, Object msg) throws Exception {
-      if (logger.isTraceEnabled()) {
-        logger.trace("messageReceived: " + msg);
-      }
+	public void stop() {
+		this.connExec.shutdownNow();
+		this.connector.dispose();
+		this.sender = null;
+	}
 
-      Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
-      if (null != endpoint) {
-        endpoint.messageReceived(TransportUtil.attachSender(msg, endpoint));
-      } else {
-        logger.warn("missing endpoint, ignore incoming msg:" + msg);
-      }
-    }
+	private class IOHandler extends IoHandlerAdapter {
+		private final Logger	logger	= LoggerFactory.getLogger(IOHandler.class);
 
-    @Override
-    public void sessionOpened(IoSession session) throws Exception {
-      if (logger.isInfoEnabled()) {
-        logger.info("open session: " + session);
-      }
-    }
+		@Override
+		public void messageReceived(IoSession session, Object msg) throws Exception {
+			if (logger.isTraceEnabled()) {
+				logger.trace("messageReceived: " + msg);
+			}
 
-    @Override
-    public void sessionCreated(IoSession session) throws Exception {
-      // create endpoint
-      Endpoint endpoint = endpointFactory.createEndpoint(session);
-      if (null != endpoint) {
-        TransportUtil.attachEndpointToSession(session, endpoint);
-        sender = endpoint;
-      }
-    }
+			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			if (null != endpoint) {
+				endpoint.messageReceived(TransportUtil.attachSender(msg, endpoint));
+			} else {
+				logger.warn("missing endpoint, ignore incoming msg:" + msg);
+			}
+		}
 
-    @Override
-    public void sessionClosed(final IoSession session) throws Exception {
-      if (logger.isInfoEnabled()) {
-        logger.info("closed session: " + session.getId());
-      }
-      // stop endpoint
-      Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
-      if (null != endpoint) {
-        endpoint.stop();
-        sender = null;
-      }
-      exec.submit(new Runnable() {
+		@Override
+		public void sessionOpened(IoSession session) throws Exception {
+			if (logger.isInfoEnabled()) {
+				logger.info("open session: " + session);
+			}
+		}
 
-        public void run() {
-          onSessionClosed(session);
-        }
-      });
-    }
+		@Override
+		public void sessionCreated(IoSession session) throws Exception {
+			// create endpoint
+			Endpoint endpoint = endpointFactory.createEndpoint(session);
+			if (null != endpoint) {
+				TransportUtil.attachEndpointToSession(session, endpoint);
+				sender = endpoint;
+			}
+		}
 
-    @Override
-    public void exceptionCaught(IoSession session, Throwable e) throws Exception {
-      logger.error("transport:", e);
-      // 解码有错误的情况下，session不关闄1�7
-      // session.close();
-    }
-  }
+		@Override
+		public void sessionClosed(final IoSession session) throws Exception {
+			if (logger.isInfoEnabled()) {
+				logger.info("closed session: " + session.getId());
+			}
+			// stop endpoint
+			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			if (null != endpoint) {
+				endpoint.stop();
+				sender = null;
+			}
+			connExec.submit(new Runnable() {
 
-  private void onSessionClosed(IoSession session) {
-    if (logger.isInfoEnabled()) {
-      logger.info(getName() + " session : " + session + "closed, retry connect...");
-    }
-    doConnect();
-  }
+				public void run() {
+					onSessionClosed(session);
+				}
+			});
+		}
 
-  private void doConnect() {
-    if (null == destIp || destIp.equals("")) {
-      logger.warn(getName() + " destIp is null, disable this connector.");
-      return;
-    }
+		@Override
+		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
+			logger.error("transport:", e);
+			// 解码有错误的情况下，session不关闄1�7
+			// session.close();
+		}
+	}
 
-    ConnectFuture connectFuture = connector.connect(new InetSocketAddress(destIp, destPort));
+	private void onSessionClosed(IoSession session) {
+		if (logger.isInfoEnabled()) {
+			logger.info(getName() + " session : " + session + "closed, retry connect...");
+		}
+		doConnect();
+	}
 
-    connectFuture.addListener(new IoFutureListener<ConnectFuture>() {
+	private void doConnect() {
+		if (null == destIp || destIp.equals("")) {
+			logger.warn(getName() + " destIp is null, disable this connector.");
+			return;
+		}
 
-      public void operationComplete(final ConnectFuture connectFuture) {
-        exec.submit(new Runnable() {
+		ConnectFuture connectFuture = connector.connect(new InetSocketAddress(destIp, destPort));
 
-          public void run() {
-            onConnectComplete(connectFuture);
-          }
-        });
-      }
-    });
-  }
+		connectFuture.addListener(new IoFutureListener<ConnectFuture>() {
 
-  private void onConnectComplete(ConnectFuture connectFuture) {
-    if (!connectFuture.isConnected()) {
-      if (logger.isInfoEnabled()) {
-        logger.info(getName() + " connect [" + this.destIp + ":" + this.destPort + "] failed, retry...");
-      }
-      exec.schedule(new Runnable() {
+			public void operationComplete(final ConnectFuture connectFuture) {
+				connExec.submit(new Runnable() {
 
-        public void run() {
-          doConnect();
-        }
-      }, retryTimeout, TimeUnit.MILLISECONDS);
-    }
-  }
+					public void run() {
+						onConnectComplete(connectFuture);
+					}
+				});
+			}
+		});
+	}
 
-  public String getName() {
-    return this.name;
-  }
+	private void onConnectComplete(ConnectFuture connectFuture) {
+		if (!connectFuture.isConnected()) {
+			if (logger.isInfoEnabled()) {
+				logger.info(getName() + " connect [" + this.destIp + ":" + this.destPort + "] failed, retry...");
+			}
+			connExec.schedule(new Runnable() {
 
-  public String getDestIp() {
-    return destIp;
-  }
+				public void run() {
+					doConnect();
+				}
+			}, reconnectTimeout, TimeUnit.MILLISECONDS);
+		}
+	}
 
-  public void setDestIp(String destIp) {
-    this.destIp = destIp;
-  }
+	public String getName() {
+		return this.name;
+	}
 
-  public int getDestPort() {
-    return destPort;
-  }
+	public String getDestIp() {
+		return destIp;
+	}
 
-  public void setDestPort(int destPort) {
-    this.destPort = destPort;
-  }
+	public void setDestIp(String destIp) {
+		this.destIp = destIp;
+	}
 
-  public long getRetryTimeout() {
-    return retryTimeout;
-  }
+	public int getDestPort() {
+		return destPort;
+	}
 
-  public void setRetryTimeout(long retryTimeout) {
-    this.retryTimeout = retryTimeout;
-  }
+	public void setDestPort(int destPort) {
+		this.destPort = destPort;
+	}
 
-  public ProtocolCodecFactory getCodecFactory() {
-    return codecFactory;
-  }
+	public long getReconnectTimeout() {
+		return reconnectTimeout;
+	}
 
-  public void setCodecFactory(ProtocolCodecFactory codecFactory) {
-    this.codecFactory = codecFactory;
-  }
+	public void setReconnectTimeout(long reconnectTimeout) {
+		this.reconnectTimeout = reconnectTimeout;
+	}
 
-  public boolean isConnected() {
-    return connector.isActive();
-  }
+	public ProtocolCodecFactory getCodecFactory() {
+		return codecFactory;
+	}
 
-  public IoServiceStatistics getStatistics() {
-    return connector.getStatistics();
-  }
+	public void setCodecFactory(ProtocolCodecFactory codecFactory) {
+		this.codecFactory = codecFactory;
+	}
 
-  public void setReceiver(Receiver receiver) {
-    endpointFactory.setReceiver(receiver);
-  }
+	public boolean isConnected() {
+		return connector.isActive();
+	}
 
-  public void setContext(Holder context) {
-    endpointFactory.setContext(context);
-  }
+	public IoServiceStatistics getStatistics() {
+		return connector.getStatistics();
+	}
 
-  public void setEndpointListener(IEndpointChangeListener endpointListener) {
-    endpointFactory.setEndpointListener(endpointListener);
-  }
+	public void setReceiver(Receiver receiver) {
+		endpointFactory.setReceiver(receiver);
+	}
 
-  public void setEndpointFactory(EndpointFactory endpointFactory) {
-    this.endpointFactory = endpointFactory;
-  }
+	public void setContext(Holder context) {
+		endpointFactory.setContext(context);
+	}
 
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
+	public void setEndpointListener(IEndpointChangeListener endpointListener) {
+		endpointFactory.setEndpointListener(endpointListener);
+	}
 
-  @Override
-  public void send(Object bean) {
-    // 无连接时线程阻塞
-    if (sender != null) {
-      sender.send(bean);
-    } else {
-      if (logger.isInfoEnabled()) {
-        logger.info("send: no endpoint, msg [{}] lost. ", bean);
-      }
-    }
-  }
+	public void setEndpointFactory(EndpointFactory endpointFactory) {
+		this.endpointFactory = endpointFactory;
+	}
 
-  public void send(Object bean, Receiver receiver) {
-    if (sender != null) {
-      sender.send(bean, receiver);
-    } else {
-      if (logger.isInfoEnabled()) {
-        logger.info("send: no endpoint, msg [{}] lost. ", bean);
-      }
-    }
-  }
+	public boolean isDebugEnabled() {
+		return isDebugEnabled;
+	}
 
-  public Object sendAndWait(Object bean) {
-    if (sender != null) {
-      return sender.sendAndWait(bean);
-    } else {
-      if (logger.isInfoEnabled()) {
-        logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
-      }
-    }
-    return null;
-  }
+	public void setDebugEnabled(boolean isDebugEnabled) {
+		this.isDebugEnabled = isDebugEnabled;
+	}
 
-  public Object sendAndWait(Object bean, long timeout, TimeUnit units) {
-    if (sender != null) {
-      return sender.sendAndWait(bean, timeout, units);
-    } else {
-      if (logger.isInfoEnabled()) {
-        logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
-      }
-    }
-    return null;
-  }
+	public void setThreadSize(int threadSize) {
+		this.dispatchExec = Executors.newFixedThreadPool(threadSize);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	@Override
+	public void send(Object bean) {
+		// 无连接时线程阻塞
+		if (sender != null) {
+			sender.send(bean);
+		} else {
+			if (logger.isInfoEnabled()) {
+				logger.info("send: no endpoint, msg [{}] lost. ", bean);
+			}
+		}
+	}
+
+	public void send(Object bean, Receiver receiver) {
+		if (sender != null) {
+			sender.send(bean, receiver);
+		} else {
+			if (logger.isInfoEnabled()) {
+				logger.info("send: no endpoint, msg [{}] lost. ", bean);
+			}
+		}
+	}
+
+	public Object sendAndWait(Object bean) {
+		if (sender != null) {
+			return sender.sendAndWait(bean);
+		} else {
+			if (logger.isInfoEnabled()) {
+				logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
+			}
+		}
+		return null;
+	}
+
+	public Object sendAndWait(Object bean, long timeout, TimeUnit units) {
+		if (sender != null) {
+			return sender.sendAndWait(bean, timeout, units);
+		} else {
+			if (logger.isInfoEnabled()) {
+				logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
+			}
+		}
+		return null;
+	}
 
 }

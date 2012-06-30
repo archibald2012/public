@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
@@ -26,10 +28,10 @@ import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
  * @version $Id: TCPAcceptor.java 52 2012-02-19 04:51:33Z archie $
  */
 public class TCPAcceptor {
-	private static final Logger		logger					= LoggerFactory.getLogger(TCPAcceptor.class);
+	private final Logger					logger					= LoggerFactory.getLogger(getClass());
 
 	private int										maxRetryCount		= 20;
-	private long									retryTimeout		= 30 * 1000;																	// 30s
+	private long									retryTimeout		= 30 * 1000;														// 30s
 
 	private String								acceptIp				= "0.0.0.0";
 	private int										acceptPort			= 7777;
@@ -45,7 +47,7 @@ public class TCPAcceptor {
 		acceptor.setHandler(new IOHandler());
 		acceptor.getSessionConfig().setReadBufferSize(2048);
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
-    
+
 		int retryCount = 0;
 		boolean binded = false;
 		do {
@@ -188,5 +190,10 @@ public class TCPAcceptor {
 
 	public void setCodecFactory(ProtocolCodecFactory codecFactory) {
 		this.codecFactory = codecFactory;
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
 }

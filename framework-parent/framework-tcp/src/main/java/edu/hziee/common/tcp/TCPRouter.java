@@ -37,7 +37,7 @@ public class TCPRouter implements SenderSync, Sender {
 
 	private Receiver																receiver					= null;
 	private Holder																	context						= new DefaultHolder();
-	private long																		retryTimeout			= 1;
+	private long																		reconnectTimeout	= 1;
 	private IEndpointChangeListener									endpointListener	= null;
 
 	private List<IpPortPair>												snapshot					= new ArrayList<IpPortPair>();
@@ -167,7 +167,7 @@ public class TCPRouter implements SenderSync, Sender {
 				connector.setCodecFactory(this.codecFactory);
 				connector.setDestIp(ip);
 				connector.setDestPort(port);
-				connector.setRetryTimeout(this.retryTimeout);
+				connector.setReconnectTimeout(this.reconnectTimeout);
 
 				connector.start();
 			}
@@ -220,8 +220,8 @@ public class TCPRouter implements SenderSync, Sender {
 		this.endpointListener = endpointListener;
 	}
 
-	public void setRetryTimeout(long retryTimeout) {
-		this.retryTimeout = retryTimeout;
+	public void setReconnectTimeout(long reconnectTimeout) {
+		this.reconnectTimeout = reconnectTimeout;
 	}
 
 	public List<IpPortPair> getSnapshot() {
