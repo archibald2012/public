@@ -31,4 +31,6 @@ public interface Endpoint extends Sender, SenderSync, Receiver {
 	void setEndpointListener(IEndpointChangeListener endpointListener);
 
 	IpPortPair getRemoteAddress();
+	
+	boolean isConnected();
 }
