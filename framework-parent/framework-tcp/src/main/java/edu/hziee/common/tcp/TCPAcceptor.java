@@ -7,6 +7,7 @@ import java.net.InetSocketAddress;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.mina.core.service.IoHandlerAdapter;
+import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -32,7 +33,7 @@ public class TCPAcceptor {
 
 	private int										maxRetryCount		= 20;
 	private long									retryTimeout		= 30 * 1000;														// 30s
-
+	private int										idleTime				= 120;
 	private String								acceptIp				= "0.0.0.0";
 	private int										acceptPort			= 7777;
 	private NioSocketAcceptor			acceptor				= new NioSocketAcceptor();
@@ -105,6 +106,9 @@ public class TCPAcceptor {
 
 		@Override
 		public void sessionCreated(IoSession session) throws Exception {
+			
+			session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, idleTime);
+			
 			Endpoint endpoint = endpointFactory.createEndpoint(session);
 			if (null != endpoint) {
 				TransportUtil.attachEndpointToSession(session, endpoint);
@@ -123,13 +127,17 @@ public class TCPAcceptor {
 		}
 
 		@Override
+		public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+			if (logger.isDebugEnabled()) {
+				logger.debug("sessionIdle: " + +session.getId() + ", status: " + status);
+			}
+			session.close();
+		}
+
+		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
 			if (logger.isDebugEnabled()) {
 				logger.debug("exceptionCaught: " + e.getMessage());
-			}
-			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
-			if (null != endpoint) {
-				endpoint.stop();
 			}
 			// session关闭
 			session.close();
@@ -190,6 +198,10 @@ public class TCPAcceptor {
 
 	public void setCodecFactory(ProtocolCodecFactory codecFactory) {
 		this.codecFactory = codecFactory;
+	}
+
+	public void setIdleTime(int idleTime) {
+		this.idleTime = idleTime;
 	}
 
 	@Override
