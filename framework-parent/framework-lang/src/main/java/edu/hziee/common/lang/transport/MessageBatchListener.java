@@ -30,11 +30,6 @@ public class MessageBatchListener implements Receiver {
 			logger.error(error);
 			throw new IllegalArgumentException(error);
 		}
-		if (receiver == null) {
-			String error = "Cannot listen on an endpoint without a receiver ";
-			logger.error(error);
-			throw new IllegalArgumentException(error);
-		}
 
 		for (int i = listenerList.size(); i < threads; i++) {
 			StringBuilder builder = new StringBuilder(name);

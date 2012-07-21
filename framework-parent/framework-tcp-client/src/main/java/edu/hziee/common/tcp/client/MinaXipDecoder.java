@@ -1,5 +1,5 @@
 
-package edu.hziee.framework.tcp.client;
+package edu.hziee.common.tcp.client;
 
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.session.AttributeKey;

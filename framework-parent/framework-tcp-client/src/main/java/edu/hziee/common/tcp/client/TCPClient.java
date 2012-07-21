@@ -1,27 +1,27 @@
-package edu.hziee.framework.tcp.client;
+package edu.hziee.common.tcp.client;
 
 import java.net.InetSocketAddress;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.future.ReadFuture;
+import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.service.IoServiceStatistics;
-import org.apache.mina.core.session.AbstractIoSession;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
+import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.serialization.bytebean.codec.bean.BeanFieldCodec;
 import edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo;
 
@@ -31,23 +31,25 @@ import edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo;
  * @author wangqi
  * @version $Id: TCPConnector.java 63 2012-02-25 01:12:58Z archie $
  */
-public class TCPConnector {
+public class TCPClient {
 
 	private final Logger				logger					= LoggerFactory.getLogger(getClass());
 
 	private String							name						= "TCPConnector";
 	private String							destIp					= null;
 	private int									destPort				= -1;
-	private long								connectTimeout	= 30000;
+	private long								connectTimeout	= 10000;
 	private long								readTimeout			= 60;
 
 	private NioSocketConnector	connector				= null;
-	private IoSession						session;
+	private IoSession						session					= null;
 
 	private MinaXipEncoder			encoder					= new MinaXipEncoder();
 	private MinaXipDecoder			decoder					= new MinaXipDecoder();
 
-	public TCPConnector(String name) {
+	private Receiver						receiver				= null;
+
+	public TCPClient(String name) {
 		this.name = name;
 		this.connector = new NioSocketConnector();
 	}
@@ -68,6 +70,7 @@ public class TCPConnector {
 				return decoder;
 			}
 		}));
+		this.connector.getFilterChain().addLast("executor", new ExecutorFilter(Executors.newFixedThreadPool(2)));
 
 		this.connector.getSessionConfig().setKeepAlive(true);
 		this.connector.getSessionConfig().setUseReadOperation(true);
@@ -75,31 +78,76 @@ public class TCPConnector {
 		// session空闲60秒给服务器发空闲的信息，即心跳信息
 		this.connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);
 
-		new Timer().schedule(new TimerTask() {
-			@Override
-			public void run() {
-				if (null != connector && !connector.isActive()) {
-					try {
-						ConnectFuture connFuture = connector.connect(new InetSocketAddress(destIp, destPort));
-						IoSession s = connFuture.awaitUninterruptibly().getSession();
-						if (s != null) {
-							if (logger.isInfoEnabled()) {
-								logger.info("open session: " + s);
-							}
-							session = s;
-						}
-					} catch (Exception e) {
-						logger.error("Failed to connecto to destIp=[" + destIp + "], destPort=[" + destPort + "]", e);
-					}
-				} else {
+		this.connector.setHandler(new IOHandler());
 
-				}
-			}
-		}, new Date(), 10 * 1000);
+		doConnect();
 	}
 
 	public void stop() {
 		this.connector.dispose();
+	}
+
+	private class IOHandler extends IoHandlerAdapter {
+		private final Logger	logger	= LoggerFactory.getLogger(IOHandler.class);
+
+		@Override
+		public void messageReceived(IoSession session, Object msg) throws Exception {
+			if (logger.isTraceEnabled()) {
+				logger.trace("messageReceived: " + msg);
+			}
+
+			if (null != receiver) {
+				receiver.messageReceived(msg);
+			} else {
+				logger.warn("No receiver, ignore incoming msg:" + msg);
+			}
+		}
+
+		@Override
+		public void sessionClosed(final IoSession session) throws Exception {
+			if (logger.isInfoEnabled()) {
+				logger.info("closed session: " + session.getId());
+			}
+			onSessionClosed(session);
+		}
+
+		@Override
+		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
+			logger.error("transport:", e);
+			session.close();
+		}
+	}
+
+	private void onSessionClosed(IoSession session) {
+		if (logger.isInfoEnabled()) {
+			logger.info(getName() + " session : " + session + "closed, retry connect...");
+		}
+		doConnect();
+	}
+
+	private void doConnect() {
+		if (null == destIp || destIp.equals("")) {
+			logger.warn(getName() + " destIp is null, disable this connector.");
+			return;
+		}
+
+		ConnectFuture connectFuture = connector.connect(new InetSocketAddress(destIp, destPort));
+
+		connectFuture.awaitUninterruptibly();
+
+		if (!connectFuture.isConnected()) {
+			if (logger.isInfoEnabled()) {
+				logger.info(getName() + " connect [" + this.destIp + ":" + this.destPort + "] failed, retry...");
+			}
+			doConnect();
+		} else {
+			IoSession session = connectFuture.getSession();
+			if (logger.isInfoEnabled()) {
+				logger.info("open session: " + session);
+			}
+			this.session = session;
+		}
+
 	}
 
 	public Object send(Object bean) {
@@ -116,9 +164,20 @@ public class TCPConnector {
 		if (readFuture.awaitUninterruptibly(readTimeout, TimeUnit.SECONDS)) {
 			return readFuture.getMessage();
 		} else {
-			((AbstractIoSession) session).offerReadFuture(null);// 针对同步实现的bug
 			return null;
 		}
+	}
+
+	public void setConnectTimeout(long connectTimeout) {
+		this.connectTimeout = connectTimeout;
+	}
+
+	public void setReadTimeout(long readTimeout) {
+		this.readTimeout = readTimeout;
+	}
+
+	public void setReceiver(Receiver receiver) {
+		this.receiver = receiver;
 	}
 
 	public String getName() {

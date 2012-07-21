@@ -12,6 +12,7 @@ import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.service.IoServiceStatistics;
+import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
@@ -48,7 +49,8 @@ public class TCPConnector implements SenderSync, Sender {
 
 	private EndpointFactory						endpointFactory		= new DefaultEndpointFactory();
 
-	private long											reconnectTimeout	= 1000;
+	private long											reconnectTimeout	= 10;
+	private int												idleTime					= -1;
 	private boolean										isDebugEnabled		= false;
 
 	private ScheduledExecutorService	connExec					= Executors.newSingleThreadScheduledExecutor();
@@ -67,6 +69,9 @@ public class TCPConnector implements SenderSync, Sender {
 			this.connector.getFilterChain().addLast("logger", new LoggingFilter());
 		}
 
+		if (idleTime > 0) {
+			this.connector.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, idleTime);
+		}
 		this.connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
 		this.connector.getFilterChain().addLast("executor", new ExecutorFilter(dispatchExec));
 		this.connector.setHandler(new IOHandler());
@@ -85,8 +90,8 @@ public class TCPConnector implements SenderSync, Sender {
 
 		@Override
 		public void messageReceived(IoSession session, Object msg) throws Exception {
-			if (logger.isTraceEnabled()) {
-				logger.trace("messageReceived: " + msg);
+			if (logger.isDebugEnabled()) {
+				logger.debug("messageReceived: " + msg);
 			}
 
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
@@ -115,9 +120,17 @@ public class TCPConnector implements SenderSync, Sender {
 		}
 
 		@Override
+		public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
+			if (logger.isDebugEnabled()) {
+				logger.debug("sessionIdle: " + session + ", status: " + status);
+			}
+			session.close();
+		}
+
+		@Override
 		public void sessionClosed(final IoSession session) throws Exception {
 			if (logger.isInfoEnabled()) {
-				logger.info("closed session: " + session.getId());
+				logger.info("closed session: " + session);
 			}
 			// stop endpoint
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
@@ -179,7 +192,7 @@ public class TCPConnector implements SenderSync, Sender {
 				public void run() {
 					doConnect();
 				}
-			}, reconnectTimeout, TimeUnit.MILLISECONDS);
+			}, reconnectTimeout, TimeUnit.SECONDS);
 		}
 	}
 
@@ -253,6 +266,10 @@ public class TCPConnector implements SenderSync, Sender {
 
 	public void setThreadSize(int threadSize) {
 		this.dispatchExec = Executors.newFixedThreadPool(threadSize);
+	}
+
+	public void setIdleTime(int idleTime) {
+		this.idleTime = idleTime;
 	}
 
 	@Override

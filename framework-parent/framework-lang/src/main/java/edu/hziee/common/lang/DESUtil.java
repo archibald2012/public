@@ -98,7 +98,12 @@ public class DESUtil {
 
   private static byte[] padding(byte[] sourceBytes, byte b) {
     // 补足8位
-    int paddingSize = 8 - (sourceBytes.length % 8);
+    int offset = sourceBytes.length % 8;
+    if(offset == 0){
+    	return sourceBytes;
+    }
+    
+		int paddingSize = 8 - offset;
     byte[] paddingBytes = new byte[paddingSize];
     for (int i = 0; i < paddingBytes.length; i++) {
       paddingBytes[i] = b;

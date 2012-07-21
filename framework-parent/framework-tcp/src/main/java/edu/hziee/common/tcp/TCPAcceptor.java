@@ -33,7 +33,7 @@ public class TCPAcceptor {
 
 	private int										maxRetryCount		= 20;
 	private long									retryTimeout		= 30 * 1000;														// 30s
-	private int										idleTime				= 120;
+	private int										idleTime				= -1;
 	private String								acceptIp				= "0.0.0.0";
 	private int										acceptPort			= 7777;
 	private NioSocketAcceptor			acceptor				= new NioSocketAcceptor();
@@ -47,6 +47,9 @@ public class TCPAcceptor {
 
 		acceptor.setHandler(new IOHandler());
 		acceptor.getSessionConfig().setReadBufferSize(2048);
+		if (idleTime > 0) {
+			acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, idleTime);
+		}
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
 
 		int retryCount = 0;
@@ -106,9 +109,6 @@ public class TCPAcceptor {
 
 		@Override
 		public void sessionCreated(IoSession session) throws Exception {
-			
-			session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, idleTime);
-			
 			Endpoint endpoint = endpointFactory.createEndpoint(session);
 			if (null != endpoint) {
 				TransportUtil.attachEndpointToSession(session, endpoint);
@@ -118,7 +118,7 @@ public class TCPAcceptor {
 		@Override
 		public void sessionClosed(final IoSession session) throws Exception {
 			if (logger.isDebugEnabled()) {
-				logger.debug("sessionClosed: " + session.getId());
+				logger.debug("sessionClosed: " + session);
 			}
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
@@ -129,7 +129,7 @@ public class TCPAcceptor {
 		@Override
 		public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
 			if (logger.isDebugEnabled()) {
-				logger.debug("sessionIdle: " + +session.getId() + ", status: " + status);
+				logger.debug("sessionIdle: " + session + ", status: " + status);
 			}
 			session.close();
 		}
