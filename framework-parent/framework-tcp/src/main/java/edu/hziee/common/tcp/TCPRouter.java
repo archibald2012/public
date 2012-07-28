@@ -39,6 +39,7 @@ public class TCPRouter implements SenderSync, Sender {
 	private Holder																	context						= new DefaultHolder();
 	private long																		reconnectTimeout	= 1;
 	private IEndpointChangeListener									endpointListener	= null;
+	private String																	secureId					= null;
 
 	private List<IpPortPair>												snapshot					= new ArrayList<IpPortPair>();
 	private RoundRobin<IpPortPair>									rr								= null;
@@ -168,7 +169,10 @@ public class TCPRouter implements SenderSync, Sender {
 				connector.setDestIp(ip);
 				connector.setDestPort(port);
 				connector.setReconnectTimeout(this.reconnectTimeout);
-
+				if (secureId != null) {
+					connector.setSecureId(this.secureId);
+				}
+				
 				connector.start();
 			}
 		}
@@ -222,6 +226,10 @@ public class TCPRouter implements SenderSync, Sender {
 
 	public void setReconnectTimeout(long reconnectTimeout) {
 		this.reconnectTimeout = reconnectTimeout;
+	}
+
+	public void setSecureId(String secureId) {
+		this.secureId = secureId;
 	}
 
 	public List<IpPortPair> getSnapshot() {

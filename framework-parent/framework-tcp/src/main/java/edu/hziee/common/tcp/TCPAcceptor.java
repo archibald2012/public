@@ -3,9 +3,12 @@ package edu.hziee.common.tcp;
 import java.io.IOException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
+import java.security.PublicKey;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
@@ -15,12 +18,16 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.lang.DES;
 import edu.hziee.common.lang.Holder;
+import edu.hziee.common.lang.RSA;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.tcp.endpoint.DefaultEndpointFactory;
 import edu.hziee.common.tcp.endpoint.Endpoint;
 import edu.hziee.common.tcp.endpoint.EndpointFactory;
 import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
+import edu.hziee.common.tcp.secure.SecureSocketReq;
+import edu.hziee.common.tcp.secure.SecureSocketResp;
 
 /**
  * TODO
@@ -42,15 +49,21 @@ public class TCPAcceptor {
 
 	private EndpointFactory				endpointFactory	= new DefaultEndpointFactory();
 
-	public void start() throws IOException {
-		acceptor.setReuseAddress(true);
+	private SecureSocketFilter		secureFilter		= null;
 
-		acceptor.setHandler(new IOHandler());
+	public void start() throws Exception {
+		acceptor.setReuseAddress(true);
 		acceptor.getSessionConfig().setReadBufferSize(2048);
 		if (idleTime > 0) {
 			acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, idleTime);
 		}
+
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
+		if (secureFilter != null) {
+			acceptor.getFilterChain().addLast("secure", secureFilter);
+		}
+
+		acceptor.setHandler(new IOHandler());
 
 		int retryCount = 0;
 		boolean binded = false;
@@ -96,7 +109,7 @@ public class TCPAcceptor {
 			if (null != endpoint) {
 				endpoint.messageReceived(TransportUtil.attachSender(msg, endpoint));
 			} else {
-				logger.warn("missing endpoint, ignore incoming msg:", msg);
+				logger.warn("missing endpoint, ignore incoming msg [{}]", msg);
 			}
 		}
 
@@ -105,14 +118,17 @@ public class TCPAcceptor {
 			if (logger.isInfoEnabled()) {
 				logger.info("sessionOpened: " + session);
 			}
+			if (secureFilter == null) {
+				Endpoint endpoint = endpointFactory.createEndpoint(session);
+				if (null != endpoint) {
+					TransportUtil.attachEndpointToSession(session, endpoint);
+				}
+			}
 		}
 
 		@Override
 		public void sessionCreated(IoSession session) throws Exception {
-			Endpoint endpoint = endpointFactory.createEndpoint(session);
-			if (null != endpoint) {
-				TransportUtil.attachEndpointToSession(session, endpoint);
-			}
+
 		}
 
 		@Override
@@ -139,8 +155,73 @@ public class TCPAcceptor {
 			if (logger.isDebugEnabled()) {
 				logger.debug("exceptionCaught: " + e.getMessage());
 			}
-			// session关闭
 			session.close();
+		}
+	}
+
+	class SecureSocketFilter extends IoFilterAdapter {
+
+		private final Logger	logger		= LoggerFactory.getLogger(SecureSocketFilter.class);
+
+		private String				secureId	= null;
+
+		public SecureSocketFilter(String secureId) {
+			this.secureId = secureId;
+		}
+
+		@Override
+		public void messageReceived(NextFilter nextFilter, IoSession session, Object message) throws Exception {
+
+			if (message instanceof SecureSocketReq) {
+
+				SecureSocketReq req = (SecureSocketReq) message;
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("Receive SECURE_SOCKET_REQ. session=[{}], req=[{}] ", session, req);
+				}
+
+				byte[] clientKeyBytes = req.getClientPublicKey();
+
+				byte[] sourceOfSign = ArrayUtils.addAll(secureId.getBytes(), clientKeyBytes);
+
+				PublicKey clientPublicKey = RSA.decodePublicKey(clientKeyBytes);
+				if (RSA.verify(sourceOfSign, clientPublicKey, req.getSign())) {
+
+					if (logger.isDebugEnabled()) {
+						logger.debug("Signature verify succeed. session=[{}], secureId=[{}] ", session, secureId);
+					}
+
+					// TODO generate by HD
+					byte[] key = DES.genKey();
+
+					SecureSocketResp resp = new SecureSocketResp();
+					resp.setIdentification(req.getIdentification());
+					resp.setKey(RSA.encrypt(key, clientPublicKey));
+
+					session.write(resp);
+
+					TransportUtil.attachEncryptKeyToSession(session, key);
+
+					Endpoint endpoint = endpointFactory.createEndpoint(session);
+					if (null != endpoint) {
+						TransportUtil.attachEndpointToSession(session, endpoint);
+					}
+
+					if (logger.isDebugEnabled()) {
+						logger.debug("Send SECURE_SOCKET_RESP. session=[{}], resp=[{}] ", session, resp);
+					}
+
+				} else {
+					if (logger.isInfoEnabled()) {
+						logger.info("Signature verify failed, close session immediately! session=[{}], expected_secureId=[{}]",
+								new Object[] { session, secureId });
+					}
+					session.close(true);
+				}
+
+			} else {
+				nextFilter.messageReceived(session, message);
+			}
 		}
 	}
 
@@ -194,6 +275,12 @@ public class TCPAcceptor {
 
 	public ProtocolCodecFactory getCodecFactory() {
 		return codecFactory;
+	}
+
+	public void setSecureId(String secureId) {
+		if (secureId != null) {
+			this.secureFilter = new SecureSocketFilter(secureId);
+		}
 	}
 
 	public void setCodecFactory(ProtocolCodecFactory codecFactory) {

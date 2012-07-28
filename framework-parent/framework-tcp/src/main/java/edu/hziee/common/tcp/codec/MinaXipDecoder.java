@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp.codec;
 
 import org.apache.mina.core.buffer.IoBuffer;
@@ -10,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.hziee.common.lang.ByteUtil;
-import edu.hziee.common.lang.DESUtil;
+import edu.hziee.common.lang.DES;
 import edu.hziee.common.lang.Identifiable;
 import edu.hziee.common.serialization.bytebean.codec.AnyCodec;
 import edu.hziee.common.serialization.bytebean.codec.DefaultCodecProvider;
@@ -33,6 +32,7 @@ import edu.hziee.common.serialization.bytebean.context.DefaultEncContextFactory;
 import edu.hziee.common.serialization.bytebean.field.DefaultField2Desc;
 import edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo;
 import edu.hziee.common.serialization.protocol.xip.XipHeader;
+import edu.hziee.common.tcp.TransportUtil;
 
 /**
  * TODO
@@ -42,213 +42,204 @@ import edu.hziee.common.serialization.protocol.xip.XipHeader;
  */
 public class MinaXipDecoder extends CumulativeProtocolDecoder {
 
-  private static final Logger  logger           = LoggerFactory.getLogger(MinaXipDecoder.class);
+	private static final Logger		logger						= LoggerFactory.getLogger(MinaXipDecoder.class);
 
-  private final AttributeKey   HEADER           = new AttributeKey(getClass(), "XipHeader");
+	private final AttributeKey		HEADER						= new AttributeKey(getClass(), "XipHeader");
 
-  private BeanFieldCodec       byteBeanCodec;
-  private MsgCode2TypeMetainfo typeMetaInfo;
+	private BeanFieldCodec				byteBeanCodec;
+	private MsgCode2TypeMetainfo	typeMetaInfo;
 
-  private int                  maxMessageLength = -1;
+	private int										maxMessageLength	= -1;
 
-  private int                  dumpBytes        = 256;
-  private boolean              isDebugEnabled;
-  private byte[]               encryptKey;
+	private int										dumpBytes					= 256;
+	private boolean								isDebugEnabled;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.mina.filter.codec.CumulativeProtocolDecoder#doDecode(org.apache
-   * .mina.core.session.IoSession, org.apache.mina.core.buffer.IoBuffer,
-   * org.apache.mina.filter.codec.ProtocolDecoderOutput)
-   */
-  @Override
-  protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.mina.filter.codec.CumulativeProtocolDecoder#doDecode(org.apache .mina.core.session.IoSession,
+	 * org.apache.mina.core.buffer.IoBuffer, org.apache.mina.filter.codec.ProtocolDecoderOutput)
+	 */
+	@Override
+	protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 
-    int headerSize = getByteBeanCodec().getStaticByteSize(XipHeader.class);
+		int headerSize = getByteBeanCodec().getStaticByteSize(XipHeader.class);
 
-    XipHeader header = (XipHeader) session.getAttribute(HEADER);
-    if (null == header) {
+		XipHeader header = (XipHeader) session.getAttribute(HEADER);
+		if (null == header) {
 
-      if (in.remaining() < headerSize) {
-        return false;
-      } else {
-        if (logger.isDebugEnabled() && isDebugEnabled) {
-          logger.debug("parse header... try parse...");
-        }
-        byte[] headerBytes = new byte[headerSize];
-        in.get(headerBytes);
+			if (in.remaining() < headerSize) {
+				return false;
+			} else {
+				if (logger.isDebugEnabled() && isDebugEnabled) {
+					logger.debug("parse header... try parse...");
+				}
+				byte[] headerBytes = new byte[headerSize];
+				in.get(headerBytes);
 
-        if (logger.isDebugEnabled() && isDebugEnabled) {
-          logger.debug("header raw bytes -->");
-          logger.debug(ByteUtil.bytesAsHexString(headerBytes, dumpBytes));
-        }
+				if (logger.isDebugEnabled() && isDebugEnabled) {
+					logger.debug("header raw bytes -->");
+					logger.debug(ByteUtil.bytesAsHexString(headerBytes, dumpBytes));
+				}
 
-        header = (XipHeader) getByteBeanCodec().decode(getByteBeanCodec().getDecContextFactory().createDecContext(headerBytes, XipHeader.class, null, null))
-            .getValue();
-        if (logger.isDebugEnabled() && isDebugEnabled) {
-          logger.debug("header-->" + header);
-        }
+				header = (XipHeader) getByteBeanCodec().decode(
+						getByteBeanCodec().getDecContextFactory().createDecContext(headerBytes, XipHeader.class, null, null))
+						.getValue();
+				if (logger.isDebugEnabled() && isDebugEnabled) {
+					logger.debug("header-->" + header);
+				}
 
-        if (maxMessageLength > 0) {
-          if (header.getLength() > maxMessageLength) {
-            logger.error("header.length (" + header.getLength() + ") exceed maxMessageLength[" + maxMessageLength
-                + "], so drop this connection.\r\ndump bytes received:\r\n" + ByteUtil.bytesAsHexString(headerBytes, dumpBytes));
-            session.close(true);
-            return false;
-          }
-        }
+				if (maxMessageLength > 0) {
+					if (header.getLength() > maxMessageLength) {
+						logger.error("header.length (" + header.getLength() + ") exceed maxMessageLength[" + maxMessageLength
+								+ "], so drop this connection.\r\ndump bytes received:\r\n"
+								+ ByteUtil.bytesAsHexString(headerBytes, dumpBytes));
+						session.close(true);
+						return false;
+					}
+				}
 
-        // Update the session attribute.
-        setSessionXipHeader(session, header);
-      }
-    }
+				// Update the session attribute.
+				setSessionXipHeader(session, header);
+			}
+		}
 
-    int bodySize = header.getLength() - headerSize;
-    if (in.remaining() < bodySize) {
-      return false;
-    } else {
-      // 为下一次在同一session上进行xip接受初始化环境
-      removeSessionXipHeader(session);
+		int bodySize = header.getLength() - headerSize;
+		if (in.remaining() < bodySize) {
+			return false;
+		} else {
+			// 为下一次在同一session上进行xip接受初始化环境
+			removeSessionXipHeader(session);
 
-      byte[] bytes = new byte[bodySize];
-      in.get(bytes);
+			byte[] bytes = new byte[bodySize];
+			in.get(bytes);
 
-      if (logger.isDebugEnabled() && isDebugEnabled) {
-        logger.debug("body raw bytes -->");
-        logger.debug(ByteUtil.bytesAsHexString(bytes, dumpBytes));
-      }
+			if (logger.isDebugEnabled() && isDebugEnabled) {
+				logger.debug("body raw bytes -->");
+				logger.debug(ByteUtil.bytesAsHexString(bytes, dumpBytes));
+			}
 
-      Identifiable identifyable = null;
-      if (1 == header.getBasicVer()) {
-        Class<?> type = typeMetaInfo.find(header.getMessageCode());
-        if (null == type) {
-          throw new RuntimeException("unknow message code:" + header.getMessageCode());
-        }
-        // 对消息体进行DES解密
-        if (getEncryptKey() != null) {
-          bytes = DESUtil.decrypt(bytes, getEncryptKey());
-        }
-        identifyable = (Identifiable) getByteBeanCodec().decode(getByteBeanCodec().getDecContextFactory().createDecContext(bytes, type, null, null)).getValue();
-      } else {
-        logger.error("invalid basic ver, while header is {" + header + "}");
-        logger.error("raw body bytes is {" + ByteUtil.bytesAsHexString(bytes, bodySize) + "}");
-        throw new RuntimeException("invalid basic ver {" + header.getBasicVer() + "}");
-      }
+			Identifiable identifyable = null;
+			if (1 == header.getBasicVer()) {
+				Class<?> type = typeMetaInfo.find(header.getMessageCode());
+				if (null == type) {
+					throw new RuntimeException("unknow message code:" + header.getMessageCode());
+				}
+				byte[] key = TransportUtil.getEncryptKeyOfSession(session);
+				if (key != null) {
+					bytes = DES.decrypt(bytes, key);
+				}
+				identifyable = (Identifiable) getByteBeanCodec().decode(
+						getByteBeanCodec().getDecContextFactory().createDecContext(bytes, type, null, null)).getValue();
+			} else {
+				logger.error("invalid basic ver, while header is {" + header + "}");
+				logger.error("raw body bytes is {" + ByteUtil.bytesAsHexString(bytes, bodySize) + "}");
+				throw new RuntimeException("invalid basic ver {" + header.getBasicVer() + "}");
+			}
 
-      identifyable.setIdentification(header.getTransactionAsUUID());
+			identifyable.setIdentification(header.getTransactionAsUUID());
 
-      if (logger.isDebugEnabled() && isDebugEnabled) {
-        logger.debug("signal-->" + identifyable);
-      }
+			if (logger.isDebugEnabled() && isDebugEnabled) {
+				logger.debug("signal-->" + identifyable);
+			}
 
-      out.write(identifyable);
+			out.write(identifyable);
 
-      return true;
-    }
-  }
-  @Override
-  public void dispose(IoSession session) throws Exception {
-    super.dispose(session);
+			return true;
+		}
+	}
 
-    // our dispose
-    removeSessionXipHeader(session);
-  }
+	@Override
+	public void dispose(IoSession session) throws Exception {
+		super.dispose(session);
 
-  private void setSessionXipHeader(IoSession session, XipHeader header) {
-    session.setAttribute(HEADER, header);
-  }
+		// our dispose
+		removeSessionXipHeader(session);
+	}
 
-  private void removeSessionXipHeader(IoSession session) {
-    session.removeAttribute(HEADER);
-  }
+	private void setSessionXipHeader(IoSession session, XipHeader header) {
+		session.setAttribute(HEADER, header);
+	}
 
-  /**
-   * @param dumpBytes
-   *          the dumpBytes to set
-   */
-  public void setDumpBytes(int dumpBytes) {
-    this.dumpBytes = dumpBytes;
-  }
+	private void removeSessionXipHeader(IoSession session) {
+		session.removeAttribute(HEADER);
+	}
 
-  public int getDumpBytes() {
-    return dumpBytes;
-  }
+	/**
+	 * @param dumpBytes
+	 *          the dumpBytes to set
+	 */
+	public void setDumpBytes(int dumpBytes) {
+		this.dumpBytes = dumpBytes;
+	}
 
-  public boolean isDebugEnabled() {
-    return isDebugEnabled;
-  }
+	public int getDumpBytes() {
+		return dumpBytes;
+	}
 
-  public void setDebugEnabled(boolean isDebugEnabled) {
-    this.isDebugEnabled = isDebugEnabled;
-  }
+	public boolean isDebugEnabled() {
+		return isDebugEnabled;
+	}
 
-  public BeanFieldCodec getByteBeanCodec() {
-    if (byteBeanCodec == null) {
-      DefaultCodecProvider codecProvider = new DefaultCodecProvider();
+	public void setDebugEnabled(boolean isDebugEnabled) {
+		this.isDebugEnabled = isDebugEnabled;
+	}
 
-      // 初始化解码器集合
-      codecProvider.addCodec(new AnyCodec()).addCodec(new ByteCodec()).addCodec(new BooleanCodec()).addCodec(new ShortCodec()).addCodec(new IntCodec())
-          .addCodec(new LongCodec()).addCodec(new FloatCodec()).addCodec(new DoubleCodec()).addCodec(new CStyleStringCodec()).addCodec(new LenByteArrayCodec())
-          .addCodec(new LenListCodec()).addCodec(new LenArrayCodec());
+	public BeanFieldCodec getByteBeanCodec() {
+		if (byteBeanCodec == null) {
+			DefaultCodecProvider codecProvider = new DefaultCodecProvider();
 
-      // 对象解码器需要指定字段注释读取方法
-      EarlyStopBeanCodec byteBeanCodec = new EarlyStopBeanCodec(new DefaultField2Desc());
-      codecProvider.addCodec(byteBeanCodec);
+			// 初始化解码器集合
+			codecProvider.addCodec(new AnyCodec()).addCodec(new ByteCodec()).addCodec(new BooleanCodec())
+					.addCodec(new ShortCodec()).addCodec(new IntCodec()).addCodec(new LongCodec()).addCodec(new FloatCodec())
+					.addCodec(new DoubleCodec()).addCodec(new CStyleStringCodec()).addCodec(new LenByteArrayCodec())
+					.addCodec(new LenListCodec()).addCodec(new LenArrayCodec());
 
-      DefaultEncContextFactory encContextFactory = new DefaultEncContextFactory();
-      DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
+			// 对象解码器需要指定字段注释读取方法
+			EarlyStopBeanCodec byteBeanCodec = new EarlyStopBeanCodec(new DefaultField2Desc());
+			codecProvider.addCodec(byteBeanCodec);
 
-      encContextFactory.setCodecProvider(codecProvider);
-      encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+			DefaultEncContextFactory encContextFactory = new DefaultEncContextFactory();
+			DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
 
-      decContextFactory.setCodecProvider(codecProvider);
-      decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+			encContextFactory.setCodecProvider(codecProvider);
+			encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
-      byteBeanCodec.setDecContextFactory(decContextFactory);
-      byteBeanCodec.setEncContextFactory(encContextFactory);
+			decContextFactory.setCodecProvider(codecProvider);
+			decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
-      this.byteBeanCodec = byteBeanCodec;
-    }
-    return byteBeanCodec;
-  }
+			byteBeanCodec.setDecContextFactory(decContextFactory);
+			byteBeanCodec.setEncContextFactory(encContextFactory);
 
-  public byte[] getEncryptKey() {
-    return encryptKey;
-  }
+			this.byteBeanCodec = byteBeanCodec;
+		}
+		return byteBeanCodec;
+	}
 
-  public void setEncryptKey(String encryptKey) {
-    this.encryptKey = encryptKey.getBytes();
-  }
+	public void setByteBeanCodec(BeanFieldCodec byteBeanCodec) {
+		this.byteBeanCodec = byteBeanCodec;
+	}
 
-  public void setEncryptKey(byte[] encryptKey) {
-    this.encryptKey = encryptKey;
-  }
-  
-  public void setByteBeanCodec(BeanFieldCodec byteBeanCodec) {
-    this.byteBeanCodec = byteBeanCodec;
-  }
+	public MsgCode2TypeMetainfo getTypeMetaInfo() {
+		return typeMetaInfo;
+	}
 
-  public MsgCode2TypeMetainfo getTypeMetaInfo() {
-    return typeMetaInfo;
-  }
+	public void setTypeMetaInfo(MsgCode2TypeMetainfo typeMetaInfo) {
+		this.typeMetaInfo = typeMetaInfo;
+	}
 
-  public void setTypeMetaInfo(MsgCode2TypeMetainfo typeMetaInfo) {
-    this.typeMetaInfo = typeMetaInfo;
-  }
-  /**
-   * @return the maxMessageLength
-   */
-  public int getMaxMessageLength() {
-    return maxMessageLength;
-  }
+	/**
+	 * @return the maxMessageLength
+	 */
+	public int getMaxMessageLength() {
+		return maxMessageLength;
+	}
 
-  /**
-   * @param maxMessageLength
-   *          the maxMessageLength to set
-   */
-  public void setMaxMessageLength(int maxMessageLength) {
-    this.maxMessageLength = maxMessageLength;
-  }
+	/**
+	 * @param maxMessageLength
+	 *          the maxMessageLength to set
+	 */
+	public void setMaxMessageLength(int maxMessageLength) {
+		this.maxMessageLength = maxMessageLength;
+	}
 }

@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp.codec;
 
 import java.util.UUID;
@@ -12,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.hziee.common.lang.ByteUtil;
-import edu.hziee.common.lang.DESUtil;
+import edu.hziee.common.lang.DES;
 import edu.hziee.common.serialization.bytebean.codec.AnyCodec;
 import edu.hziee.common.serialization.bytebean.codec.DefaultCodecProvider;
 import edu.hziee.common.serialization.bytebean.codec.DefaultNumberCodecs;
@@ -35,6 +34,7 @@ import edu.hziee.common.serialization.bytebean.field.DefaultField2Desc;
 import edu.hziee.common.serialization.protocol.annotation.SignalCode;
 import edu.hziee.common.serialization.protocol.xip.XipHeader;
 import edu.hziee.common.serialization.protocol.xip.XipSignal;
+import edu.hziee.common.tcp.TransportUtil;
 
 /**
  * TODO
@@ -44,162 +44,149 @@ import edu.hziee.common.serialization.protocol.xip.XipSignal;
  */
 public class MinaXipEncoder implements ProtocolEncoder {
 
-  private static final Logger logger    = LoggerFactory.getLogger(MinaXipEncoder.class);
+	private static final Logger	logger		= LoggerFactory.getLogger(MinaXipEncoder.class);
 
-  private int                 dumpBytes = 256;
-  private boolean             isDebugEnabled;
-  private BeanFieldCodec      byteBeanCodec;
-  private byte[]              encryptKey;
+	private int									dumpBytes	= 256;
+	private boolean							isDebugEnabled;
+	private BeanFieldCodec			byteBeanCodec;
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.mina.filter.codec.ProtocolEncoder#encode(org.apache.mina.core
-   * .session.IoSession, java.lang.Object,
-   * org.apache.mina.filter.codec.ProtocolEncoderOutput)
-   */
-  @Override
-  public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
-    byte[] bytes = null;
-    if (message instanceof XipSignal) {
-      bytes = encodeXip((XipSignal) message);
-    } else if (byte[].class.isAssignableFrom(message.getClass())) {
-      bytes = (byte[]) message;
-    } else {
-      throw new RuntimeException("encode: bean " + message + " is not XipSignal.");
-    }
-    if (null != bytes) {
-      if (logger.isTraceEnabled()) {
-        logger.trace("bean type {" + message.getClass() + "} and encode size is {" + bytes.length + "}");
-      }
-      out.write(IoBuffer.wrap(bytes));
-    } else {
-      logger.error("encode: " + message + " can not generate byte stream.");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.mina.filter.codec.ProtocolEncoder#encode(org.apache.mina.core .session.IoSession, java.lang.Object,
+	 * org.apache.mina.filter.codec.ProtocolEncoderOutput)
+	 */
+	@Override
+	public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
+		byte[] bytes = null;
+		if (message instanceof XipSignal) {
+			byte[] key = TransportUtil.getEncryptKeyOfSession(session);
+			bytes = encodeXip((XipSignal) message, key);
+		} else if (byte[].class.isAssignableFrom(message.getClass())) {
+			bytes = (byte[]) message;
+		} else {
+			throw new RuntimeException("encode: bean " + message + " is not XipSignal.");
+		}
+		if (null != bytes) {
+			if (logger.isTraceEnabled()) {
+				logger.trace("bean type {" + message.getClass() + "} and encode size is {" + bytes.length + "}");
+			}
+			out.write(IoBuffer.wrap(bytes));
+		} else {
+			logger.error("encode: " + message + " can not generate byte stream.");
+		}
 
-  }
+	}
 
-  private byte[] encodeXip(XipSignal signal) throws Exception {
-    // once
-    byte[] bytesBody = getByteBeanCodec().encode(getByteBeanCodec().getEncContextFactory().createEncContext(signal, signal.getClass(), null));
+	private byte[] encodeXip(XipSignal signal, byte[] key) throws Exception {
+		// once
+		byte[] bytesBody = getByteBeanCodec().encode(
+				getByteBeanCodec().getEncContextFactory().createEncContext(signal, signal.getClass(), null));
 
-    if (getEncryptKey() != null) {
-      // 对消息体进行DES加密
-      bytesBody = DESUtil.encrypt(bytesBody, getEncryptKey());
-    }
-    
-    SignalCode attr = signal.getClass().getAnnotation(SignalCode.class);
-    if (null == attr) {
-      throw new RuntimeException("invalid ssip signal, bcs of no messageCode.");
-    }
+		if (key != null) {
+			// 对消息体进行DES加密
+			bytesBody = DES.encrypt(bytesBody, key);
+		}
 
-    XipHeader header = createHeader((byte) 1, signal.getIdentification(), attr.messageCode(), bytesBody.length);
+		SignalCode attr = signal.getClass().getAnnotation(SignalCode.class);
+		if (null == attr) {
+			throw new RuntimeException("invalid ssip signal, bcs of no messageCode.");
+		}
 
-    // 更新原语类型
-    header.setTypeForClass(signal.getClass());
+		XipHeader header = createHeader((byte) 1, signal.getIdentification(), attr.messageCode(), bytesBody.length);
 
-    byte[] bytes = ArrayUtils.addAll(getByteBeanCodec().encode(getByteBeanCodec().getEncContextFactory().createEncContext(header, XipHeader.class, null)),
-        bytesBody);
+		// 更新原语类型
+		header.setTypeForClass(signal.getClass());
 
-    if (logger.isDebugEnabled() && isDebugEnabled) {
-      logger.debug("encode XipSignal:" + signal);
-      logger.debug("and XipSignal raw bytes -->");
-      logger.debug(ByteUtil.bytesAsHexString(bytes, dumpBytes));
-    }
+		byte[] bytes = ArrayUtils.addAll(
+				getByteBeanCodec().encode(
+						getByteBeanCodec().getEncContextFactory().createEncContext(header, XipHeader.class, null)), bytesBody);
 
-    return bytes;
-  }
+		if (logger.isDebugEnabled() && isDebugEnabled) {
+			logger.debug("encode XipSignal:" + signal);
+			logger.debug("and XipSignal raw bytes -->");
+			logger.debug(ByteUtil.bytesAsHexString(bytes, dumpBytes));
+		}
 
-  private XipHeader createHeader(byte basicVer, UUID id, int messageCode, int messageLen) {
+		return bytes;
+	}
 
-    XipHeader header = new XipHeader();
+	private XipHeader createHeader(byte basicVer, UUID id, int messageCode, int messageLen) {
 
-    header.setTransaction(id);
+		XipHeader header = new XipHeader();
 
-    int headerSize = getByteBeanCodec().getStaticByteSize(XipHeader.class);
+		header.setTransaction(id);
 
-    header.setLength(headerSize + messageLen);
-    header.setMessageCode(messageCode);
-    header.setBasicVer(basicVer);
+		int headerSize = getByteBeanCodec().getStaticByteSize(XipHeader.class);
 
-    return header;
-  }
+		header.setLength(headerSize + messageLen);
+		header.setMessageCode(messageCode);
+		header.setBasicVer(basicVer);
 
-  public BeanFieldCodec getByteBeanCodec() {
-    if (byteBeanCodec == null) {
-      DefaultCodecProvider codecProvider = new DefaultCodecProvider();
+		return header;
+	}
 
-      // 初始化解码器集合
-      codecProvider.addCodec(new AnyCodec()).addCodec(new ByteCodec()).addCodec(new BooleanCodec()).addCodec(new ShortCodec()).addCodec(new IntCodec())
-          .addCodec(new LongCodec()).addCodec(new FloatCodec()).addCodec(new DoubleCodec()).addCodec(new CStyleStringCodec()).addCodec(new LenByteArrayCodec())
-          .addCodec(new LenListCodec()).addCodec(new LenArrayCodec());
+	public BeanFieldCodec getByteBeanCodec() {
+		if (byteBeanCodec == null) {
+			DefaultCodecProvider codecProvider = new DefaultCodecProvider();
 
-      // 对象解码器需要指定字段注释读取方泄1�7
-      EarlyStopBeanCodec byteBeanCodec = new EarlyStopBeanCodec(new DefaultField2Desc());
-      codecProvider.addCodec(byteBeanCodec);
+			// 初始化解码器集合
+			codecProvider.addCodec(new AnyCodec()).addCodec(new ByteCodec()).addCodec(new BooleanCodec())
+					.addCodec(new ShortCodec()).addCodec(new IntCodec()).addCodec(new LongCodec()).addCodec(new FloatCodec())
+					.addCodec(new DoubleCodec()).addCodec(new CStyleStringCodec()).addCodec(new LenByteArrayCodec())
+					.addCodec(new LenListCodec()).addCodec(new LenArrayCodec());
 
-      DefaultEncContextFactory encContextFactory = new DefaultEncContextFactory();
-      DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
+			// 对象解码器需要指定字段注释读取方泄1�7
+			EarlyStopBeanCodec byteBeanCodec = new EarlyStopBeanCodec(new DefaultField2Desc());
+			codecProvider.addCodec(byteBeanCodec);
 
-      encContextFactory.setCodecProvider(codecProvider);
-      encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+			DefaultEncContextFactory encContextFactory = new DefaultEncContextFactory();
+			DefaultDecContextFactory decContextFactory = new DefaultDecContextFactory();
 
-      decContextFactory.setCodecProvider(codecProvider);
-      decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
+			encContextFactory.setCodecProvider(codecProvider);
+			encContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
-      byteBeanCodec.setDecContextFactory(decContextFactory);
-      byteBeanCodec.setEncContextFactory(encContextFactory);
+			decContextFactory.setCodecProvider(codecProvider);
+			decContextFactory.setNumberCodec(DefaultNumberCodecs.getBigEndianNumberCodec());
 
-      this.byteBeanCodec = byteBeanCodec;
-    }
-    return byteBeanCodec;
-  }
+			byteBeanCodec.setDecContextFactory(decContextFactory);
+			byteBeanCodec.setEncContextFactory(encContextFactory);
 
-  public void setByteBeanCodec(BeanFieldCodec byteBeanCodec) {
-    this.byteBeanCodec = byteBeanCodec;
-  }
+			this.byteBeanCodec = byteBeanCodec;
+		}
+		return byteBeanCodec;
+	}
 
-  public byte[] getEncryptKey() {
-    return encryptKey;
-  }
+	public void setByteBeanCodec(BeanFieldCodec byteBeanCodec) {
+		this.byteBeanCodec = byteBeanCodec;
+	}
 
-  public void setEncryptKey(String encryptKey) {
-    this.encryptKey = encryptKey.getBytes();
-  }
+	public boolean isDebugEnabled() {
+		return isDebugEnabled;
+	}
 
-  public void setEncryptKey(byte[] encryptKey) {
-    this.encryptKey = encryptKey;
-  }
+	public void setDebugEnabled(boolean isDebugEnabled) {
+		this.isDebugEnabled = isDebugEnabled;
+	}
 
-  public boolean isDebugEnabled() {
-    return isDebugEnabled;
-  }
+	public int getDumpBytes() {
+		return dumpBytes;
+	}
 
-  public void setDebugEnabled(boolean isDebugEnabled) {
-    this.isDebugEnabled = isDebugEnabled;
-  }
+	/**
+	 * @param dumpBytes
+	 *          the dumpBytes to set
+	 */
+	public void setDumpBytes(int dumpBytes) {
+		this.dumpBytes = dumpBytes;
+	}
 
-  public int getDumpBytes() {
-    return dumpBytes;
-  }
-
-  /**
-   * @param dumpBytes
-   *          the dumpBytes to set
-   */
-  public void setDumpBytes(int dumpBytes) {
-    this.dumpBytes = dumpBytes;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.apache.mina.filter.codec.ProtocolEncoder#dispose(org.apache.mina.core
-   * .session.IoSession)
-   */
-  @Override
-  public void dispose(IoSession arg0) throws Exception {
-  }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apache.mina.filter.codec.ProtocolEncoder#dispose(org.apache.mina.core .session.IoSession)
+	 */
+	@Override
+	public void dispose(IoSession arg0) throws Exception {
+	}
 }

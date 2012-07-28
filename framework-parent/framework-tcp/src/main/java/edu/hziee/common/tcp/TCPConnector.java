@@ -1,13 +1,18 @@
 package edu.hziee.common.tcp;
 
 import java.net.InetSocketAddress;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.mina.core.filterchain.IoFilterAdapter;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.future.IoFutureListener;
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -23,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.hziee.common.lang.Holder;
+import edu.hziee.common.lang.RSA;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
 import edu.hziee.common.lang.transport.SenderSync;
@@ -30,6 +36,8 @@ import edu.hziee.common.tcp.endpoint.DefaultEndpointFactory;
 import edu.hziee.common.tcp.endpoint.Endpoint;
 import edu.hziee.common.tcp.endpoint.EndpointFactory;
 import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
+import edu.hziee.common.tcp.secure.SecureSocketReq;
+import edu.hziee.common.tcp.secure.SecureSocketResp;
 
 /**
  * TODO
@@ -56,7 +64,9 @@ public class TCPConnector implements SenderSync, Sender {
 	private ScheduledExecutorService	connExec					= Executors.newSingleThreadScheduledExecutor();
 	private ExecutorService						dispatchExec			= Executors.newFixedThreadPool(2);
 
-	private Endpoint									sender;
+	private Endpoint									sender						= null;
+
+	private SecureSocketFilter				secureFilter			= null;
 
 	public TCPConnector(String name) {
 		this.name = name;
@@ -74,6 +84,11 @@ public class TCPConnector implements SenderSync, Sender {
 		}
 		this.connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(codecFactory));
 		this.connector.getFilterChain().addLast("executor", new ExecutorFilter(dispatchExec));
+
+		if (secureFilter != null) {
+			this.connector.getFilterChain().addLast("secure", secureFilter);
+		}
+
 		this.connector.setHandler(new IOHandler());
 
 		doConnect();
@@ -107,16 +122,26 @@ public class TCPConnector implements SenderSync, Sender {
 			if (logger.isInfoEnabled()) {
 				logger.info("open session: " + session);
 			}
+			if (secureFilter == null) {
+				Endpoint endpoint = endpointFactory.createEndpoint(session);
+				if (null != endpoint) {
+					TransportUtil.attachEndpointToSession(session, endpoint);
+					sender = endpoint;
+				}
+			} else {
+				SecureSocketReq req = new SecureSocketReq();
+				req.setClientPublicKey(secureFilter.getPublicKey().getEncoded());
+
+				byte[] sourceOfSign = ArrayUtils.addAll(secureFilter.getSecureId().getBytes(), secureFilter.getPublicKey()
+						.getEncoded());
+				req.setSign(RSA.sign(sourceOfSign, secureFilter.getPrivateKey()));
+
+				session.write(req);
+			}
 		}
 
 		@Override
 		public void sessionCreated(IoSession session) throws Exception {
-			// create endpoint
-			Endpoint endpoint = endpointFactory.createEndpoint(session);
-			if (null != endpoint) {
-				TransportUtil.attachEndpointToSession(session, endpoint);
-				sender = endpoint;
-			}
 		}
 
 		@Override
@@ -149,8 +174,59 @@ public class TCPConnector implements SenderSync, Sender {
 		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
 			logger.error("transport:", e);
-			// 解码有错误的情况下，session不关闄1�7
-			// session.close();
+			session.close();
+		}
+	}
+
+	class SecureSocketFilter extends IoFilterAdapter {
+
+		private final Logger	logger			= LoggerFactory.getLogger(SecureSocketFilter.class);
+
+		private String				secureId		= null;
+		private PublicKey			publicKey		= null;
+		private PrivateKey		privateKey	= null;
+
+		public SecureSocketFilter(String secureId) {
+			this.secureId = secureId;
+			KeyPair keys = RSA.genKey();
+			this.privateKey = keys.getPrivate();
+			this.publicKey = keys.getPublic();
+		}
+
+		@Override
+		public void messageReceived(NextFilter nextFilter, IoSession session, Object message) throws Exception {
+
+			if (message instanceof SecureSocketResp) {
+
+				SecureSocketResp resp = (SecureSocketResp) message;
+				if (logger.isDebugEnabled()) {
+					logger.debug("Reveive SECURE_SOCKET_RESP. session=[{}], resp=[{}]", session, resp);
+				}
+
+				byte[] key = RSA.decrypt(resp.getKey(), privateKey);
+				TransportUtil.attachEncryptKeyToSession(session, key);
+
+				Endpoint endpoint = endpointFactory.createEndpoint(session);
+				if (null != endpoint) {
+					TransportUtil.attachEndpointToSession(session, endpoint);
+					sender = endpoint;
+				}
+
+			} else {
+				nextFilter.messageReceived(session, message);
+			}
+		}
+
+		public PrivateKey getPrivateKey() {
+			return privateKey;
+		}
+
+		public PublicKey getPublicKey() {
+			return publicKey;
+		}
+
+		public String getSecureId() {
+			return secureId;
 		}
 	}
 
@@ -218,6 +294,12 @@ public class TCPConnector implements SenderSync, Sender {
 
 	public long getReconnectTimeout() {
 		return reconnectTimeout;
+	}
+
+	public void setSecureId(String secureId) {
+		if (secureId != null) {
+			this.secureFilter = new SecureSocketFilter(secureId);
+		}
 	}
 
 	public void setReconnectTimeout(long reconnectTimeout) {

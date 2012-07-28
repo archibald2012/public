@@ -1,4 +1,3 @@
-
 package edu.hziee.common.tcp;
 
 import org.apache.mina.core.session.AttributeKey;
@@ -16,10 +15,10 @@ import edu.hziee.common.tcp.endpoint.Endpoint;
  */
 public class TransportUtil {
 
-	private static final AttributeKey TRANSPORT_ENDPOINT = new AttributeKey(
-			TransportUtil.class, "TRANSPORT_ENDPOINT");
+	private static final AttributeKey	TRANSPORT_ENDPOINT	= new AttributeKey(TransportUtil.class, "TRANSPORT_ENDPOINT");
+	private static final AttributeKey	ENCRYPT_KEY					= new AttributeKey(TransportUtil.class, "ENCRYPT_KEY");
 
-	private static final String TRANSPORT_SENDER = "TRANSPORT_SENDER";
+	private static final String				TRANSPORT_SENDER		= "TRANSPORT_SENDER";
 
 	public static void attachEndpointToSession(IoSession session, Endpoint endpoint) {
 		session.setAttribute(TRANSPORT_ENDPOINT, endpoint);
@@ -27,6 +26,14 @@ public class TransportUtil {
 
 	public static Endpoint getEndpointOfSession(IoSession session) {
 		return (Endpoint) session.getAttribute(TRANSPORT_ENDPOINT);
+	}
+
+	public static void attachEncryptKeyToSession(IoSession session, byte[] encryptKey) {
+		session.setAttribute(ENCRYPT_KEY, encryptKey);
+	}
+
+	public static byte[] getEncryptKeyOfSession(IoSession session) {
+		return (byte[]) session.getAttribute(ENCRYPT_KEY);
 	}
 
 	public static Object attachSender(Object propertyable, Sender sender) {
@@ -39,8 +46,7 @@ public class TransportUtil {
 
 	public static Sender getSenderOf(Object propertyable) {
 		if (propertyable instanceof Propertyable) {
-			return (Sender) ((Propertyable) propertyable)
-					.getProperty(TRANSPORT_SENDER);
+			return (Sender) ((Propertyable) propertyable).getProperty(TRANSPORT_SENDER);
 		}
 		return null;
 	}
