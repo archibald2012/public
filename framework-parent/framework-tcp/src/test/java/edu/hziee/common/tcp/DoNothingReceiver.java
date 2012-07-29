@@ -1,7 +1,8 @@
-
 package edu.hziee.common.tcp;
 
 import edu.hziee.common.lang.transport.Receiver;
+import edu.hziee.common.lang.transport.Sender;
+import edu.hziee.common.tcp.bto.SampleResp;
 
 /**
  * TODO
@@ -12,7 +13,10 @@ import edu.hziee.common.lang.transport.Receiver;
 public class DoNothingReceiver implements Receiver {
 
 	public void messageReceived(Object msg) {
-
+		Sender sender = TransportUtil.getSenderOf(msg);
+		SampleResp resp = new SampleResp();
+		resp.setIntField(1);
+		sender.send(resp);
 	}
 
 }

@@ -105,8 +105,8 @@ public class TCPConnector implements SenderSync, Sender {
 
 		@Override
 		public void messageReceived(IoSession session, Object msg) throws Exception {
-			if (logger.isDebugEnabled()) {
-				logger.debug("messageReceived: " + msg);
+			if (logger.isTraceEnabled()) {
+				logger.trace("messageReceived: " + msg);
 			}
 
 			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
@@ -173,7 +173,7 @@ public class TCPConnector implements SenderSync, Sender {
 
 		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
-			logger.error("transport:", e);
+			logger.error("exceptionCaught:", e);
 			session.close();
 		}
 	}
@@ -204,6 +204,11 @@ public class TCPConnector implements SenderSync, Sender {
 				}
 
 				byte[] key = RSA.decrypt(resp.getKey(), privateKey);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("key=[{}]", ArrayUtils.toString(key));
+				}
+
 				TransportUtil.attachEncryptKeyToSession(session, key);
 
 				Endpoint endpoint = endpointFactory.createEndpoint(session);

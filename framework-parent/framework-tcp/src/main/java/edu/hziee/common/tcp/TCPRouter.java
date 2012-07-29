@@ -30,7 +30,6 @@ public class TCPRouter implements SenderSync, Sender {
 
 	private static final Logger											logger						= LoggerFactory.getLogger(TCPRouter.class);
 
-	private String																	name;
 	private ConcurrentMap<IpPortPair, TCPConnector>	connectors				= new ConcurrentHashMap<IpPortPair, TCPConnector>();
 
 	private ProtocolCodecFactory										codecFactory			= null;
@@ -54,7 +53,7 @@ public class TCPRouter implements SenderSync, Sender {
 			connector.send(bean);
 		} else {
 			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost. route=[{}]", bean, name);
+				logger.info("send: no route, msg [{}] lost.", bean);
 			}
 		}
 	}
@@ -69,7 +68,7 @@ public class TCPRouter implements SenderSync, Sender {
 			connector.send(bean, receiver);
 		} else {
 			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost. route=[{}]", bean, name);
+				logger.info("send: no route, msg [{}] lost.", bean);
 			}
 		}
 	}
@@ -84,7 +83,7 @@ public class TCPRouter implements SenderSync, Sender {
 			return connector.sendAndWait(bean);
 		} else {
 			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost. route=[{}]", bean, name);
+				logger.info("send: no route, msg [{}] lost.", bean);
 			}
 			return null;
 		}
@@ -101,7 +100,7 @@ public class TCPRouter implements SenderSync, Sender {
 			return connector.sendAndWait(bean, timeout, timeUnit);
 		} else {
 			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost. route=[{}]", bean, name);
+				logger.info("send: no route, msg [{}] lost.", bean);
 			}
 			return null;
 		}
@@ -117,8 +116,7 @@ public class TCPRouter implements SenderSync, Sender {
 
 		if (!snapshot.equals(infos)) {
 			if (logger.isInfoEnabled()) {
-				logger.info("doRefreshRoute [{}]: update routes info:[{}]/lastRoutes:[{}].", new Object[] { name, infos,
-						snapshot });
+				logger.info("doRefreshRoute: update routes info:[{}]/nlastRoutes:[{}].", new Object[] { infos, snapshot });
 			}
 			snapshot.clear();
 			snapshot.addAll(infos);
@@ -172,7 +170,7 @@ public class TCPRouter implements SenderSync, Sender {
 				if (secureId != null) {
 					connector.setSecureId(this.secureId);
 				}
-				
+
 				connector.start();
 			}
 		}
@@ -234,14 +232,6 @@ public class TCPRouter implements SenderSync, Sender {
 
 	public List<IpPortPair> getSnapshot() {
 		return snapshot;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public ConcurrentMap<IpPortPair, TCPConnector> getConnectors() {

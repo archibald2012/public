@@ -11,6 +11,7 @@
 		<constructor-arg>
 			<set>
 				<value>edu.hziee.common.tcp.bto.*</value>
+				<value>edu.hziee.common.tcp.secure.*</value>
 			</set>
 		</constructor-arg>
 	</bean>
@@ -20,8 +21,7 @@
 		<property name="debugEnabled" value="true" />
 	</bean>
 
-	<bean id="codecFactory"
-		class="edu.hziee.common.tcp.codec.DefaultMinaCodecFactory">
+	<bean id="codecFactory" class="edu.hziee.common.tcp.codec.DefaultMinaCodecFactory">
 		<property name="encoder" ref="minaEncoder" />
 		<property name="decoder" ref="minaDecoder" />
 	</bean>

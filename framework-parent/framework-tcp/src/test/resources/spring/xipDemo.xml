@@ -36,7 +36,7 @@
 			<bean class="edu.hziee.common.tcp.DoNothingReceiver" />
 		</property>
 	</bean>
-	
+
 	<bean id="connector" class="edu.hziee.common.tcp.TCPConnector"
 		init-method="start" destroy-method="stop">
 		<constructor-arg value="connector" />

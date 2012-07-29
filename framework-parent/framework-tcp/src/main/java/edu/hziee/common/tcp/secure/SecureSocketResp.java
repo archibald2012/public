@@ -12,7 +12,7 @@ import edu.hziee.common.serialization.protocol.xip.XipResponse;
  * @author Administrator
  * 
  */
-@SignalCode(messageCode = 200000)
+@SignalCode(messageCode = 20000000)
 public class SecureSocketResp extends AbstractXipSignal implements XipResponse {
 
 	@ByteField(index = 0)

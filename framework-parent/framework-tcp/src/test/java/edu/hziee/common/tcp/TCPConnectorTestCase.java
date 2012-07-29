@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.tcp.bto.NestedBean;
 import edu.hziee.common.tcp.bto.SampleReq;
 
@@ -56,18 +57,24 @@ public class TCPConnectorTestCase {
 		TCPConnector sender = (TCPConnector) ctx.getBean("connector");
 
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		sender.send(signal);
+		sender.send(signal, new Receiver() {
+
+			@Override
+			public void messageReceived(Object msg) {
+				System.out.println(msg);
+			}
+		});
 
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }

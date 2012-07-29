@@ -153,7 +153,7 @@ public class TCPAcceptor {
 		@Override
 		public void exceptionCaught(IoSession session, Throwable e) throws Exception {
 			if (logger.isDebugEnabled()) {
-				logger.debug("exceptionCaught: " + e.getMessage());
+				logger.debug("exceptionCaught: ", e);
 			}
 			session.close();
 		}
@@ -193,6 +193,10 @@ public class TCPAcceptor {
 
 					// TODO generate by HD
 					byte[] key = DES.genKey();
+
+					if (logger.isDebugEnabled()) {
+						logger.debug("key=[{}]", ArrayUtils.toString(key));
+					}
 
 					SecureSocketResp resp = new SecureSocketResp();
 					resp.setIdentification(req.getIdentification());

@@ -33,16 +33,19 @@ public class TCPRouterTestCase {
     acceptor01.setAcceptIp("127.0.0.1");
     acceptor01.setAcceptPort(38888);
     acceptor01.setCodecFactory(codecFactory);
+    acceptor01.setSecureId("secureId");
     acceptor01.start();
 
     acceptor02 = new TCPAcceptor();
     acceptor02.setAcceptIp("127.0.0.1");
     acceptor02.setAcceptPort(39999);
     acceptor02.setCodecFactory(codecFactory);
+    acceptor02.setSecureId("secureId");
     acceptor02.start();
 
     router = new TCPRouter();
     router.setCodecFactory(codecFactory);
+    router.setSecureId("secureId");
   }
 
   @After
