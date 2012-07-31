@@ -16,10 +16,21 @@ import edu.hziee.common.serialization.protocol.xip.XipRequest;
 public class SecureSocketReq extends AbstractXipSignal implements XipRequest {
 
 	@ByteField(index = 0)
-	private byte[]	clientPublicKey;
+	private String	version;
 
 	@ByteField(index = 1)
+	private byte[]	clientPublicKey;
+
+	@ByteField(index = 2)
 	private byte[]	sign;
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
 	public byte[] getSign() {
 		return sign;

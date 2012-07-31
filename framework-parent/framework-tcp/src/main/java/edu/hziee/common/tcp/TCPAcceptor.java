@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.InetSocketAddress;
 import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -50,6 +52,7 @@ public class TCPAcceptor {
 	private EndpointFactory				endpointFactory	= new DefaultEndpointFactory();
 
 	private SecureSocketFilter		secureFilter		= null;
+	private Map<String, String>		versionMap			= new HashMap<String, String>();
 
 	public void start() throws Exception {
 		acceptor.setReuseAddress(true);
@@ -177,12 +180,16 @@ public class TCPAcceptor {
 				SecureSocketReq req = (SecureSocketReq) message;
 
 				if (logger.isDebugEnabled()) {
-					logger.debug("Receive SECURE_SOCKET_REQ. session=[{}], req=[{}] ", session, req);
+					logger.debug("Receive SECURE_SOCKET_REQ. session=[{}], req=[{}]", session, req);
 				}
 
 				byte[] clientKeyBytes = req.getClientPublicKey();
-
 				byte[] sourceOfSign = ArrayUtils.addAll(secureId.getBytes(), clientKeyBytes);
+				
+				String md5 = versionMap.get(req.getVersion());
+				if (md5 != null) {
+					sourceOfSign = ArrayUtils.addAll(sourceOfSign, md5.getBytes());
+				}
 
 				PublicKey clientPublicKey = RSA.decodePublicKey(clientKeyBytes);
 				if (RSA.verify(sourceOfSign, clientPublicKey, req.getSign())) {
@@ -293,6 +300,10 @@ public class TCPAcceptor {
 
 	public void setIdleTime(int idleTime) {
 		this.idleTime = idleTime;
+	}
+
+	public void setVersionMap(Map<String, String> versionMap) {
+		this.versionMap = versionMap;
 	}
 
 	@Override
