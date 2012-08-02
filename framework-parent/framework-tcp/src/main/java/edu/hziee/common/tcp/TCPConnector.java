@@ -27,6 +27,7 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.lang.Base64;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.RSA;
 import edu.hziee.common.lang.transport.Receiver;
@@ -130,7 +131,7 @@ public class TCPConnector implements SenderSync, Sender {
 				}
 			} else {
 				SecureSocketReq req = new SecureSocketReq();
-				req.setClientPublicKey(secureFilter.getPublicKey().getEncoded());
+				req.setClientPublicKey(Base64.encodeBytesToBytes(secureFilter.getPublicKey().getEncoded()));
 
 				byte[] sourceOfSign = ArrayUtils.addAll(secureFilter.getSecureId().getBytes(), secureFilter.getPublicKey()
 						.getEncoded());

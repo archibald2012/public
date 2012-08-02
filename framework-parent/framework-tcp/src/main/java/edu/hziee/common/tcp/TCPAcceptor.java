@@ -20,6 +20,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.lang.Base64;
 import edu.hziee.common.lang.DES;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.RSA;
@@ -183,7 +184,7 @@ public class TCPAcceptor {
 					logger.debug("Receive SECURE_SOCKET_REQ. session=[{}], req=[{}]", session, req);
 				}
 
-				byte[] clientKeyBytes = req.getClientPublicKey();
+				byte[] clientKeyBytes = Base64.decode(req.getClientPublicKey());
 				byte[] sourceOfSign = ArrayUtils.addAll(secureId.getBytes(), clientKeyBytes);
 				
 				String md5 = versionMap.get(req.getVersion());
