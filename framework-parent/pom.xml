@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>edu.hziee</groupId>
@@ -30,11 +31,13 @@
 		<module>framework-test</module>
 		<module>framework-transaction</module>
 		<module>framework-tomcat</module>
-    <module>framework-zookeeper</module>
-    <module>framework-forbidden</module>
-    <module>framework-cglib</module>
-    <module>framework-metrics</module>
-  </modules>
+		<module>framework-zookeeper</module>
+		<module>framework-forbidden</module>
+		<module>framework-cglib</module>
+		<module>framework-metrics</module>
+		<module>framework-tcp-client</module>
+		<module>framework-websocket</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -149,7 +152,7 @@
 			<dependency>
 				<groupId>org.jboss.netty</groupId>
 				<artifactId>netty</artifactId>
-				<version>3.2.7.Final</version>
+				<version>3.2.6.Final</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
@@ -210,10 +213,10 @@
 				<version>5.2.1.Final</version>
 			</dependency>
 			<dependency>
-    	<groupId>cglib</groupId>
-    	<artifactId>cglib-nodep</artifactId>
-    	<version>2.2.2</version>
-    </dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>2.2.2</version>
+			</dependency>
 			<dependency>
 				<groupId>org.apache.zookeeper</groupId>
 				<artifactId>zookeeper</artifactId>
@@ -259,22 +262,25 @@
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<excludes>
+						<exclude>*.properties</exclude>
+						<exclude>*.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.2.2</version>
 			</plugin>
-			
-			<!--plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-source-plugin</artifactId>
-			<executions>
-				<execution>
-					<id>attach-sources</id>
-					<goals>
-						<goal>jar</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin-->
+
+			<!--plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-source-plugin</artifactId> 
+				<executions> <execution> <id>attach-sources</id> <goals> <goal>jar</goal> 
+				</goals> </execution> </executions> </plugin -->
 
 		</plugins>
 	</build>
