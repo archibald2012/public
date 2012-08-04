@@ -32,7 +32,7 @@ import edu.hziee.common.serialization.bytebean.context.DefaultEncContextFactory;
 import edu.hziee.common.serialization.bytebean.field.DefaultField2Desc;
 import edu.hziee.common.serialization.protocol.meta.MsgCode2TypeMetainfo;
 import edu.hziee.common.serialization.protocol.xip.XipHeader;
-import edu.hziee.common.tcp.TransportUtil;
+import edu.hziee.common.tcp.IoSessionUtil;
 
 /**
  * TODO
@@ -125,7 +125,7 @@ public class MinaXipDecoder extends CumulativeProtocolDecoder {
 				if (null == type) {
 					throw new RuntimeException("unknow message code:" + header.getMessageCode());
 				}
-				byte[] key = TransportUtil.getEncryptKeyOfSession(session);
+				byte[] key = IoSessionUtil.getEncryptKeyOfSession(session);
 				if (key != null) {
 					bytes = DES.decrypt(bytes, key);
 				}

@@ -32,7 +32,7 @@ import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.RSA;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
-import edu.hziee.common.lang.transport.SenderSync;
+import edu.hziee.common.lang.transport.TransportUtil;
 import edu.hziee.common.tcp.endpoint.DefaultEndpointFactory;
 import edu.hziee.common.tcp.endpoint.Endpoint;
 import edu.hziee.common.tcp.endpoint.EndpointFactory;
@@ -46,7 +46,7 @@ import edu.hziee.common.tcp.secure.SecureSocketResp;
  * @author wangqi
  * @version $Id: TCPConnector.java 63 2012-02-25 01:12:58Z archie $
  */
-public class TCPConnector implements SenderSync, Sender {
+public class TCPConnector implements Sender {
 
 	private final Logger							logger						= LoggerFactory.getLogger(getClass());
 
@@ -110,7 +110,7 @@ public class TCPConnector implements SenderSync, Sender {
 				logger.trace("messageReceived: " + msg);
 			}
 
-			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			Endpoint endpoint = IoSessionUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
 				endpoint.messageReceived(TransportUtil.attachSender(msg, endpoint));
 			} else {
@@ -126,7 +126,7 @@ public class TCPConnector implements SenderSync, Sender {
 			if (secureFilter == null) {
 				Endpoint endpoint = endpointFactory.createEndpoint(session);
 				if (null != endpoint) {
-					TransportUtil.attachEndpointToSession(session, endpoint);
+					IoSessionUtil.attachEndpointToSession(session, endpoint);
 					sender = endpoint;
 				}
 			} else {
@@ -159,7 +159,7 @@ public class TCPConnector implements SenderSync, Sender {
 				logger.info("closed session: " + session);
 			}
 			// stop endpoint
-			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			Endpoint endpoint = IoSessionUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
 				endpoint.stop();
 				sender = null;
@@ -210,11 +210,11 @@ public class TCPConnector implements SenderSync, Sender {
 					logger.debug("key=[{}]", ArrayUtils.toString(key));
 				}
 
-				TransportUtil.attachEncryptKeyToSession(session, key);
+				IoSessionUtil.attachEncryptKeyToSession(session, key);
 
 				Endpoint endpoint = endpointFactory.createEndpoint(session);
 				if (null != endpoint) {
-					TransportUtil.attachEndpointToSession(session, endpoint);
+					IoSessionUtil.attachEndpointToSession(session, endpoint);
 					sender = endpoint;
 				}
 
@@ -385,28 +385,6 @@ public class TCPConnector implements SenderSync, Sender {
 				logger.info("send: no endpoint, msg [{}] lost. ", bean);
 			}
 		}
-	}
-
-	public Object sendAndWait(Object bean) {
-		if (sender != null) {
-			return sender.sendAndWait(bean);
-		} else {
-			if (logger.isInfoEnabled()) {
-				logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
-			}
-		}
-		return null;
-	}
-
-	public Object sendAndWait(Object bean, long timeout, TimeUnit units) {
-		if (sender != null) {
-			return sender.sendAndWait(bean, timeout, units);
-		} else {
-			if (logger.isInfoEnabled()) {
-				logger.info("sendAndWait: no endpoint, msg [{}] lost. ", bean);
-			}
-		}
-		return null;
 	}
 
 }

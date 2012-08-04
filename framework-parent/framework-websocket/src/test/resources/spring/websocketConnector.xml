@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="typeMetaInfo"
+		class="edu.hziee.common.serialization.protocol.meta.MetainfoUtils"
+		factory-method="createTypeMetainfo">
+		<constructor-arg>
+			<set>
+				<value>edu.hziee.common.websocket.bto.*</value>
+			</set>
+		</constructor-arg>
+	</bean>
+
+	<bean id="binaryDecoder"
+		class="edu.hziee.common.websocket.codec.BinaryWebSocketFrameDecoder">
+		<property name="typeMetaInfo" ref="typeMetaInfo" />
+		<property name="debugEnabled" value="true" />
+	</bean>
+
+	<bean id="acceptor" class="edu.hziee.common.websocket.WebSocketAcceptor"
+		init-method="start" destroy-method="stop">
+		<property name="acceptIp" value="127.0.0.1" />
+		<property name="acceptPort" value="8888" />
+		<property name="binaryDecoder" ref="binaryDecoder" />
+		<property name="receiver">
+			<bean class="edu.hziee.common.websocket.DoNothingReceiver" />
+		</property>
+	</bean>
+
+	<bean id="connector" class="edu.hziee.common.websocket.WebSocketConnector"
+		init-method="start" destroy-method="stop">
+		<constructor-arg value="ws://localhost:8888/websocket" />
+		<property name="binaryDecoder" ref="binaryDecoder" />
+	</bean>
+
+
+</beans>

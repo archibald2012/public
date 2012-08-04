@@ -4,7 +4,7 @@ package edu.hziee.common.dispatcher.course;
 import edu.hziee.common.dispatcher.bto.SampleReq;
 import edu.hziee.common.dispatcher.bto.SampleResp;
 import edu.hziee.common.lang.transport.Sender;
-import edu.hziee.common.tcp.TransportUtil;
+import edu.hziee.common.lang.transport.TransportUtil;
 
 /**
  * TODO

@@ -13,7 +13,11 @@ import edu.hziee.common.lang.transport.Receiver;
  */
 public interface EndpointFactory {
 
-  Endpoint createEndpoint(Channel channel);
-  void setMessageClosure(Receiver messageClosure);
-  void setResponseContext(Holder responseContext);
+	Endpoint createEndpoint(Channel channel);
+
+	void setReceiver(Receiver receiver);
+
+	void setContext(Holder context);
+
+	void setEndpointListener(IEndpointChangeListener endpointListener);
 }

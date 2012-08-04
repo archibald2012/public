@@ -2,6 +2,7 @@ package edu.hziee.common.websocket.endpoint;
 
 import org.jboss.netty.channel.Channel;
 
+import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.IpPortPair;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
@@ -20,9 +21,15 @@ public interface Endpoint extends Sender, Receiver {
 
 	void setChannel(Channel channel);
 
+	void setReceiver(Receiver receiver);
+
+	void setContext(Holder context);
+
 	IpPortPair getRemoteAddress();
-	
+
 	void setEndpointListener(IEndpointChangeListener endpointListener);
-	
-	void closeSession();
+
+	void closeChannel();
+
+	boolean isConnected();
 }

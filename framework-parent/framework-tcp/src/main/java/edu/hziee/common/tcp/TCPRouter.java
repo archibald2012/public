@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.slf4j.Logger;
@@ -17,7 +16,6 @@ import edu.hziee.common.lang.RoundRobin;
 import edu.hziee.common.lang.transport.DefaultHolder;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
-import edu.hziee.common.lang.transport.SenderSync;
 import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
 
 /**
@@ -26,7 +24,7 @@ import edu.hziee.common.tcp.endpoint.IEndpointChangeListener;
  * @author wangqi
  * @version $Id: TCPRouter.java 65 2012-02-25 01:16:21Z archie $
  */
-public class TCPRouter implements SenderSync, Sender {
+public class TCPRouter implements Sender {
 
 	private static final Logger											logger						= LoggerFactory.getLogger(TCPRouter.class);
 
@@ -70,39 +68,6 @@ public class TCPRouter implements SenderSync, Sender {
 			if (logger.isInfoEnabled()) {
 				logger.info("send: no route, msg [{}] lost.", bean);
 			}
-		}
-	}
-
-	@Override
-	public Object sendAndWait(Object bean) {
-		TCPConnector connector = next();
-		if (connector != null) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("sendAndWait: connector=[{}], bean=[{}]", connector, bean);
-			}
-			return connector.sendAndWait(bean);
-		} else {
-			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost.", bean);
-			}
-			return null;
-		}
-	}
-
-	@Override
-	public Object sendAndWait(Object bean, long timeout, TimeUnit timeUnit) {
-		TCPConnector connector = next();
-		if (connector != null) {
-			if (logger.isTraceEnabled()) {
-				logger.trace("sendAndWait: connector=[{}], bean=[{}], timeout=[{}], timeUnit=[{}]", new Object[] { connector,
-						bean, timeout, timeUnit });
-			}
-			return connector.sendAndWait(bean, timeout, timeUnit);
-		} else {
-			if (logger.isInfoEnabled()) {
-				logger.info("send: no route, msg [{}] lost.", bean);
-			}
-			return null;
 		}
 	}
 

@@ -92,8 +92,8 @@ public class MessageListener extends Thread implements Receiver {
 
 		if (!full()) {
 			boolean ret = queue.add(msg);
-			if (logger.isTraceEnabled()) {
-				logger.trace("add msg to queue. poolSize=[{}], remainCapacity=[{}], msg=[{}], ret=[{}]", new Object[] {
+			if (logger.isDebugEnabled()) {
+				logger.debug("add msg to queue. poolSize=[{}], remainCapacity=[{}], msg=[{}], ret=[{}]", new Object[] {
 						poolSize, remainCapacity(), msg, ret });
 			}
 		} else {

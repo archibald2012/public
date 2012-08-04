@@ -1,8 +1,9 @@
-package edu.hziee.common.tcp.client;
+package edu.hziee.common.websocket;
 
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
 import edu.hziee.common.lang.transport.TransportUtil;
+import edu.hziee.common.websocket.bto.SampleResp;
 
 /**
  * TODO
@@ -13,16 +14,9 @@ import edu.hziee.common.lang.transport.TransportUtil;
 public class DoNothingReceiver implements Receiver {
 
 	public void messageReceived(Object msg) {
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		Sender sender = TransportUtil.getSenderOf(msg);
 		SampleResp resp = new SampleResp();
-		resp.setIdentification(((SampleReq) msg).getIdentification());
+		resp.setIntField(1);
 		sender.send(resp);
 	}
 

@@ -25,6 +25,7 @@ import edu.hziee.common.lang.DES;
 import edu.hziee.common.lang.Holder;
 import edu.hziee.common.lang.RSA;
 import edu.hziee.common.lang.transport.Receiver;
+import edu.hziee.common.lang.transport.TransportUtil;
 import edu.hziee.common.tcp.endpoint.DefaultEndpointFactory;
 import edu.hziee.common.tcp.endpoint.Endpoint;
 import edu.hziee.common.tcp.endpoint.EndpointFactory;
@@ -109,7 +110,7 @@ public class TCPAcceptor {
 			if (logger.isTraceEnabled()) {
 				logger.trace("messageReceived: " + msg);
 			}
-			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			Endpoint endpoint = IoSessionUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
 				endpoint.messageReceived(TransportUtil.attachSender(msg, endpoint));
 			} else {
@@ -125,7 +126,7 @@ public class TCPAcceptor {
 			if (secureFilter == null) {
 				Endpoint endpoint = endpointFactory.createEndpoint(session);
 				if (null != endpoint) {
-					TransportUtil.attachEndpointToSession(session, endpoint);
+					IoSessionUtil.attachEndpointToSession(session, endpoint);
 				}
 			}
 		}
@@ -140,7 +141,7 @@ public class TCPAcceptor {
 			if (logger.isDebugEnabled()) {
 				logger.debug("sessionClosed: " + session);
 			}
-			Endpoint endpoint = TransportUtil.getEndpointOfSession(session);
+			Endpoint endpoint = IoSessionUtil.getEndpointOfSession(session);
 			if (null != endpoint) {
 				endpoint.stop();
 			}
@@ -212,11 +213,11 @@ public class TCPAcceptor {
 
 					session.write(resp);
 
-					TransportUtil.attachEncryptKeyToSession(session, key);
+					IoSessionUtil.attachEncryptKeyToSession(session, key);
 
 					Endpoint endpoint = endpointFactory.createEndpoint(session);
 					if (null != endpoint) {
-						TransportUtil.attachEndpointToSession(session, endpoint);
+						IoSessionUtil.attachEndpointToSession(session, endpoint);
 					}
 
 					if (logger.isDebugEnabled()) {

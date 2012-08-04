@@ -1,9 +1,7 @@
 package edu.hziee.common.http;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +30,6 @@ import edu.hziee.common.lang.KeyTransformer;
 import edu.hziee.common.lang.transport.DefaultHolder;
 import edu.hziee.common.lang.transport.Receiver;
 import edu.hziee.common.lang.transport.Sender;
-import edu.hziee.common.lang.transport.SenderSync;
 
 /**
  * TODO
@@ -40,7 +37,7 @@ import edu.hziee.common.lang.transport.SenderSync;
  * @author wangqi
  * @version $Id: HttpConnector.java 59 2012-02-24 08:40:46Z archie $
  */
-public class HttpConnector implements Sender, SenderSync {
+public class HttpConnector implements Sender {
 
   private final Logger             logger           = LoggerFactory.getLogger(HttpConnector.class);
 
@@ -64,24 +61,8 @@ public class HttpConnector implements Sender, SenderSync {
   private KeyTransformer           keyTransformer   = new KeyTransformer();
   private Holder                   context          = null;
 
-  private int                      waitTimeout      = 10000;
   // 100M
   private int                      maxContentLength = 100 * 1024 * 1024;
-
-  class ResponseFuture<V> extends FutureTask<V> {
-
-    public ResponseFuture() {
-      super(new Callable<V>() {
-        public V call() throws Exception {
-          return null;
-        }
-      });
-    }
-
-    public void set(V v) {
-      super.set(v);
-    }
-  }
 
   public HttpConnector(String name) {
     this.name = name;
@@ -147,41 +128,6 @@ public class HttpConnector implements Sender, SenderSync {
     }
   }
 
-  @Override
-  public Object sendAndWait(Object bean) {
-    return sendAndWait(bean, waitTimeout, TimeUnit.MILLISECONDS);
-  }
-
-  @SuppressWarnings("rawtypes")
-  @Override
-  public Object sendAndWait(Object bean, long duration, TimeUnit units) {
-    if (null == bean) {
-      return null;
-    }
-
-    if (channel != null) {
-      Object key = keyTransformer.transform(bean);
-      ResponseFuture responseFuture = new ResponseFuture();
-      getContext().put(key, responseFuture);
-
-      channel.write(bean);
-      try {
-        return responseFuture.get(duration, units);
-      } catch (Exception e) {
-        logger.error("", e);
-        return null;
-      } finally {
-        responseFuture = (ResponseFuture) getContext().getAndRemove(key);
-        if (responseFuture != null) {
-          responseFuture.cancel(false);
-        }
-      }
-    } else {
-      logger.warn("missing channel, message droped.", bean);
-      return null;
-    }
-  }
-
   private class HttpResponseHandler extends SimpleChannelUpstreamHandler {
     private final Logger logger = LoggerFactory.getLogger(HttpResponseHandler.class);
 
@@ -208,7 +154,6 @@ public class HttpConnector implements Sender, SenderSync {
       e.getChannel().close();
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
       if (logger.isTraceEnabled()) {
@@ -220,9 +165,6 @@ public class HttpConnector implements Sender, SenderSync {
         Object context = getContext().getAndRemove(key);
         if (null != context) {
           try {
-            if (context instanceof ResponseFuture) {
-              ((ResponseFuture) context).set(e.getMessage());
-            }
             if (context instanceof Receiver) {
               ((Receiver) context).messageReceived(e.getMessage());
               return;
