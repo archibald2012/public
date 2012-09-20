@@ -18,4 +18,10 @@ public interface MetricsEngine {
 	void setThrowException(boolean throwException);
 	
 	MetricsCollector createMetricsCollector(String componentName);
+	
+	CorrelationInfo getCorrelationInfo();
+	
+	boolean isFilter(String componentName, String functionName);
+	
+	boolean updateFilter(String componentName, String functionName, boolean isFilter);
 }

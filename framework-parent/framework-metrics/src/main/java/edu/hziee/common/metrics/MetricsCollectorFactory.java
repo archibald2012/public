@@ -21,4 +21,10 @@ public class MetricsCollectorFactory {
 	public static MetricsCollector getMetricsCollector(final String componentName){
 		return metricsEngine.createMetricsCollector(componentName);
 	}
+
+	public static void setMetricsEngine(MetricsEngine metricsEngine) {
+		MetricsCollectorFactory.metricsEngine = metricsEngine;
+	}
+	
+	
 }
