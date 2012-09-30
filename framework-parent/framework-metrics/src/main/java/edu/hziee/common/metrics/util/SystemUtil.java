@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hziee.common.lang;
+package edu.hziee.common.metrics.util;
 
 import java.io.IOException;
 import java.io.InputStream;
