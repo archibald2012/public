@@ -34,6 +34,9 @@ public class ResourceUsage implements Publishable, Serializable {
 	@XmlAttribute(name = "usageId", required = true)
 	private String								usageId;
 
+	/**
+	 * cpuCount
+	 */
 	@XmlAttribute(name = "processors", required = true)
 	private int										processorCount;
 
