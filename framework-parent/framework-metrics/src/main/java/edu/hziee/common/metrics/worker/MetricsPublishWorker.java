@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hziee.common.metrics;
+package edu.hziee.common.metrics.worker;
 
 import java.util.Collection;
 

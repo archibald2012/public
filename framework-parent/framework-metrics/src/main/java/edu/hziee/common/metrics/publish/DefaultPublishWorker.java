@@ -11,7 +11,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.metrics.MetricsPublishWorker;
 import edu.hziee.common.metrics.model.Aggregation;
 import edu.hziee.common.metrics.model.Measurement;
 import edu.hziee.common.metrics.model.Publishable;
@@ -19,6 +18,7 @@ import edu.hziee.common.metrics.model.Record;
 import edu.hziee.common.metrics.model.ResourceUsage;
 import edu.hziee.common.metrics.util.MetricsUtil;
 import edu.hziee.common.metrics.util.StopTimer;
+import edu.hziee.common.metrics.worker.MetricsPublishWorker;
 
 /**
  * @author Administrator

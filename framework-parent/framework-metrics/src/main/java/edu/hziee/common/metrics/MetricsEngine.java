@@ -3,6 +3,8 @@
  */
 package edu.hziee.common.metrics;
 
+import java.util.Stack;
+
 /**
  * @author Administrator
  * 
@@ -24,4 +26,6 @@ public interface MetricsEngine {
 	boolean isFilter(String componentName, String functionName);
 	
 	boolean updateFilter(String componentName, String functionName, boolean isFilter);
+	
+	Stack<MetricsTimer> getTimerStack();
 }

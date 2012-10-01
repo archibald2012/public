@@ -16,7 +16,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.hziee.common.metrics.MetricsPublishWorker;
 import edu.hziee.common.metrics.model.CollectorUsage;
 import edu.hziee.common.metrics.model.HeapUsage;
 import edu.hziee.common.metrics.model.ResourceUsage;
@@ -27,7 +26,7 @@ import edu.hziee.common.metrics.util.SystemUtil;
  * @author Administrator
  * 
  */
-public class DefaultRuntimeWorker extends Thread {
+public class DefaultRuntimeWorker extends Thread implements MetricsRuntimeWorker {
 	private static final Logger		logger				= LoggerFactory.getLogger(DefaultRuntimeWorker.class);
 
 	private boolean								collectUsage	= false;
