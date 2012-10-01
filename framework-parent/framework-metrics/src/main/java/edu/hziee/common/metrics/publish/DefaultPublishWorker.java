@@ -11,6 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import edu.hziee.common.metrics.MetricsPublishWorker;
 import edu.hziee.common.metrics.model.Aggregation;
 import edu.hziee.common.metrics.model.Measurement;
 import edu.hziee.common.metrics.model.Publishable;
@@ -23,7 +24,7 @@ import edu.hziee.common.metrics.util.StopTimer;
  * @author Administrator
  * 
  */
-public class DefaultPublishWorker extends Thread {
+public class DefaultPublishWorker extends Thread implements MetricsPublishWorker {
 
 	private static final Logger								logger							= LoggerFactory.getLogger(DefaultPublishWorker.class);
 
@@ -42,7 +43,7 @@ public class DefaultPublishWorker extends Thread {
 	private LinkedBlockingQueue<Publishable>	publishQueue				= new LinkedBlockingQueue<Publishable>(10000);
 	private final static Object								publishQueueMonitor	= new Object();
 
-	// @Override
+	@Override
 	public void enqueuePublishable(Publishable publishable) {
 		if (!publishQueue.offer(publishable)) {
 			if (logger.isDebugEnabled()) {
@@ -59,7 +60,7 @@ public class DefaultPublishWorker extends Thread {
 		}
 	}
 
-	// @Override
+	@Override
 	public void enqueuePublishable(Collection<? extends Publishable> publishables) {
 		boolean isNotify = false;
 
