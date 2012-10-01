@@ -6,6 +6,7 @@ package edu.hziee.common.metrics;
 import java.util.List;
 
 import edu.hziee.common.lang.NameValue;
+import edu.hziee.common.metrics.model.Measurement;
 
 /**
  * @author Administrator
@@ -40,4 +41,10 @@ public interface MetricsTimer {
 	void addMetrics(Object component);
 
 	void addMetrics(String name, String value);
+
+	List<MetricsTimer> getAllMetricsTimers();
+
+	Measurement getMeasurement();
+
+	void correlate(String parentId, String metricsUser);
 }

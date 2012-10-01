@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hziee.common.metrics.process;
+package edu.hziee.common.metrics.worker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class JmxMeasurement implements JmxMeasurementMBean {
 		return dataMap.remove(key) == null ? false : true;
 	}
 
-	public void addMeasurement(List<Measurement> measurements) {
+	public void addMeasurements(List<Measurement> measurements) {
 		for (Measurement measurement : measurements) {
 			String key = StringUtils
 					.join(new Object[] { measurement.getComponentName(), measurement.getFunctionName() }, ":");

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.hziee.common.metrics.runtime;
+package edu.hziee.common.metrics.worker;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
