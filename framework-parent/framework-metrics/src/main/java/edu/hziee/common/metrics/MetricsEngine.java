@@ -18,14 +18,20 @@ public interface MetricsEngine {
 	boolean isThrowException();
 
 	void setThrowException(boolean throwException);
-	
+
 	MetricsCollector createMetricsCollector(String componentName);
-	
+
 	CorrelationInfo getCorrelationInfo();
-	
+
 	boolean isFilter(String componentName, String functionName);
-	
+
 	boolean updateFilter(String componentName, String functionName, boolean isFilter);
-	
+
 	Stack<MetricsTimer> getTimerStack();
+
+	MetricsTimer pushTimer(MetricsTimer timer);
+
+	MetricsTimer popTimer(MetricsTimer timer);
+
+	void enqueueMetricsTimer(MetricsTimer metricsTimer);
 }

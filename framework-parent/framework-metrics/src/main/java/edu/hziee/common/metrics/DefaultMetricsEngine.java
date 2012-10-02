@@ -67,6 +67,7 @@ public class DefaultMetricsEngine implements MetricsEngine {
 		return new DefaultMetricsCollector(this, componentName);
 	}
 
+	@Override
 	public Stack<MetricsTimer> getTimerStack() {
 		Stack<MetricsTimer> timerStack = localTimerStack.get();
 		if (timerStack == null) {
@@ -92,6 +93,7 @@ public class DefaultMetricsEngine implements MetricsEngine {
 		return correlationInfo;
 	}
 
+	@Override
 	public MetricsTimer pushTimer(MetricsTimer timer) {
 		MetricsTimer parent = null;
 

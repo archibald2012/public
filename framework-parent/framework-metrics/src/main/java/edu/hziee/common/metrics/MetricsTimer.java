@@ -32,6 +32,9 @@ public interface MetricsTimer {
 
 	void setWorkUser(String workUser);
 
+	// TODO remove
+	void setCreateOrder(int createOrder);
+
 	void addComponent(Object component);
 
 	void addProcessor(Object processor);
@@ -43,6 +46,8 @@ public interface MetricsTimer {
 	void addMetrics(String name, String value);
 
 	List<MetricsTimer> getAllMetricsTimers();
+
+	List<MetricsTimer> getChildTimerList();
 
 	Measurement getMeasurement();
 

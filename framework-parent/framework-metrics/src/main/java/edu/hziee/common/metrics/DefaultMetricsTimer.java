@@ -3,10 +3,15 @@
  */
 package edu.hziee.common.metrics;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.hziee.common.lang.NameValue;
 import edu.hziee.common.metrics.model.Measurement;
+import edu.hziee.common.metrics.util.CommonUtil;
+import edu.hziee.common.metrics.util.MetricsUtil;
+import edu.hziee.common.metrics.util.SystemUtil;
 
 /**
  * @author Administrator
@@ -14,191 +19,279 @@ import edu.hziee.common.metrics.model.Measurement;
  */
 public class DefaultMetricsTimer implements MetricsTimer {
 
+	private String										uniqueId				= null;
+
+	private final MetricsEngine				metricsEngine;
+	private final String							componentName;
+	private final String							functionName;
+	private final long								startNano;
+	private final Date								startTime;
+	private Integer										workUnits;
+	private Integer										createOrder;
+	private Boolean										failStatus;
+	private String										workUser;
+	private CorrelationInfo						correlationInfo;
+	private List<NameValue>						metricsList;
+
+	private MetricsTimer							parentTimer;
+	private Measurement								measurement;
+	private final List<MetricsTimer>	childTimerList	= new ArrayList<MetricsTimer>();
+
 	public DefaultMetricsTimer(final MetricsEngine metricsEngine, final String componentName, final String functionName,
 			final String correlationId) {
+		this.metricsEngine = metricsEngine;
+		this.componentName = MetricsUtil.truncate(componentName, 64);
+		this.functionName = MetricsUtil.truncate(functionName, 64, "function");
+		this.startNano = System.nanoTime();
+		this.startTime = new Date();
+		this.uniqueId = SystemUtil.createGuid();
 
+		if (metricsEngine.isCollectMetrics()) {
+			this.parentTimer = metricsEngine.pushTimer(this);
+		}
 	}
 
 	@Override
 	public long stop(Throwable t, List<NameValue> metricsList) {
-		// TODO Auto-generated method stub
-		return 0;
+		long duration = 0;
+
+		try {
+			if (startTime != null) {
+				duration = CommonUtil.nanoToMillis(System.nanoTime() - startNano);
+				if (metricsList != null) {
+					this.getMetricsList().addAll(metricsList);
+				}
+
+				measurement = new Measurement(duration, getMetricsList(), t);
+				measurement.setDuration(duration);
+				if (failStatus != null && failStatus) {
+					measurement.setFailStatus(failStatus);
+				}
+				if (workUnits == null) {
+					workUnits = 1;
+				}
+				measurement.setWorkUnits(workUnits);
+				measurement.setTimestamp(startTime);
+
+				getMetricsEngine().popTimer(this);
+
+				if (parentTimer != null) {
+					parentTimer.getChildTimerList().add(this);
+				} else {
+					// store the metrics timer to the memory queue
+					getMetricsEngine().enqueueMetricsTimer(this);
+				}
+
+			}
+		} catch (RuntimeException e) {
+			if (metricsEngine.isThrowException()) {
+				throw e;
+			}
+		}
+		return duration;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#stop(java.util.List)
-	 */
 	@Override
 	public long stop(List<NameValue> metricsList) {
-		// TODO Auto-generated method stub
-		return 0;
+		return stop(null, metricsList);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#stop(java.lang.Throwable)
-	 */
 	@Override
 	public long stop(Throwable t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return stop(t, null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#stop()
-	 */
 	@Override
 	public long stop() {
-		// TODO Auto-generated method stub
-		return 0;
+		return stop(null, null);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#getCorrelationInfo()
-	 */
 	@Override
 	public CorrelationInfo getCorrelationInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		CorrelationInfo correlationInfo = null;
+		if (parentTimer != null) {
+			correlationInfo = parentTimer.getCorrelationInfo();
+		} else {
+			if (this.correlationInfo == null) {
+				this.correlationInfo = new CorrelationInfo(SystemUtil.createGuid(), uniqueId);
+			}
+			correlationInfo = this.correlationInfo;
+		}
+		return correlationInfo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#setCorrelationInfo(edu.hziee.common.metrics.CorrelationInfo)
-	 */
 	@Override
 	public void setCorrelationInfo(CorrelationInfo correlationInfo) {
-		// TODO Auto-generated method stub
-
+		if (parentTimer != null) {
+			parentTimer.setCorrelationInfo(correlationInfo);
+		} else {
+			this.correlationInfo = correlationInfo;
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#setWorkUnits(int)
-	 */
 	@Override
 	public void setWorkUnits(int workUnits) {
-		// TODO Auto-generated method stub
-
+		this.workUnits = workUnits;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#setFailStatus(boolean)
-	 */
 	@Override
 	public void setFailStatus(boolean failStatus) {
-		// TODO Auto-generated method stub
-
+		this.failStatus = failStatus;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#setWorkUser(java.lang.String)
-	 */
 	@Override
 	public void setWorkUser(String workUser) {
-		// TODO Auto-generated method stub
-
+		this.workUser = workUser;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#addComponent(java.lang.Object)
-	 */
 	@Override
 	public void addComponent(Object component) {
-		// TODO Auto-generated method stub
-
+		addMetrics(component);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#addProcessor(java.lang.Object)
-	 */
 	@Override
 	public void addProcessor(Object processor) {
-		// TODO Auto-generated method stub
-
+		addMetrics(processor);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#addRequest(java.lang.Object)
-	 */
 	@Override
 	public void addRequest(Object request) {
-		// TODO Auto-generated method stub
-
+		addMetrics(request);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#addMetrics(java.lang.Object)
-	 */
 	@Override
-	public void addMetrics(Object component) {
-		// TODO Auto-generated method stub
-
+	public void addMetrics(Object requester) {
+		if (requester != null) {
+			addMetrics("SimpleName", requester.getClass().getSimpleName());
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#addMetrics(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void addMetrics(String name, String value) {
-		// TODO Auto-generated method stub
-
+		getMetricsList().add(new NameValue(name, value));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#getAllMetricsTimers()
-	 */
+	public List<NameValue> getMetricsList() {
+		if (metricsList == null) {
+			metricsList = new ArrayList<NameValue>();
+		}
+		return metricsList;
+	}
+
 	@Override
 	public List<MetricsTimer> getAllMetricsTimers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MetricsTimer> timerList = new ArrayList<MetricsTimer>();
+		timerList.add(this);
+		for (MetricsTimer childTimer : childTimerList) {
+			timerList.addAll(childTimer.getAllMetricsTimers());
+		}
+		return timerList;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#getMeasurement()
-	 */
 	@Override
 	public Measurement getMeasurement() {
-		// TODO Auto-generated method stub
-		return null;
+		return measurement;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see edu.hziee.common.metrics.MetricsTimer#correlate(java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void correlate(String parentId, String metricsUser) {
-		// TODO Auto-generated method stub
+		measurement.setId(uniqueId);
+		if (parentId != null) {
+			measurement.setParentId(parentId);
+		}
+		if (correlationInfo != null) {
+			measurement.setCorrelationId(correlationInfo.getId());
+			measurement.setCorrelationRequester(correlationInfo.getRequester());
+		}
+		measurement.setComponentName(componentName);
+		measurement.setFunctionName(functionName);
+		if (workUser == null) {
+			workUser = metricsUser;
+		}
+		measurement.setUser(MetricsUtil.truncate(workUser, 16));
 
+		measurement.setCreateOrder(createOrder);
+
+		// to ensure size
+		measurement.setThreadName(MetricsUtil.truncate(measurement.getThreadName(), 64));
+		for (NameValue nameValue : measurement.getMetricsList()) {
+			nameValue.setName(MetricsUtil.truncate(nameValue.getName(), 64, "name"));
+			nameValue.setValue(MetricsUtil.truncate(nameValue.getValue(), 1024));
+		}
+
+		// correlate for all child timers
+		int createOrder = 0;
+		for (MetricsTimer childTimer : childTimerList) {
+			childTimer.setCreateOrder(createOrder++);
+			childTimer.correlate(measurement.getId(), workUser);
+		}
+	}
+
+	public final Long getDuration() {
+		if (measurement != null && measurement.getDuration() != null) {
+			return measurement.getDuration();
+		} else {
+			return 0L;
+		}
+	}
+
+	public List<MetricsTimer> getChildTimerList() {
+		return childTimerList;
+	}
+
+	public final String getId() {
+		if (measurement != null) {
+			return measurement.getId();
+		} else {
+			return null;
+		}
+	}
+
+	public Boolean getFailStatus() {
+		Boolean failStatus = this.failStatus;
+		if (measurement != null) {
+			failStatus = measurement.getFailStatus();
+		}
+		return failStatus == null ? false : failStatus;
+	}
+
+	@Override
+	public void setCreateOrder(int createOrder) {
+		this.createOrder = createOrder;
+	}
+
+	public String getComponentName() {
+		return componentName;
+	}
+
+	public String getFunctionName() {
+		return functionName;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public Integer getWorkUnits() {
+		return workUnits;
+	}
+
+	public String getWorkUser() {
+		return workUser;
+	}
+
+	public MetricsEngine getMetricsEngine() {
+		return metricsEngine;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder(getClass().getSimpleName());
+		builder.append("[component=").append(componentName);
+		builder.append(",function=").append(functionName);
+		builder.append("]");
+
+		return builder.toString();
 	}
 
 }
